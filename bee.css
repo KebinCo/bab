@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 
 * {
     outline: none;
@@ -6,11 +6,11 @@
 }
 
 :root {
-    --theme-bg-color: rgba(16 18 27 / 75%);
+    --theme-bg-color: rgba(16 18 27 / 75%); /* Increased opacity */
     --border-color: rgba(113 119 144 / 25%);
     --theme-color: #f9fafb;
     --inactive-color: rgb(113 119 144 / 78%);
-    --body-font: "Noto Sans KR", sans-serif;
+    --body-font: "Poppins", sans-serif;
     --hover-menu-bg: rgba(12 15 25 / 30%);
     --content-title-color: #999ba5;
     --content-bg: rgb(146 151 179 / 13%);
@@ -235,21 +235,15 @@ svg {
     font-size: 1.5em;
     font-weight: bold;
     animation: slideInLeft 1.5s ease-in-out;
-    white-space: nowrap;
-    min-width: fit-content;
-    margin-right: 20px;
 }
 
 .navbar-mainbg {
-    background-color: rgba(0, 150, 255, 0.2);
+    background-color: #5161ce;
     padding: 0px;
-    border: 1px solid rgba(0, 200, 255, 0.7);
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.8), 0 0 30px rgba(0, 255, 255, 0.5), inset 0 0 10px rgba(0, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
     display: flex;
     justify-content: space-between;
     min-height: 60px;
-    align-items: center;
 }
 
 #navbarSupportedContent {
@@ -258,17 +252,6 @@ svg {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    align-items: center;
-}
-
-#navbarSupportedContent .navbar-nav.mx-auto {
-    flex-grow: 1;
-    justify-content: center;
-    margin: 0;
-}
-
-#navbarSupportedContent .navbar-nav.ml-auto {
-    margin-left: auto;
 }
 
 #navbarSupportedContent ul {
@@ -299,7 +282,7 @@ svg {
 }
 
 #navbarSupportedContent > ul > li.active > a {
-    color: #fff;
+    color: #5161ce;
     background-color: transparent;
     transition: all 0.7s;
 }
@@ -338,12 +321,11 @@ svg {
     height: 100%;
     top: 0;
     left: 0;
-    background-color: rgba(0, 200, 255, 0.2);
+    background-color: #fff;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    background: rgba(0, 200, 255, 0.2);
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+    background: #fff;
     transition-duration: 0.6s;
     z-index: -1;
 }
@@ -353,7 +335,7 @@ svg {
     position: absolute;
     width: 25px;
     height: 25px;
-    background-color: rgba(0, 200, 255, 0.2);
+    background-color: #5161ce;
     bottom: 0;
 }
 
@@ -372,7 +354,7 @@ svg {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: rgba(0, 200, 255, 0.2);
+    background-color: #5161ce;
 }
 
 .hori-selector .right:before {
@@ -412,7 +394,6 @@ svg {
         padding-bottom: 5px;
     }
 }
-
 @media(max-width: 991px) {
     .navbar-mainbg {
         width: 100%;
