@@ -239,9 +239,11 @@ svg {
 }
 
 .navbar-mainbg {
-    background-color: #5161ce;
+    background-color: rgba(0, 150, 255, 0.1);
     padding: 0px;
-    border-bottom: 1px solid var(--border-color);
+    border: 1px solid rgba(0, 200, 255, 0.5);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.3), inset 0 0 10px rgba(0, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
     display: flex;
     justify-content: space-between;
     min-height: 60px;
@@ -251,7 +253,7 @@ svg {
     overflow: hidden;
     position: relative;
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* Centered */
     width: 100%;
 }
 
@@ -283,7 +285,7 @@ svg {
 }
 
 #navbarSupportedContent > ul > li.active > a {
-    color: #5161ce;
+    color: #fff; /* Changed color to white */
     background-color: transparent;
     transition: all 0.7s;
 }
@@ -322,11 +324,12 @@ svg {
     height: 100%;
     top: 0;
     left: 0;
-    background-color: #ffffff;
+    background-color: rgba(0, 255, 255, 0.2); /* Neon glow background */
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    background: #fff;
+    background: rgba(0, 255, 255, 0.2);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
     transition-duration: 0.6s;
     z-index: -1;
 }
@@ -336,7 +339,7 @@ svg {
     position: absolute;
     width: 25px;
     height: 25px;
-    background-color: #fff;
+    background-color: rgba(0, 255, 255, 0.2);
     bottom: 0;
 }
 
