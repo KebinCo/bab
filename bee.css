@@ -173,7 +173,7 @@ svg {
 .header-menu {
     display: flex;
     align-items: center;
-    margin-left: 20px; /* Adjust spacing */
+    margin-left: 20px;
 }
 
 .header-menu a {
@@ -182,9 +182,9 @@ svg {
     text-decoration: none;
     color: var(--theme-color);
     border: 1px solid transparent;
-    border-radius: 8px; /* Button-like rounded corners */
+    border-radius: 8px;
     transition: all 0.2s ease;
-    background-color: var(--content-bg); /* Button background */
+    background-color: var(--content-bg);
 }
 
 @media screen and (max-width: 610px) {
@@ -196,12 +196,12 @@ svg {
 .header-menu a.is-active,
 .header-menu a:hover {
     color: var(--theme-color);
-    background-color: var(--hover-menu-bg); /* Darker on hover */
+    background-color: var(--hover-menu-bg);
     border-color: var(--theme-color);
 }
 
 .header-menu a:active {
-    transform: scale(0.98); /* "Clicky" effect */
+    transform: scale(0.98);
 }
 
 .notify {
@@ -242,7 +242,7 @@ svg {
 }
 
 .search-bar {
-    display: none; /* Removed as requested */
+    display: none;
 }
 
 .header-profile {
@@ -312,62 +312,6 @@ svg {
 
 .wide .menu-circle {
     margin-right: 0;
-}
-
-.wrapper {
-    display: flex;
-    flex-grow: 1;
-    overflow: hidden;
-}
-
-.left-side {
-    flex-basis: 240px;
-    border-right: 1px solid var(--border-color);
-    padding: 26px;
-    overflow: auto;
-    flex-shrink: 0;
-}
-
-@media screen and (max-width: 945px) {
-    .left-side {
-        display: none;
-    }
-}
-
-.side-wrapper + .side-wrapper {
-    margin-top: 20px;
-}
-
-.side-title {
-    color: var(--inactive-color);
-    margin-bottom: 14px;
-}
-
-.side-menu {
-    display: flex;
-    flex-direction: column;
-    white-space: nowrap;
-}
-
-.side-menu a {
-    text-decoration: none;
-    color: var(--theme-color);
-    display: flex;
-    align-items: center;
-    font-weight: 400;
-    padding: 10px;
-    font-size: 14px;
-    border-radius: 6px;
-    transition: 0.3s;
-}
-
-.side-menu a:hover {
-    background-color: var(--hover-menu-bg);
-}
-
-.side-menu svg {
-    width: 16px;
-    margin-right: 8px;
 }
 
 .content-wrapper {
