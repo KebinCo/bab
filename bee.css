@@ -243,6 +243,7 @@ svg {
     border-bottom: 1px solid var(--border-color);
     display: flex;
     justify-content: space-between;
+    min-height: 60px; /* Added to ensure visibility */
 }
 
 #navbarSupportedContent {
@@ -257,6 +258,7 @@ svg {
     padding: 0px;
     margin: 0px;
     display: flex;
+    align-items: center;
 }
 
 #navbarSupportedContent ul li a i {
@@ -265,7 +267,6 @@ svg {
 
 #navbarSupportedContent li {
     list-style-type: none;
-    float: left;
     animation: fadeIn 2s ease-in-out;
 }
 
@@ -326,6 +327,7 @@ svg {
     transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
     background: #fff;
     transition-duration: 0.6s;
+    z-index: -1;
 }
 
 .hori-selector .right,
