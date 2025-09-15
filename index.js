@@ -1,51 +1,59 @@
-// Dark/Light mode toggle
-const toggleButton = document.querySelector('.dark-light');
-toggleButton.addEventListener('click', () => {
-    document.body.classList.toggle('light-mode');
+$(function () {
+ $(".menu-link").click(function () {
+  $(".menu-link").removeClass("is-active");
+  $(this).addClass("is-active");
+ });
 });
 
-// Sidebar menu interaction
-document.querySelectorAll('.sidebar-menu a').forEach(link => {
-    link.addEventListener('click', (e) => {
-        e.preventDefault();
-        document.querySelectorAll('.sidebar-menu a').forEach(l => l.classList.remove('active'));
-        link.classList.add('active');
-    });
+$(function () {
+ $(".main-header-link").click(function () {
+  $(".main-header-link").removeClass("is-active");
+  $(this).addClass("is-active");
+ });
 });
 
-// Header menu interaction
-document.querySelectorAll('.header-menu a').forEach(link => {
-    link.addEventListener('click', (e) => {
-        e.preventDefault();
-        document.querySelectorAll('.header-menu a').forEach(l => l.classList.remove('is-active'));
-        link.classList.add('is-active');
-    });
+const dropdowns = document.querySelectorAll(".dropdown");
+dropdowns.forEach((dropdown) => {
+ dropdown.addEventListener("click", (e) => {
+  e.stopPropagation();
+  dropdowns.forEach((c) => c.classList.remove("is-active"));
+  dropdown.classList.add("is-active");
+ });
 });
 
-// Feature cards hover effect
-document.querySelectorAll('.feature-card').forEach(card => {
-    card.addEventListener('mouseenter', () => {
-        card.style.transform = 'translateY(-4px)';
-    });
-    
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = 'translateY(0)';
-    });
+$(".search-bar input")
+ .focus(function () {
+  $(".header").addClass("wide");
+ })
+ .blur(function () {
+  $(".header").removeClass("wide");
+ });
+
+$(document).click(function (e) {
+ var container = $(".status-button");
+ var dd = $(".dropdown");
+ if (!container.is(e.target) && container.has(e.target).length === 0) {
+  dd.removeClass("is-active");
+ }
 });
 
-// Search functionality (placeholder)
-const searchInput = document.querySelector('.search-bar input');
-searchInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-        console.log('검색어:', e.target.value);
-        // 실제 검색 기능은 여기에 구현
-    }
+$(function () {
+ $(".dropdown").on("click", function (e) {
+  $(".content-wrapper").addClass("overlay");
+  e.stopPropagation();
+ });
+ $(document).on("click", function (e) {
+  if ($(e.target).is(".dropdown") === false) {
+   $(".content-wrapper").removeClass("overlay");
+  }
+ });
 });
 
-// Auth button interactions
-document.querySelectorAll('.auth-button').forEach(button => {
-    button.addEventListener('click', () => {
-        console.log(button.textContent + ' clicked');
-        // 로그인/회원가입 모달 또는 페이지 이동 로직
-    });
+$(function () {
+ $(".status-button:not(.open)").on("click", function (e) {
+  $(".overlay-app").addClass("is-active");
+ });
+ $(".pop-up .close").click(function () {
+  $(".overlay-app").removeClass("is-active");
+ });
 });
