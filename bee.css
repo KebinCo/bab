@@ -235,6 +235,7 @@ svg {
     font-size: 1.5em;
     font-weight: bold;
     animation: slideInLeft 1.5s ease-in-out;
+    white-space: nowrap;
 }
 
 .navbar-mainbg {
