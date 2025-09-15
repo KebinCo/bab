@@ -239,21 +239,23 @@ svg {
 }
 
 .navbar-mainbg {
-    background-color: rgba(0, 150, 255, 0.1);
+    background-color: rgba(0, 150, 255, 0.2);
     padding: 0px;
-    border: 1px solid rgba(0, 200, 255, 0.5);
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.3), inset 0 0 10px rgba(0, 255, 255, 0.5);
+    border: 1px solid rgba(0, 200, 255, 0.7);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.8), 0 0 30px rgba(0, 255, 255, 0.5), inset 0 0 10px rgba(0, 255, 255, 0.8);
     backdrop-filter: blur(10px);
     display: flex;
     justify-content: space-between;
     min-height: 60px;
+    align-items: center;
 }
 
 #navbarSupportedContent {
     overflow: hidden;
     position: relative;
     display: flex;
-    justify-content: center; /* Centered */
+    flex-grow: 1; /* Allow the nav content to take up space */
+    justify-content: center; /* Center the buttons */
     width: 100%;
 }
 
@@ -262,6 +264,8 @@ svg {
     margin: 0px;
     display: flex;
     align-items: center;
+    flex: 1; /* This will make the ul fill the available space */
+    justify-content: center; /* Center the list items */
 }
 
 #navbarSupportedContent ul li a i {
@@ -285,7 +289,7 @@ svg {
 }
 
 #navbarSupportedContent > ul > li.active > a {
-    color: #fff; /* Changed color to white */
+    color: #5161ce;
     background-color: transparent;
     transition: all 0.7s;
 }
@@ -324,12 +328,11 @@ svg {
     height: 100%;
     top: 0;
     left: 0;
-    background-color: rgba(0, 255, 255, 0.2); /* Neon glow background */
+    background-color: #ffffff;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    background: rgba(0, 255, 255, 0.2);
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+    background: #fff;
     transition-duration: 0.6s;
     z-index: -1;
 }
@@ -339,7 +342,7 @@ svg {
     position: absolute;
     width: 25px;
     height: 25px;
-    background-color: rgba(0, 255, 255, 0.2);
+    background-color: #fff;
     bottom: 0;
 }
 
