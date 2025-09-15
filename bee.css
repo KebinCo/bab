@@ -236,11 +236,8 @@ svg {
     font-weight: bold;
     animation: slideInLeft 1.5s ease-in-out;
     white-space: nowrap;
-    /* Ensure no text wrapping */
     min-width: fit-content;
-    /* Prevent shrinking */
     margin-right: 20px;
-    /* Space from next element */
 }
 
 .navbar-mainbg {
@@ -260,23 +257,18 @@ svg {
     position: relative;
     display: flex;
     justify-content: space-between;
-    /* Distribute items */
     width: 100%;
     align-items: center;
 }
 
 #navbarSupportedContent .navbar-nav.mx-auto {
     flex-grow: 1;
-    /* Allow the middle nav to take space */
     justify-content: center;
-    /* Center its items */
     margin: 0;
-    /* Reset margins from Bootstrap classes */
 }
 
-#navbarSupportedContent .ml-auto {
-    margin-left: auto !important;
-    /* Push to the right */
+#navbarSupportedContent .navbar-nav.ml-auto {
+    margin-left: auto;
 }
 
 #navbarSupportedContent ul {
@@ -307,8 +299,7 @@ svg {
 }
 
 #navbarSupportedContent > ul > li.active > a {
-    color: #5161ce;
-    /* Active link color */
+    color: #fff;
     background-color: transparent;
     transition: all 0.7s;
 }
@@ -348,13 +339,11 @@ svg {
     top: 0;
     left: 0;
     background-color: rgba(0, 200, 255, 0.2);
-    /* Translucent teal for the selector */
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
     background: rgba(0, 200, 255, 0.2);
     box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
-    /* Neon glow */
     transition-duration: 0.6s;
     z-index: -1;
 }
@@ -365,7 +354,6 @@ svg {
     width: 25px;
     height: 25px;
     background-color: rgba(0, 200, 255, 0.2);
-    /* Translucent teal for the circles */
     bottom: 0;
 }
 
@@ -385,7 +373,6 @@ svg {
     height: 50px;
     border-radius: 50%;
     background-color: rgba(0, 200, 255, 0.2);
-    /* Match the selector's color */
 }
 
 .hori-selector .right:before {
@@ -461,43 +448,21 @@ svg {
 
 /* New Animations */
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 @keyframes popIn {
-    0% {
-        transform: scale(0.5);
-        opacity: 0;
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
 }
 
 @keyframes slideInUp {
-    from {
-        transform: translateY(20px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
 @keyframes slideInLeft {
-    from {
-        transform: translateX(-50px);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
+    from { transform: translateX(-50px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
 }
