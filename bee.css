@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap");
 
 * {
     outline: none;
@@ -10,7 +10,7 @@
     --border-color: rgba(113 119 144 / 25%);
     --theme-color: #f9fafb;
     --inactive-color: rgb(113 119 144 / 78%);
-    --body-font: "Poppins", sans-serif;
+    --body-font: "Noto Sans KR", sans-serif;
     --hover-menu-bg: rgba(12 15 25 / 30%);
     --content-title-color: #999ba5;
     --content-bg: rgb(146 151 179 / 13%);
@@ -236,6 +236,7 @@ svg {
     font-weight: bold;
     animation: slideInLeft 1.5s ease-in-out;
     white-space: nowrap;
+    overflow: hidden;
 }
 
 .navbar-mainbg {
@@ -251,12 +252,15 @@ svg {
 }
 
 #navbarSupportedContent {
-    overflow: hidden;
-    position: relative;
     display: flex;
-    flex-grow: 1; /* Allow the nav content to take up space */
-    justify-content: center; /* Center the buttons */
+    justify-content: space-between;
     width: 100%;
+    align-items: center;
+}
+
+#navbarSupportedContent .mx-auto {
+    flex-grow: 1;
+    justify-content: center;
 }
 
 #navbarSupportedContent ul {
@@ -264,8 +268,6 @@ svg {
     margin: 0px;
     display: flex;
     align-items: center;
-    flex: 1; /* This will make the ul fill the available space */
-    justify-content: center; /* Center the list items */
 }
 
 #navbarSupportedContent ul li a i {
@@ -289,7 +291,7 @@ svg {
 }
 
 #navbarSupportedContent > ul > li.active > a {
-    color: #5161ce;
+    color: #fff;
     background-color: transparent;
     transition: all 0.7s;
 }
