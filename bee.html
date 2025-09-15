@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Animated Background</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="bee.css">
 </head>
 <body>
@@ -14,30 +15,42 @@
     </svg>
 </div>
 <div class="app">
-    <div class="header">
-        <div class="menu-circle"></div>
-        <div class="header-menu">
-            <a class="menu-link is-active" href="#">Home</a>
-            <a class="menu-link" href="#">Pricing</a>
-            <a class="menu-link" href="#">Signup</a>
-            <a class="menu-link" href="#">Login</a>
+    <nav class="navbar navbar-expand-custom navbar-mainbg">
+        <a class="navbar-brand navbar-logo" href="#">밥심앱</a>
+        <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars text-white"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto">
+                <div class="hori-selector"><div class="left"></div><div class="right"></div></div>
+                <li class="nav-item active">
+                    <a class="nav-link" href="javascript:void(0);"><i class="fas fa-home"></i>Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);"><i class="far fa-credit-card"></i>Pricing</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);"><i class="fas fa-handshake"></i>Services</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link signup-btn" href="javascript:void(0);"><i class="fas fa-user-plus"></i>Signup</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link login-btn" href="javascript:void(0);"><i class="fas fa-sign-in-alt"></i>Login</a>
+                </li>
+            </ul>
         </div>
-        <div class="header-profile">
-            <div class="notification">
-                <span class="notification-number">3</span>
-                <svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell">
-                    <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" />
-                </svg>
-            </div>
-            <svg viewBox="0 0 512 512" fill="currentColor">
-                <path d="M448.773 235.551A135.893 135.893 0 00451 211c0-74.443-60.557-135-135-135-47.52 0-91.567 25.313-115.766 65.537-32.666-10.59-66.182-6.049-93.794 12.979-27.612 19.013-44.092 49.116-45.425 82.031C24.716 253.788 0 290.497 0 331c0 7.031 1.703 13.887 3.006 20.537l.015.015C12.719 400.492 56.034 436 106 436h300c57.891 0 106-47.109 106-105 0-40.942-25.053-77.798-63.227-95.449z" />
-            </svg>
-            <img class="profile-img" src="https://images.unsplash.com/photo-1600353068440-6361ef3a86e8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="">
-        </div>
-    </div>
+    </nav>
     <div class="content-wrapper">
         <div class="content-section">
-            <div class="content-section-title">Latest Updates</div>
+            <h1 class="main-heading">케빈과 밥심을!!</h1>
+            <p class="placeholder-text">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+        </div>
+        <div class="content-section">
             <div class="apps-card">
                 <div class="app-card">
                     <span>
@@ -62,11 +75,6 @@
                         <div class="menu"></div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="content-section">
-            <div class="content-section-title">Newest Apps</div>
-            <div class="apps-card">
                 <div class="app-card">
                     <span>
                         <svg viewBox="0 0 52 52" style="border: 1px solid #7552f8;">
