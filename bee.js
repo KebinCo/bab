@@ -82,9 +82,7 @@ function test() {
     });
 }
 $(document).ready(function () {
-    setTimeout(function () {
         test();
-    });
 });
 $(window).on('resize', function () {
     setTimeout(function () {
