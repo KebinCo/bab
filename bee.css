@@ -6,7 +6,7 @@
 }
 
 :root {
-    --theme-bg-color: rgba(16 18 27 / 75%); /* Increased opacity */
+    --theme-bg-color: rgba(16 18 27 / 75%);
     --border-color: rgba(113 119 144 / 25%);
     --theme-color: #f9fafb;
     --inactive-color: rgb(113 119 144 / 78%);
@@ -243,7 +243,7 @@ svg {
     border-bottom: 1px solid var(--border-color);
     display: flex;
     justify-content: space-between;
-    min-height: 60px; /* Added to ensure visibility */
+    min-height: 60px;
 }
 
 #navbarSupportedContent {
