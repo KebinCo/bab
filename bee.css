@@ -267,9 +267,9 @@ svg {
     position: relative;
     display: flex;
     justify-content: space-between;
+    align-items: center; /* Add this line */
     width: 100%;
 }
-
 
 
 #navbarSupportedContent ul li a i {
