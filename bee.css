@@ -301,29 +301,31 @@ svg {
 }
 
 #navbarSupportedContent > ul > li.active > a {
-    color: #5161ce;
+    color: #000;
     background-color: transparent;
     transition: all 0.7s;
 }
+
 
 #navbarSupportedContent a:not(.active) {
     color: #fff;
 }
 
+
+.signup-btn:hover {
+    transform: scale(1.1);
+}
+
 .signup-btn {
-    background-color: #ff5722;
+    background-color: #008cba;
     border-radius: 5px;
     padding: 10px 15px !important;
     margin: 10px 10px;
     transition: transform 0.3s ease;
 }
 
-.signup-btn:hover {
-    transform: scale(1.1);
-}
-
 .login-btn {
-    background-color: #4caf50;
+    background-color: #f44336;
     border-radius: 5px;
     padding: 10px 15px !important;
     margin: 10px 10px;
