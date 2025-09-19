@@ -164,8 +164,16 @@ svg {
     margin-bottom: 20px;
     animation: fadeIn 1.5s ease-in-out;
 }
+#navbarSupportedContent .mx-auto {
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: center;
+}
 
-#navbarSupportedContent ul {
+#navbarSupportedContent .ml-auto {
     padding: 0px;
     margin: 0px;
     display: flex;
