@@ -165,6 +165,21 @@ svg {
     animation: fadeIn 1.5s ease-in-out;
 }
 
+#navbarSupportedContent ul {
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    align-items: center;
+}
+
+#navbarSupportedContent .mx-auto {
+    flex-grow: 1;
+    justify-content: center;
+}
+
+#navbarSupportedContent .ml-auto {
+    margin-left: auto;
+}
 .main-heading {
     color: var(--theme-color);
     font-size: 3em;
@@ -255,12 +270,7 @@ svg {
     width: 100%;
 }
 
-#navbarSupportedContent ul {
-    padding: 0px;
-    margin: 0px;
-    display: flex;
-    align-items: center;
-}
+
 
 #navbarSupportedContent ul li a i {
     margin-right: 10px;
