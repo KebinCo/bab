@@ -7,114 +7,204 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-icon">🍚</span>
+                <span class="logo-text">밥심앱</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#restaurants" class="nav-link">Restaurants</a>
+                <a href="#recipes" class="nav-link">Recipes</a>
+                <a href="#nutrition" class="nav-link">Nutrition</a>
+                <a href="#social" class="nav-link">Social</a>
+            </div>
+            <div class="nav-auth">
+                <button class="btn-auth login-btn">Login</button>
+                <button class="btn-auth signup-btn">Sign Up</button>
+            </div>
+            <div class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
         <!-- Hero Section -->
-        <header class="hero">
+        <section id="home" class="hero-section active">
             <div class="hero-content">
-                <div class="logo-container">
-                    <div class="logo">🍚</div>
-                    <h1 class="app-name">밥심앱</h1>
+                <h1>Discover Amazing Food</h1>
+                <p>Find restaurants, track nutrition, and share your culinary journey</p>
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search restaurants, recipes, or ingredients..." id="main-search">
+                        <button class="search-btn">🔍</button>
+                    </div>
                 </div>
-                <p class="tagline">Your Ultimate Food Companion</p>
-                <div class="cta-buttons">
-                    <a href="#" class="btn primary">Download App</a>
-                    <a href="#" class="btn secondary">View on GitHub</a>
+                <div class="quick-filters">
+                    <button class="filter-btn active">All</button>
+                    <button class="filter-btn">Near Me</button>
+                    <button class="filter-btn">Popular</button>
+                    <button class="filter-btn">Healthy</button>
                 </div>
             </div>
-            <div class="hero-visual">
-                <div class="floating-card card-1">📱</div>
-                <div class="floating-card card-2">🥘</div>
-                <div class="floating-card card-3">⭐</div>
-            </div>
-        </header>
+        </section>
 
-        <!-- Features Section -->
-        <section class="features">
+        <!-- Restaurants Section -->
+        <section id="restaurants" class="content-section">
             <div class="section-header">
-                <h2>Features</h2>
-                <div class="underline"></div>
+                <h2>Restaurants Near You</h2>
+                <div class="view-toggles">
+                    <button class="view-btn active" data-view="grid">⊞</button>
+                    <button class="view-btn" data-view="list">☰</button>
+                </div>
             </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🔍</div>
-                    <h3>Smart Search</h3>
-                    <p>Find restaurants and recipes with AI-powered recommendations</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h3>Nutrition Tracking</h3>
-                    <p>Monitor your daily nutrition intake with detailed analytics</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🤝</div>
-                    <h3>Social Dining</h3>
-                    <p>Share meals and discover food experiences with friends</p>
-                </div>
+            <div class="restaurants-grid" id="restaurants-grid">
+                <!-- Restaurant cards will be populated by JS -->
             </div>
         </section>
 
-        <!-- Stats Section -->
-        <section class="stats">
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="stat-number" data-target="50000">0</div>
-                    <div class="stat-label">Downloads</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" data-target="1200">0</div>
-                    <div class="stat-label">Restaurants</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" data-target="98">0</div>
-                    <div class="stat-label">User Rating</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Tech Stack Section -->
-        <section class="tech-stack">
+        <!-- Recipes Section -->
+        <section id="recipes" class="content-section">
             <div class="section-header">
-                <h2>Built With</h2>
-                <div class="underline"></div>
+                <h2>Popular Recipes</h2>
+                <button class="btn-primary">Add Recipe</button>
             </div>
-            <div class="tech-grid">
-                <div class="tech-item">React Native</div>
-                <div class="tech-item">Node.js</div>
-                <div class="tech-item">MongoDB</div>
-                <div class="tech-item">Firebase</div>
-                <div class="tech-item">GraphQL</div>
-                <div class="tech-item">TypeScript</div>
+            <div class="recipes-grid" id="recipes-grid">
+                <!-- Recipe cards will be populated by JS -->
             </div>
         </section>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>밥심앱</h3>
-                    <p>Making food discovery simple and enjoyable</p>
+        <!-- Nutrition Section -->
+        <section id="nutrition" class="content-section">
+            <div class="section-header">
+                <h2>Nutrition Tracker</h2>
+                <div class="date-picker">
+                    <button class="date-btn">← Yesterday</button>
+                    <span class="current-date">Today</span>
+                    <button class="date-btn">Tomorrow →</button>
                 </div>
-                <div class="footer-section">
-                    <h4>Links</h4>
-                    <ul>
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">API</a></li>
-                        <li><a href="#">Support</a></li>
-                    </ul>
+            </div>
+            <div class="nutrition-dashboard">
+                <div class="calories-card">
+                    <h3>Daily Calories</h3>
+                    <div class="calories-circle">
+                        <div class="progress-ring">
+                            <svg class="progress-svg">
+                                <circle cx="60" cy="60" r="50" class="progress-bg"></circle>
+                                <circle cx="60" cy="60" r="50" class="progress-bar" data-progress="65"></circle>
+                            </svg>
+                            <div class="progress-text">
+                                <span class="calories-consumed">1,300</span>
+                                <span class="calories-total">/ 2,000</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="footer-section">
-                    <h4>Connect</h4>
-                    <div class="social-links">
-                        <a href="#" class="social-link">GitHub</a>
-                        <a href="#" class="social-link">Twitter</a>
-                        <a href="#" class="social-link">Discord</a>
+                <div class="macros-cards">
+                    <div class="macro-card">
+                        <span class="macro-name">Protein</span>
+                        <div class="macro-bar">
+                            <div class="macro-progress" data-progress="75"></div>
+                        </div>
+                        <span class="macro-value">150g / 200g</span>
+                    </div>
+                    <div class="macro-card">
+                        <span class="macro-name">Carbs</span>
+                        <div class="macro-bar">
+                            <div class="macro-progress" data-progress="60"></div>
+                        </div>
+                        <span class="macro-value">180g / 300g</span>
+                    </div>
+                    <div class="macro-card">
+                        <span class="macro-name">Fat</span>
+                        <div class="macro-bar">
+                            <div class="macro-progress" data-progress="45"></div>
+                        </div>
+                        <span class="macro-value">45g / 100g</span>
                     </div>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 밥심앱. Open Source Project</p>
+        </section>
+
+        <!-- Social Section -->
+        <section id="social" class="content-section">
+            <div class="section-header">
+                <h2>Food Feed</h2>
+                <button class="btn-primary">Share Meal</button>
             </div>
-        </footer>
+            <div class="social-feed" id="social-feed">
+                <!-- Social posts will be populated by JS -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Welcome Back!</h2>
+            <form class="auth-form">
+                <div class="input-group">
+                    <input type="email" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn-primary full-width">Log In</button>
+                <div class="auth-divider">
+                    <span>or</span>
+                </div>
+                <button type="button" class="btn-social google">Continue with Google</button>
+                <button type="button" class="btn-social kakao">Continue with KakaoTalk</button>
+            </form>
+            <p class="auth-switch">Don't have an account? <a href="#" id="switch-to-signup">Sign up</a></p>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signup-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Join 밥심앱</h2>
+            <form class="auth-form">
+                <div class="input-group">
+                    <input type="text" placeholder="Full Name" required>
+                </div>
+                <div class="input-group">
+                    <input type="email" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" placeholder="Password" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" placeholder="Confirm Password" required>
+                </div>
+                <button type="submit" class="btn-primary full-width">Sign Up</button>
+                <div class="auth-divider">
+                    <span>or</span>
+                </div>
+                <button type="button" class="btn-social google">Continue with Google</button>
+                <button type="button" class="btn-social kakao">Continue with KakaoTalk</button>
+            </form>
+            <p class="auth-switch">Already have an account? <a href="#" id="switch-to-login">Log in</a></p>
+        </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <div class="fab">
+        <button class="fab-btn">+</button>
+        <div class="fab-menu">
+            <button class="fab-item" data-action="add-restaurant">🏪 Add Restaurant</button>
+            <button class="fab-item" data-action="add-recipe">📝 Add Recipe</button>
+            <button class="fab-item" data-action="log-meal">🍽️ Log Meal</button>
+            <button class="fab-item" data-action="share-photo">📸 Share Photo</button>
+        </div>
     </div>
 
     <script src="script.js"></script>
