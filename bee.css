@@ -267,6 +267,7 @@ svg {
     border-bottom: 1px solid var(--border-color);
     display: flex;
     justify-content: space-between;
+    align-items: center;
     min-height: 60px;
 }
 
@@ -330,6 +331,10 @@ svg {
     padding: 10px 15px !important;
     margin: 10px 10px;
     transition: transform 0.3s ease;
+}
+.navbar-nav.mx-auto {
+    flex: 1;
+    justify-content: center;
 }
 
 .login-btn:hover {
@@ -501,4 +506,5 @@ svg {
         transform: translateX(0);
         opacity: 1;
     }
+    
 }
