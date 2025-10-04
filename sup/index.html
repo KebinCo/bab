@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>밥 심 앱 - Sign Up</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="signup-styles.css">
+</head>
+<body>
+    <canvas id="gradient-canvas"></canvas>
+    
+    <div class="container signup-container">
+        <nav class="navbar">
+            <div class="logo-placeholder">
+                <div class="logo-circle"></div>
+            </div>
+            
+            <div class="nav-center">
+                <button class="nav-btn">HOME</button>
+                <button class="nav-btn">ABOUT US</button>
+                <button class="nav-btn">PRICING PLANS</button>
+            </div>
+            
+            <div class="nav-right">
+                <button class="nav-btn auth-btn">SIGN UP</button>
+                <button class="nav-btn auth-btn">LOGIN</button>
+            </div>
+        </nav>
+        
+        <main class="main-content">
+            <h1 class="page-title">회원가입</h1>
+            
+            <div class="user-type-selection">
+                <button class="type-btn" id="supplier-btn" data-type="supplier">
+                    <div class="type-icon">🏪</div>
+                    <div class="type-label">공급자</div>
+                </button>
+                <button class="type-btn" id="consumer-btn" data-type="consumer">
+                    <div class="type-icon">👤</div>
+                    <div class="type-label">소비자</div>
+                </button>
+            </div>
+            
+            <form class="signup-form" id="signup-form">
+                <div class="form-group">
+                    <label for="email">이메일</label>
+                    <input type="email" id="email" name="email" placeholder="example@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="name">이름</label>
+                    <input type="text" id="name" name="name" placeholder="홍길동" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">전화번호</label>
+                    <input type="tel" id="phone" name="phone" placeholder="010-1234-5678" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">비밀번호</label>
+                    <input type="password" id="password" name="password" placeholder="8자 이상 입력" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password-confirm">비밀번호 확인</label>
+                    <input type="password" id="password-confirm" name="password-confirm" placeholder="비밀번호 재입력" required>
+                </div>
+                
+                <div class="form-group checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <span>이용약관 및 개인정보처리방침에 동의합니다</span>
+                    </label>
+                </div>
+                
+                <button type="submit" class="submit-btn">가입하기</button>
+            </form>
+        </main>
+    </div>
+    
+    <script src="script.js"></script>
+    <script src="signup-script.js"></script>
+</body>
+</html>
