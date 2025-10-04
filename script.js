@@ -1,116 +1,85 @@
 const canvas = document.getElementById('gradient-canvas');
 const ctx = canvas.getContext('2d');
 
-let animationId = null;
-
-function resizeCanvas() {
+function setCanvasSize() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 }
 
-resizeCanvas();
- 
-window.addEventListener('resize', () => {
-    resizeCanvas();
-});
+setCanvasSize();
+window.addEventListener('resize', setCanvasSize);
 
-class GradientAnimation {
+class GradientBackground {
     constructor() {
         this.time = 0;
-        this.lastFrame = Date.now();
         this.colors = [
-            { r: 15, g: 35, b: 85 },    // Deep navy blue
-            { r: 25, g: 70, b: 140 },   // Deep blue
-            { r: 35, g: 100, b: 180 },  // Medium blue
-            { r: 50, g: 130, b: 210 },  // Light blue
-            { r: 30, g: 80, b: 150 }    // Ocean blue
+            [15, 35, 85],
+            [25, 70, 140],
+            [35, 100, 180],
+            [50, 130, 210],
+            [30, 80, 150]
         ];
-        this.orbs = [];
-        this.initOrbs();
+        this.orbs = [
+            { x: 0.2, y: 0.3, dx: 0.0001, dy: 0.00015, radius: 0.5 },
+            { x: 0.7, y: 0.6, dx: -0.00012, dy: 0.0001, radius: 0.4 },
+            { x: 0.5, y: 0.8, dx: 0.00015, dy: -0.0001, radius: 0.45 },
+            { x: 0.9, y: 0.2, dx: -0.0001, dy: -0.00012, radius: 0.35 }
+        ];
     }
 
-    initOrbs() {
-        for (let i = 0; i < 4; i++) {
-            this.orbs.push({
-                x: Math.random(),
-                y: Math.random(),
-                speedX: 0.00005 + Math.random() * 0.00015,
-                speedY: 0.00005 + Math.random() * 0.00015,
-                size: 0.4 + Math.random() * 0.3,
-                colorIndex: i % this.colors.length
-            });
-        }
+    lerp(a, b, t) {
+        return a + (b - a) * t;
     }
 
-    interpolateColor(color1, color2, factor) {
-        return {
-            r: Math.round(color1.r + (color2.r - color1.r) * factor),
-            g: Math.round(color1.g + (color2.g - color1.g) * factor),
-            b: Math.round(color1.b + (color2.b - color1.b) * factor)
-        };
+    getColor(index, offset = 0) {
+        const i = Math.floor(index + offset) % this.colors.length;
+        const next = (i + 1) % this.colors.length;
+        const t = (index + offset) % 1;
+        
+        return [
+            Math.round(this.lerp(this.colors[i][0], this.colors[next][0], t)),
+            Math.round(this.lerp(this.colors[i][1], this.colors[next][1], t)),
+            Math.round(this.lerp(this.colors[i][2], this.colors[next][2], t))
+        ];
     }
 
-    createBaseGradient() {
-        const gradient = ctx.createLinearGradient(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
-
-        const t = (this.time * 0.00005) % 1;
+    drawBackground() {
+        const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        const t = this.time * 0.00002;
         
         for (let i = 0; i <= 4; i++) {
-            const offset = i / 4;
-            const colorIndex = Math.floor(t * this.colors.length + i) % this.colors.length;
-            const nextColorIndex = (colorIndex + 1) % this.colors.length;
-            const factor = (t * this.colors.length + i) % 1;
-            
-            const color = this.interpolateColor(
-                this.colors[colorIndex],
-                this.colors[nextColorIndex],
-                factor
-            );
-            
-            gradient.addColorStop(
-                offset,
-                `rgb(${color.r}, ${color.g}, ${color.b})`
-            );
+            const stop = i / 4;
+            const colorIndex = t + i * 0.5;
+            const [r, g, b] = this.getColor(colorIndex);
+            gradient.addColorStop(stop, `rgb(${r}, ${g}, ${b})`);
         }
-
-        return gradient;
+        
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
-    updateOrbs(deltaTime) {
+    updateOrbs() {
         this.orbs.forEach(orb => {
-            orb.x += orb.speedX * deltaTime;
-            orb.y += orb.speedY * deltaTime;
+            orb.x += orb.dx;
+            orb.y += orb.dy;
             
-            if (orb.x > 1.2) orb.x = -0.2;
-            if (orb.x < -0.2) orb.x = 1.2;
-            if (orb.y > 1.2) orb.y = -0.2;
-            if (orb.y < -0.2) orb.y = 1.2;
+            if (orb.x < -0.2 || orb.x > 1.2) orb.dx *= -1;
+            if (orb.y < -0.2 || orb.y > 1.2) orb.dy *= -1;
         });
     }
 
     drawOrbs() {
-        this.orbs.forEach(orb => {
+        this.orbs.forEach((orb, index) => {
             const x = orb.x * canvas.width;
             const y = orb.y * canvas.height;
-            const radius = orb.size * Math.min(canvas.width, canvas.height) * 0.6;
+            const radius = orb.radius * Math.min(canvas.width, canvas.height);
             
             const gradient = ctx.createRadialGradient(x, y, 0, x, y, radius);
+            const [r, g, b] = this.colors[index % this.colors.length];
             
-            const color = this.colors[orb.colorIndex];
-            const brightColor = {
-                r: Math.min(255, color.r + 40),
-                g: Math.min(255, color.g + 40),
-                b: Math.min(255, color.b + 40)
-            };
-            
-            gradient.addColorStop(0, `rgba(${brightColor.r}, ${brightColor.g}, ${brightColor.b}, 0.4)`);
-            gradient.addColorStop(0.5, `rgba(${color.r}, ${color.g}, ${color.b}, 0.2)`);
-            gradient.addColorStop(1, `rgba(${color.r}, ${color.g}, ${color.b}, 0)`);
+            gradient.addColorStop(0, `rgba(${r + 40}, ${g + 40}, ${b + 40}, 0.4)`);
+            gradient.addColorStop(0.5, `rgba(${r}, ${g}, ${b}, 0.2)`);
+            gradient.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
             
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -118,46 +87,18 @@ class GradientAnimation {
     }
 
     animate() {
-        const now = Date.now();
-        const deltaTime = now - this.lastFrame;
-        this.lastFrame = now;
-        
-        // Draw base gradient
-        ctx.fillStyle = this.createBaseGradient();
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
-        // Update and draw orbs
-        this.updateOrbs(deltaTime);
+        this.drawBackground();
+        this.updateOrbs();
         this.drawOrbs();
         
-        this.time += deltaTime;
-        
-        animationId = requestAnimationFrame(() => this.animate());
+        this.time++;
+        requestAnimationFrame(() => this.animate());
     }
 
     start() {
-        if (!animationId) {
-            this.lastFrame = Date.now();
-            this.animate();
-        }
-    }
-
-    stop() {
-        if (animationId) {
-            cancelAnimationFrame(animationId);
-            animationId = null;
-        }
+        this.animate();
     }
 }
 
-const animation = new GradientAnimation();
-animation.start();
-
-// Handle page visibility to prevent background tab issues
-document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-        animation.stop();
-    } else {
-        animation.start();
-    }
-});
+const bg = new GradientBackground();
+bg.start();
