@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>밥 심 앱 - Dashboard</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="../main/styles.css">
 </head>
 <body>
-    <canvas id="gradient-canvas"></canvas>
+    <canvas id="aurora-canvas"></canvas>
+    <div class="sparkles" id="sparkles"></div>
     
     <div class="container dashboard-container">
         <nav class="navbar dashboard-navbar">
@@ -56,63 +56,63 @@
         </nav>
         
         <main class="main-content">
-            <div class="user-info-section">
+            <div class="user-info-section fade-in-up">
                 <div class="user-header">
                     <div class="user-avatar">👤</div>
                     <div class="user-basic-info">
-                        <h2 class="user-name">홍길동</h2>
+                        <h2 class="user-name glow-text">홍길동</h2>
                         <p class="user-membership">회원 가입일: 2024년 1월 15일 (265일)</p>
                     </div>
                 </div>
                 
                 <div class="user-stats-grid">
-                    <div class="stat-card">
+                    <div class="stat-card fade-in-up" style="animation-delay: 0.1s">
                         <div class="stat-icon">💡</div>
                         <div class="stat-info">
                             <div class="stat-label">추천 제공</div>
-                            <div class="stat-value">48</div>
+                            <div class="stat-value glow-text">48</div>
                         </div>
                     </div>
                     
-                    <div class="stat-card">
+                    <div class="stat-card fade-in-up" style="animation-delay: 0.2s">
                         <div class="stat-icon">⭐</div>
                         <div class="stat-info">
                             <div class="stat-label">후기 작성</div>
-                            <div class="stat-value">32</div>
+                            <div class="stat-value glow-text">32</div>
                         </div>
                     </div>
                     
-                    <div class="stat-card">
+                    <div class="stat-card fade-in-up" style="animation-delay: 0.3s">
                         <div class="stat-icon">🎫</div>
                         <div class="stat-info">
                             <div class="stat-label">쿠폰 포인트</div>
-                            <div class="stat-value">1,250P</div>
+                            <div class="stat-value glow-text">1,250P</div>
                         </div>
                     </div>
                     
-                    <div class="stat-card">
+                    <div class="stat-card fade-in-up" style="animation-delay: 0.4s">
                         <div class="stat-icon">👥</div>
                         <div class="stat-info">
                             <div class="stat-label">매칭 참여</div>
-                            <div class="stat-value">15</div>
+                            <div class="stat-value glow-text">15</div>
                         </div>
                     </div>
                 </div>
                 
                 <div class="action-buttons">
-                    <button class="action-btn">
+                    <button class="action-btn fade-in-up" style="animation-delay: 0.5s">
                         <span class="btn-icon">⚙️</span>
                         <span>설정 변경</span>
                     </button>
-                    <button class="action-btn">
+                    <button class="action-btn fade-in-up" style="animation-delay: 0.6s">
                         <span class="btn-icon">📊</span>
                         <span>활동 내역</span>
                     </button>
                 </div>
             </div>
             
-            <div class="activity-section">
-                <h3 class="section-title">최근 활동</h3>
+            <div class="activity-section fade-in-up" style="animation-delay: 0.7s">
+                <h3 class="section-title glow-text">최근 활동</h3>
                 <div class="activity-list">
                     <div class="activity-item">
                         <div class="activity-icon">💡</div>
@@ -143,6 +143,5 @@
     </div>
     
     <script src="script.js"></script>
-    <script src="../main/script.js"></script>
 </body>
 </html>
