@@ -84,12 +84,14 @@ for (let i = 0; i < numSparkles; i++) {
 
 // Logout functionality
 const logoutBtn = document.querySelector('.logout-btn');
-logoutBtn.addEventListener('click', () => {
-    if (confirm('로그아웃 하시겠습니까?')) {
-        alert('로그아웃 되었습니다.');
-        // window.location.href = 'login.html';
-    }
-});
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+        if (confirm('로그아웃 하시겠습니까?')) {
+            alert('로그아웃 되었습니다.');
+            // window.location.href = 'login.html';
+        }
+    });
+}
 
 // Action buttons
 const actionButtons = document.querySelectorAll('.action-btn');
@@ -126,7 +128,7 @@ activityItems.forEach(item => {
     });
 });
 
-// Intersection Observer for scroll animations
+// Intersection Observer for scroll animations with parallax
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -145,3 +147,30 @@ const observer = new IntersectionObserver((entries) => {
 // Observe all fade-in elements
 const fadeElements = document.querySelectorAll('.fade-in-up');
 fadeElements.forEach(el => observer.observe(el));
+
+// Parallax scroll effect
+let lastScrollTop = 0;
+window.addEventListener('scroll', () => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollDelta = scrollTop - lastScrollTop;
+    
+    const sections = document.querySelectorAll('.user-info-section, .activity-section');
+    sections.forEach((section, index) => {
+        const rect = section.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+        
+        if (isVisible) {
+            const parallaxAmount = scrollDelta * 0.1 * (index + 1);
+            const currentTransform = section.style.transform || 'translateY(0)';
+            const match = currentTransform.match(/translateY\(([-\d.]+)px\)/);
+            const currentY = match ? parseFloat(match[1]) : 0;
+            const newY = currentY - parallaxAmount;
+            
+            // Limit parallax range
+            const clampedY = Math.max(-20, Math.min(20, newY));
+            section.style.transform = `translateY(${clampedY}px)`;
+        }
+    });
+    
+    lastScrollTop = scrollTop;
+}, { passive: true });
