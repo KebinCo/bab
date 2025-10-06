@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>밥 심 앱 - Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard-styles.css">
+</head>
+<body>
+    <canvas id="gradient-canvas"></canvas>
+    
+    <div class="container dashboard-container">
+        <nav class="navbar dashboard-navbar">
+            <div class="nav-center">
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">맛집추천</button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">추천하기</a>
+                        <a href="#" class="dropdown-item">추천받기</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">맛집후기</button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">후기 작성하기</a>
+                        <a href="#" class="dropdown-item">후기 보기</a>
+                        <a href="#" class="dropdown-item">내 후기</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">다인매치</button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">매치 찾기</a>
+                        <a href="#" class="dropdown-item">매치 만들기</a>
+                        <a href="#" class="dropdown-item">내 매치</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">미식DNA</button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">DNA 분석</a>
+                        <a href="#" class="dropdown-item">취향 설정</a>
+                        <a href="#" class="dropdown-item">추천 맛집</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="nav-right">
+                <div class="username-display">홍길동</div>
+                <button class="nav-btn logout-btn">LOGOUT</button>
+            </div>
+        </nav>
+        
+        <main class="main-content">
+            <div class="user-info-section">
+                <div class="user-header">
+                    <div class="user-avatar">👤</div>
+                    <div class="user-basic-info">
+                        <h2 class="user-name">홍길동</h2>
+                        <p class="user-membership">회원 가입일: 2024년 1월 15일 (265일)</p>
+                    </div>
+                </div>
+                
+                <div class="user-stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">💡</div>
+                        <div class="stat-info">
+                            <div class="stat-label">추천 제공</div>
+                            <div class="stat-value">48</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-info">
+                            <div class="stat-label">후기 작성</div>
+                            <div class="stat-value">32</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">🎫</div>
+                        <div class="stat-info">
+                            <div class="stat-label">쿠폰 포인트</div>
+                            <div class="stat-value">1,250P</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-info">
+                            <div class="stat-label">매칭 참여</div>
+                            <div class="stat-value">15</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="action-btn">
+                        <span class="btn-icon">⚙️</span>
+                        <span>설정 변경</span>
+                    </button>
+                    <button class="action-btn">
+                        <span class="btn-icon">📊</span>
+                        <span>활동 내역</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="activity-section">
+                <h3 class="section-title">최근 활동</h3>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon">💡</div>
+                        <div class="activity-content">
+                            <div class="activity-text">강남 이탈리안 레스토랑을 추천했습니다</div>
+                            <div class="activity-time">2시간 전</div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon">⭐</div>
+                        <div class="activity-content">
+                            <div class="activity-text">"서울 김밥" 후기를 작성했습니다</div>
+                            <div class="activity-time">5시간 전</div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon">👥</div>
+                        <div class="activity-content">
+                            <div class="activity-text">홍대 맛집 투어 매칭에 참여했습니다</div>
+                            <div class="activity-time">1일 전</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="script.js"></script>
+    <script src="dashboard-script.js"></script>
+</body>
+</html>
