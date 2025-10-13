@@ -1,45 +1,105 @@
-// Simple CSS-based Aurora Background (no heavy canvas rendering)
-const body = document.body;
-
-// Create simple gradient background with CSS animation
-const style = document.createElement('style');
-style.textContent = `
-    body::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-        background: linear-gradient(135deg, 
-            #0b1b3f 0%,
-            #1e3a5f 25%,
-            #2a5a8f 50%,
-            #4fc3f7 75%,
-            #78c8ff 100%
-        );
-        background-size: 400% 400%;
-        animation: aurora-gradient 40s ease infinite;
-    }
-    
-    @keyframes aurora-gradient {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-`;
-document.head.appendChild(style);
-
-// Remove canvas (not needed anymore)
+// Aurora Background Animation
 const canvas = document.getElementById('aurora-canvas');
-if (canvas) {
-    canvas.remove();
+const ctx = canvas.getContext('2d');
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 }
 
-// Simple sparkles with CSS only
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+class AuroraBackground {
+    constructor() {
+        this.startTime = Date.now();
+        this.colors = [
+            { r: 11, g: 27, b: 63 },    // deep navy
+            { r: 30, g: 60, b: 120 },   // midnight blue
+            { r: 50, g: 120, b: 180 },  // ocean blue
+            { r: 79, g: 195, b: 247 },  // cyan
+            { r: 120, g: 200, b: 255 }  // light cyan
+        ];
+        this.waves = [
+            { offset: 0, speed: 0.00003, amplitude: 0.3 },
+            { offset: 0.3, speed: 0.00005, amplitude: 0.25 },
+            { offset: 0.6, speed: 0.00004, amplitude: 0.2 }
+        ];
+    }
+
+    interpolate(a, b, factor) {
+        return a + (b - a) * factor;
+    }
+
+    getColorAt(position) {
+        const index = position * (this.colors.length - 1);
+        const i = Math.floor(index);
+        const next = Math.min(i + 1, this.colors.length - 1);
+        const factor = index - i;
+        
+        return {
+            r: Math.round(this.interpolate(this.colors[i].r, this.colors[next].r, factor)),
+            g: Math.round(this.interpolate(this.colors[i].g, this.colors[next].g, factor)),
+            b: Math.round(this.interpolate(this.colors[i].b, this.colors[next].b, factor))
+        };
+    }
+
+    draw() {
+        const now = Date.now();
+        const elapsed = now - this.startTime;
+        
+        // Base gradient
+        const baseGradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        const shift = (elapsed * 0.000025) % 1; // Smooth 40 second loop
+        
+        for (let i = 0; i <= 5; i++) {
+            const position = (i / 5 + shift) % 1;
+            const color = this.getColorAt(position);
+            baseGradient.addColorStop(i / 5, `rgb(${color.r}, ${color.g}, ${color.b})`);
+        }
+        
+        ctx.fillStyle = baseGradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Aurora wave layers
+        this.waves.forEach((wave, index) => {
+            const waveGradient = ctx.createRadialGradient(
+                canvas.width * (0.5 + Math.sin(elapsed * wave.speed + wave.offset) * wave.amplitude),
+                canvas.height * (0.5 + Math.cos(elapsed * wave.speed * 0.8 + wave.offset) * wave.amplitude),
+                0,
+                canvas.width * 0.5,
+                canvas.height * 0.5,
+                Math.max(canvas.width, canvas.height) * 0.8
+            );
+            
+            const colorIndex = (index + Math.floor(elapsed * 0.0001)) % this.colors.length;
+            const color = this.colors[colorIndex];
+            
+            waveGradient.addColorStop(0, `rgba(${color.r + 30}, ${color.g + 30}, ${color.b + 30}, 0.15)`);
+            waveGradient.addColorStop(0.5, `rgba(${color.r}, ${color.g}, ${color.b}, 0.08)`);
+            waveGradient.addColorStop(1, `rgba(${color.r}, ${color.g}, ${color.b}, 0)`);
+            
+            ctx.fillStyle = waveGradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        });
+    }
+
+    animate() {
+        this.draw();
+        requestAnimationFrame(() => this.animate());
+    }
+
+    start() {
+        this.animate();
+    }
+}
+
+const aurora = new AuroraBackground();
+aurora.start();
+
+// Sparkles Effect
 const sparklesContainer = document.getElementById('sparkles');
-const numSparkles = 30; // Reduced from 50
+const numSparkles = 50;
 
 for (let i = 0; i < numSparkles; i++) {
     const sparkle = document.createElement('div');
@@ -47,7 +107,6 @@ for (let i = 0; i < numSparkles; i++) {
     sparkle.style.left = Math.random() * 100 + '%';
     sparkle.style.top = Math.random() * 100 + '%';
     sparkle.style.animationDelay = Math.random() * 3 + 's';
-    sparkle.style.animationDuration = (2 + Math.random() * 2) + 's';
     sparklesContainer.appendChild(sparkle);
 }
 
@@ -97,20 +156,22 @@ activityItems.forEach(item => {
     });
 });
 
-// Simple scroll reveal (no Intersection Observer needed)
-window.addEventListener('scroll', () => {
-    const fadeElements = document.querySelectorAll('.fade-in-up');
-    fadeElements.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        const isVisible = rect.top < window.innerHeight * 0.8;
-        
-        if (isVisible && el.style.opacity !== '1') {
-            el.style.opacity = '1';
-            el.style.filter = 'blur(0)';
-            el.style.transform = 'translateY(0)';
+// Intersection Observer for scroll animations
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.filter = 'blur(0)';
+            entry.target.style.transform = 'translateY(0)';
         }
     });
-}, { passive: true });
+}, observerOptions);
 
-// Trigger initial scroll check
-window.dispatchEvent(new Event('scroll'));
+// Observe all fade-in elements
+const fadeElements = document.querySelectorAll('.fade-in-up');
+fadeElements.forEach(el => observer.observe(el));
