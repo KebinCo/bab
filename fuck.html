@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embedded Chatbot Experiment</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Ensuring the body and HTML take up full height for centering */
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 flex items-center justify-center min-h-screen p-4">
+
+    <!-- Main Centering Container -->
+    <div class="w-full max-w-5xl h-[90vh] bg-white shadow-2xl rounded-xl p-2 md:p-6 flex flex-col items-center justify-center">
+
+        <h1 class="text-2xl font-bold text-gray-800 mb-4">Embedded Chatbot</h1>
+        <p class="text-sm text-red-500 mb-4 text-center">
+            Note: If the chatbot does not load, the source website is likely preventing embedding via security policies (X-Frame-Options or CSP).
+        </p>
+
+        <!-- The Iframe for Embedding -->
+        <iframe
+            src="https://chatgpt.com/share/68eca3cc-3dc8-800a-920e-7abdf4d58730"
+            title="Embedded Shared ChatGPT Chatbot"
+            class="w-full h-full rounded-lg border-4 border-indigo-500/50 shadow-inner"
+            frameborder="0"
+            allowfullscreen
+        >
+            <!-- Fallback content if the browser doesn't support iframes -->
+            <p class="p-6 text-center text-gray-600">Your browser does not support iframes. You can access the content directly: 
+                <a href="https://chatgpt.com/share/68eca3cc-3dc8-800a-920e-7abdf4d58730" target="_blank" class="text-indigo-600 hover:underline">Chatbot Link</a>
+            </p>
+        </iframe>
+    </div>
+
+</body>
+</html>
