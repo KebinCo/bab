@@ -1,77 +1,45 @@
-// Aurora Background Animation
+// Simple CSS-based Aurora Background (no heavy canvas rendering)
+const body = document.body;
+
+// Create simple gradient background with CSS animation
+const style = document.createElement('style');
+style.textContent = `
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        background: linear-gradient(135deg, 
+            #0b1b3f 0%,
+            #1e3a5f 25%,
+            #2a5a8f 50%,
+            #4fc3f7 75%,
+            #78c8ff 100%
+        );
+        background-size: 400% 400%;
+        animation: aurora-gradient 40s ease infinite;
+    }
+    
+    @keyframes aurora-gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+`;
+document.head.appendChild(style);
+
+// Remove canvas (not needed anymore)
 const canvas = document.getElementById('aurora-canvas');
-const ctx = canvas.getContext('2d');
-
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+if (canvas) {
+    canvas.remove();
 }
 
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
-
-class AuroraBackground {
-    constructor() {
-        this.time = 0;
-        this.colors = [
-            { r: 11, g: 27, b: 63 },    // deep navy
-            { r: 30, g: 60, b: 120 },   // midnight blue
-            { r: 50, g: 120, b: 180 },  // ocean blue
-            { r: 79, g: 195, b: 247 },  // cyan
-            { r: 120, g: 200, b: 255 }  // light cyan
-        ];
-    }
-
-    interpolate(a, b, factor) {
-        return a + (b - a) * factor;
-    }
-
-    getColorAt(position) {
-        const index = position * (this.colors.length - 1);
-        const i = Math.floor(index);
-        const next = Math.min(i + 1, this.colors.length - 1);
-        const factor = index - i;
-        
-        return {
-            r: Math.round(this.interpolate(this.colors[i].r, this.colors[next].r, factor)),
-            g: Math.round(this.interpolate(this.colors[i].g, this.colors[next].g, factor)),
-            b: Math.round(this.interpolate(this.colors[i].b, this.colors[next].b, factor))
-        };
-    }
-
-    draw() {
-        const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-        
-        // Slow hue transition (40 second loop)
-        const shift = (this.time % 40000) / 40000;
-        
-        for (let i = 0; i <= 10; i++) {
-            const position = (i / 10 + shift) % 1;
-            const color = this.getColorAt(position);
-            gradient.addColorStop(i / 10, `rgb(${color.r}, ${color.g}, ${color.b})`);
-        }
-        
-        ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-    }
-
-    animate(timestamp) {
-        this.time = timestamp;
-        this.draw();
-        requestAnimationFrame((t) => this.animate(t));
-    }
-
-    start() {
-        requestAnimationFrame((t) => this.animate(t));
-    }
-}
-
-const aurora = new AuroraBackground();
-aurora.start();
-
-// Sparkles Effect
+// Simple sparkles with CSS only
 const sparklesContainer = document.getElementById('sparkles');
-const numSparkles = 50;
+const numSparkles = 30; // Reduced from 50
 
 for (let i = 0; i < numSparkles; i++) {
     const sparkle = document.createElement('div');
@@ -79,6 +47,7 @@ for (let i = 0; i < numSparkles; i++) {
     sparkle.style.left = Math.random() * 100 + '%';
     sparkle.style.top = Math.random() * 100 + '%';
     sparkle.style.animationDelay = Math.random() * 3 + 's';
+    sparkle.style.animationDuration = (2 + Math.random() * 2) + 's';
     sparklesContainer.appendChild(sparkle);
 }
 
@@ -128,49 +97,20 @@ activityItems.forEach(item => {
     });
 });
 
-// Intersection Observer for scroll animations with parallax
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.filter = 'blur(0)';
-            entry.target.style.transform = 'translateY(0)';
-        }
-    });
-}, observerOptions);
-
-// Observe all fade-in elements
-const fadeElements = document.querySelectorAll('.fade-in-up');
-fadeElements.forEach(el => observer.observe(el));
-
-// Parallax scroll effect
-let lastScrollTop = 0;
+// Simple scroll reveal (no Intersection Observer needed)
 window.addEventListener('scroll', () => {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    const scrollDelta = scrollTop - lastScrollTop;
-    
-    const sections = document.querySelectorAll('.user-info-section, .activity-section');
-    sections.forEach((section, index) => {
-        const rect = section.getBoundingClientRect();
-        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+    const fadeElements = document.querySelectorAll('.fade-in-up');
+    fadeElements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight * 0.8;
         
-        if (isVisible) {
-            const parallaxAmount = scrollDelta * 0.1 * (index + 1);
-            const currentTransform = section.style.transform || 'translateY(0)';
-            const match = currentTransform.match(/translateY\(([-\d.]+)px\)/);
-            const currentY = match ? parseFloat(match[1]) : 0;
-            const newY = currentY - parallaxAmount;
-            
-            // Limit parallax range
-            const clampedY = Math.max(-20, Math.min(20, newY));
-            section.style.transform = `translateY(${clampedY}px)`;
+        if (isVisible && el.style.opacity !== '1') {
+            el.style.opacity = '1';
+            el.style.filter = 'blur(0)';
+            el.style.transform = 'translateY(0)';
         }
     });
-    
-    lastScrollTop = scrollTop;
 }, { passive: true });
+
+// Trigger initial scroll check
+window.dispatchEvent(new Event('scroll'));
