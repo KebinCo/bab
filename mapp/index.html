@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>밥 심 앱 - 맛집 추천</title>
+    <link rel="stylesheet" href="aurora-styles.css">
+    <link rel="stylesheet" href="restaurant-rec-styles.css">
+</head>
+<body>
+    <canvas id="aurora-canvas"></canvas>
+    <div class="sparkles" id="sparkles"></div>
+    
+    <div class="container dashboard-container">
+        <nav class="navbar dashboard-navbar">
+            <div class="nav-center">
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">맛집추천</button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">추천하기</a>
+                        <a href="#" class="dropdown-item">추천받기</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">맛집후기</button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">후기 작성하기</a>
+                        <a href="#" class="dropdown-item">후기 보기</a>
+                        <a href="#" class="dropdown-item">내 후기</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">다인매치</button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">매치 찾기</a>
+                        <a href="#" class="dropdown-item">매치 만들기</a>
+                        <a href="#" class="dropdown-item">내 매치</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">미식DNA</button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">DNA 분석</a>
+                        <a href="#" class="dropdown-item">취향 설정</a>
+                        <a href="#" class="dropdown-item">추천 맛집</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="nav-right">
+                <div class="username-display">홍길동</div>
+                <button class="nav-btn logout-btn">LOGOUT</button>
+            </div>
+        </nav>
+        
+        <main class="main-content">
+            <h1 class="page-title glow-text fade-in-up">맛집 추천하기</h1>
+            
+            <div class="search-section fade-in-up" style="animation-delay: 0.1s">
+                <div class="search-container">
+                    <input 
+                        type="text" 
+                        id="search-input" 
+                        class="search-input" 
+                        placeholder="방문한 맛집을 검색하세요... (예: 강남역 스시)"
+                    >
+                    <button id="search-btn" class="search-btn">
+                        <span>🔍</span>
+                        <span>검색</span>
+                    </button>
+                </div>
+                
+                <div id="search-results" class="search-results"></div>
+            </div>
+            
+            <div class="map-section fade-in-up" style="animation-delay: 0.2s">
+                <div id="map" class="map-container"></div>
+            </div>
+            
+            <div id="selected-restaurant" class="selected-restaurant" style="display: none;">
+                <div class="restaurant-info">
+                    <div class="restaurant-icon">🍽️</div>
+                    <div class="restaurant-details">
+                        <h3 class="restaurant-name" id="restaurant-name"></h3>
+                        <p class="restaurant-address" id="restaurant-address"></p>
+                        <p class="restaurant-type" id="restaurant-type"></p>
+                    </div>
+                </div>
+                <button id="review-btn" class="review-btn">
+                    <span class="btn-icon">✍️</span>
+                    <span>후기 남기기</span>
+                </button>
+            </div>
+        </main>
+    </div>
+    
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&language=ko"></script>
+    <script src="aurora-script.js"></script>
+    <script src="restaurant-rec-script.js"></script>
+</body>
+</html>
