@@ -1,5 +1,64 @@
 // Restaurant Search Page
 
+// Dropdown menu interactions for navbar
+const dropdownBtns = document.querySelectorAll('.dropdown-btn');
+const dropdownItems = document.querySelectorAll('.dropdown-item');
+
+dropdownItems.forEach(item => {
+    item.addEventListener('click', (e) => {
+        e.preventDefault();
+        const text = item.textContent.trim();
+        console.log('Dropdown item clicked:', text);
+        showNotification(`"${text}" 페이지로 이동합니다`, 'info');
+        // Add navigation logic here
+    });
+});
+
+// Logout button handler
+const logoutBtn = document.querySelector('.logout-btn');
+
+logoutBtn.addEventListener('click', () => {
+    showNotification('로그아웃 중...', 'info');
+    
+    setTimeout(() => {
+        console.log('User logged out');
+        showNotification('로그아웃되었습니다', 'success');
+        // window.location.href = '../login/index.html';
+    }, 1000);
+});
+
+// Mobile dropdown toggle
+if (window.innerWidth <= 768) {
+    dropdownBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const parent = btn.closest('.nav-item-dropdown');
+            const menu = parent.querySelector('.dropdown-menu');
+            
+            // Close other dropdowns
+            document.querySelectorAll('.dropdown-menu').forEach(m => {
+                if (m !== menu) {
+                    m.style.display = 'none';
+                }
+            });
+            
+            // Toggle current dropdown
+            if (menu.style.display === 'block') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'block';
+            }
+        });
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', () => {
+        document.querySelectorAll('.dropdown-menu').forEach(menu => {
+            menu.style.display = 'none';
+        });
+    });
+}
+
 // Mock restaurant database
 const restaurants = [
     { id: 1, name: '강남 파스타하우스', category: 'western', region: 'gangnam', rating: 4.5, reviews: 128, location: '강남역 3번 출구' },
@@ -46,7 +105,12 @@ searchInput.addEventListener('input', (e) => {
 // Region selection
 regionItems.forEach(item => {
     item.addEventListener('click', () => {
+        // Don't affect the "전체" item
+        const allRegion = document.querySelector('.region-item[data-region="all"]');
+        
         regionItems.forEach(r => r.classList.remove('selected'));
+        if (allRegion) allRegion.classList.remove('selected');
+        
         item.classList.add('selected');
         
         currentRegion = item.dataset.region;
@@ -76,6 +140,9 @@ allRegionItem.addEventListener('click', () => {
     renderRestaurants();
 });
 
+// Update regionItems NodeList to include the new "전체" item
+const allRegionItems = document.querySelectorAll('.region-item');
+
 // Category filter
 filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -87,10 +154,11 @@ filterBtns.forEach(btn => {
     });
 });
 
-// Sort buttons
-sortBtns.forEach(btn => {
+// Sort buttons (separate from navbar dropdowns)
+const sortButtons = document.querySelectorAll('.sort-btn');
+sortButtons.forEach(btn => {
     btn.addEventListener('click', () => {
-        sortBtns.forEach(b => b.classList.remove('active'));
+        sortButtons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         
         currentSort = btn.dataset.sort;
@@ -402,65 +470,3 @@ setInterval(() => {
         searchInput.placeholder = searchPlaceholders[placeholderIndex];
     }
 }, 3000);
-
-// Dropdown menu interactions
-const dropdownItems = document.querySelectorAll('.dropdown-item');
-
-dropdownItems.forEach(item => {
-    item.addEventListener('click', (e) => {
-        e.preventDefault();
-        const text = item.textContent.trim();
-        console.log('Dropdown item clicked:', text);
-        showNotification(`"${text}" 페이지로 이동합니다`, 'info');
-        // Add navigation logic here
-    });
-});
-
-// Logout button handler
-const logoutBtn = document.querySelector('.logout-btn');
-
-if (logoutBtn) {
-    logoutBtn.addEventListener('click', () => {
-        showNotification('로그아웃 중...', 'info');
-        
-        setTimeout(() => {
-            console.log('User logged out');
-            showNotification('로그아웃되었습니다', 'success');
-            // window.location.href = '../login/index.html';
-        }, 1000);
-    });
-}
-
-// Mobile dropdown toggle
-if (window.innerWidth <= 768) {
-    const dropdownBtns = document.querySelectorAll('.dropdown-btn');
-    
-    dropdownBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const parent = btn.closest('.nav-item-dropdown');
-            const menu = parent.querySelector('.dropdown-menu');
-            
-            // Close other dropdowns
-            document.querySelectorAll('.dropdown-menu').forEach(m => {
-                if (m !== menu) {
-                    m.style.display = 'none';
-                }
-            });
-            
-            // Toggle current dropdown
-            if (menu.style.display === 'block') {
-                menu.style.display = 'none';
-            } else {
-                menu.style.display = 'block';
-            }
-        });
-    });
-    
-    // Close dropdowns when clicking outside
-    document.addEventListener('click', () => {
-        document.querySelectorAll('.dropdown-menu').forEach(menu => {
-            menu.style.display = 'none';
-        });
-    });
-}
