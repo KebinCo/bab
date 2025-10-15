@@ -152,4 +152,253 @@ function getCategoryName(category) {
 function renderRestaurants() {
     const filtered = getFilteredRestaurants();
     
-    if
+    if (filtered.length === 0) {
+        restaurantGrid.style.display = 'none';
+        emptyState.style.display = 'block';
+        return;
+    }
+    
+    restaurantGrid.style.display = 'grid';
+    emptyState.style.display = 'none';
+    
+    restaurantGrid.innerHTML = filtered.map(restaurant => `
+        <div class="restaurant-card" data-id="${restaurant.id}">
+            <div class="card-header">
+                <div>
+                    <div class="restaurant-name">${restaurant.name}</div>
+                    <div class="restaurant-category">${getCategoryName(restaurant.category)}</div>
+                </div>
+                <div class="restaurant-rating">
+                    ⭐ ${restaurant.rating}
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="restaurant-location">
+                    📍 ${restaurant.location}
+                </div>
+                <div class="restaurant-info">
+                    <div class="info-item">
+                        💬 ${restaurant.reviews}개 후기
+                    </div>
+                    <button class="write-review-btn" onclick="handleWriteReview(${restaurant.id})">
+                        후기 작성
+                    </button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+    
+    // Add click handlers to cards
+    const cards = restaurantGrid.querySelectorAll('.restaurant-card');
+    cards.forEach(card => {
+        card.addEventListener('click', (e) => {
+            if (!e.target.classList.contains('write-review-btn')) {
+                const id = parseInt(card.dataset.id);
+                handleRestaurantClick(id);
+            }
+        });
+    });
+}
+
+// Handle restaurant card click
+function handleRestaurantClick(id) {
+    const restaurant = restaurants.find(r => r.id === id);
+    if (!restaurant) return;
+    
+    showNotification(`"${restaurant.name}" 상세 정보를 불러오는 중...`, 'info');
+    console.log('Restaurant clicked:', restaurant);
+    // Navigate to restaurant details page
+}
+
+// Handle write review button click
+function handleWriteReview(id) {
+    const restaurant = restaurants.find(r => r.id === id);
+    if (!restaurant) return;
+    
+    showNotification(`"${restaurant.name}" 후기 작성 페이지로 이동합니다`, 'success');
+    console.log('Write review for:', restaurant);
+    
+    // Store restaurant info for review page
+    const reviewData = {
+        restaurantId: id,
+        restaurantName: restaurant.name,
+        category: restaurant.category,
+        location: restaurant.location
+    };
+    
+    console.log('Review data:', reviewData);
+    
+    // Navigate to review writing page after short delay
+    setTimeout(() => {
+        // window.location.href = `../review-write/index.html?restaurant=${id}`;
+        console.log('Would navigate to review page with data:', reviewData);
+    }, 800);
+}
+
+// Section glow effects
+function addSectionGlowEffect(section) {
+    const glow = section.querySelector('.section-glow');
+    if (!glow) return;
+    
+    section.addEventListener('mousemove', (e) => {
+        const rect = section.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        glow.style.left = `${x - glow.offsetWidth / 2}px`;
+        glow.style.top = `${y - glow.offsetHeight / 2}px`;
+    });
+}
+
+const searchSection = document.querySelector('.search-section');
+const locationBrowser = document.querySelector('.location-browser');
+const restaurantListSection = document.querySelector('.restaurant-list-section');
+
+addSectionGlowEffect(searchSection);
+addSectionGlowEffect(locationBrowser);
+addSectionGlowEffect(restaurantListSection);
+
+// Notification system
+function showNotification(message, type = 'info') {
+    const existing = document.querySelector('.notification');
+    if (existing) existing.remove();
+    
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.textContent = message;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => notification.classList.add('show'), 10);
+    
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => notification.remove(), 300);
+    }, 3000);
+}
+
+// Add notification styles
+const notificationStyle = document.createElement('style');
+notificationStyle.textContent = `
+    .notification {
+        position: fixed;
+        top: 2rem;
+        right: 2rem;
+        padding: 1rem 1.5rem;
+        background: rgba(15, 15, 30, 0.95);
+        backdrop-filter: blur(20px);
+        border-radius: 12px;
+        border: 1px solid rgba(138, 43, 226, 0.4);
+        color: #e8e8f0;
+        font-size: 0.95rem;
+        font-weight: 500;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        transform: translateX(400px);
+        opacity: 0;
+        transition: all 0.3s ease;
+        z-index: 10000;
+        max-width: 320px;
+    }
+    
+    .notification.show {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    
+    .notification-success {
+        border-color: rgba(34, 197, 94, 0.6);
+        box-shadow: 0 8px 32px rgba(34, 197, 94, 0.2);
+    }
+    
+    .notification-error {
+        border-color: rgba(239, 68, 68, 0.6);
+        box-shadow: 0 8px 32px rgba(239, 68, 68, 0.2);
+    }
+    
+    .notification-info {
+        border-color: rgba(138, 43, 226, 0.6);
+        box-shadow: 0 8px 32px rgba(138, 43, 226, 0.2);
+    }
+    
+    @media (max-width: 768px) {
+        .notification {
+            top: 1rem;
+            right: 1rem;
+            left: 1rem;
+            max-width: none;
+        }
+    }
+`;
+document.head.appendChild(notificationStyle);
+
+// Keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+    // Focus search on '/' key
+    if (e.key === '/' && document.activeElement !== searchInput) {
+        e.preventDefault();
+        searchInput.focus();
+    }
+    
+    // Clear search on 'Escape' key
+    if (e.key === 'Escape' && document.activeElement === searchInput) {
+        searchInput.value = '';
+        searchQuery = '';
+        searchInput.blur();
+        renderRestaurants();
+    }
+});
+
+// Animation on scroll for cards
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+            setTimeout(() => {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }, index * 50);
+            observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+// Apply animation styles and observe cards
+function observeCards() {
+    const cards = document.querySelectorAll('.restaurant-card');
+    cards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        observer.observe(card);
+    });
+}
+
+// Re-observe cards after rendering
+const originalRender = renderRestaurants;
+renderRestaurants = function() {
+    originalRender();
+    setTimeout(observeCards, 10);
+};
+
+// Initial render with animation
+renderRestaurants();
+
+// Search input placeholder animation
+const searchPlaceholders = [
+    '음식점 이름 또는 음식 종류로 검색...',
+    '예: 파스타, 김치찌개, 스시...',
+    '예: 강남 맛집, 홍대 카페...',
+];
+
+let placeholderIndex = 0;
+
+setInterval(() => {
+    if (document.activeElement !== searchInput && !searchInput.value) {
+        placeholderIndex = (placeholderIndex + 1) % searchPlaceholders.length;
+        searchInput.placeholder = searchPlaceholders[placeholderIndex];
+    }
+}, 3000);
