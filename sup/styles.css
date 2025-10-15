@@ -1,209 +1,398 @@
-.signup-container {
-    max-width: 800px;
-    min-height: auto;
+/* Signup Page Specific Styles */
+
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 200px);
+    padding: 2rem 0;
+}
+
+.signup-wrapper {
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+.signup-card {
+    background: rgba(15, 15, 30, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(138, 43, 226, 0.3);
+    border-radius: 20px;
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 0 40px rgba(138, 43, 226, 0.1);
+    transition: all 0.4s ease;
+}
+
+.signup-card:hover {
+    border-color: rgba(138, 43, 226, 0.5);
+    box-shadow: 
+        0 25px 70px rgba(0, 0, 0, 0.6),
+        0 0 50px rgba(138, 43, 226, 0.2);
+    transform: translateY(-5px);
+}
+
+.card-glow {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(138, 43, 226, 0.2) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.signup-card:hover .card-glow {
+    opacity: 1;
 }
 
 .page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
     text-align: center;
-    font-size: 48px;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.98);
-    margin-bottom: 50px;
-    letter-spacing: 4px;
-    text-shadow: 
-        0 2px 15px rgba(200, 230, 255, 0.5),
-        0 4px 30px rgba(100, 180, 255, 0.3);
+    margin-bottom: 2rem;
+    background: linear-gradient(135deg, #8a2be2 0%, #daa520 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    z-index: 1;
 }
 
+/* User Type Selection */
 .user-type-selection {
-    display: flex;
-    gap: 30px;
-    justify-content: center;
-    margin-bottom: 50px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
 }
 
 .type-btn {
-    flex: 1;
-    max-width: 200px;
-    background: linear-gradient(135deg,
-        rgba(255, 255, 255, 0.12) 0%,
-        rgba(255, 255, 255, 0.08) 100%);
-    backdrop-filter: blur(20px) saturate(150%);
-    -webkit-backdrop-filter: blur(20px) saturate(150%);
-    border: 2px solid rgba(255, 255, 255, 0.25);
-    border-radius: 20px;
-    padding: 30px 20px;
+    background: rgba(10, 10, 20, 0.6);
+    border: 2px solid rgba(138, 43, 226, 0.2);
+    border-radius: 12px;
+    padding: 1.5rem 1rem;
     cursor: pointer;
-    transition: all 0.4s ease;
-    box-shadow: 
-        inset 0 1px 0 rgba(255, 255, 255, 0.3),
-        0 4px 15px rgba(200, 230, 255, 0.15);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
 .type-btn:hover {
-    background: linear-gradient(135deg,
-        rgba(255, 255, 255, 0.2) 0%,
-        rgba(255, 255, 255, 0.15) 100%);
-    border-color: rgba(255, 255, 255, 0.4);
-    transform: translateY(-5px);
-    box-shadow: 
-        0 8px 25px rgba(200, 230, 255, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    border-color: rgba(138, 43, 226, 0.5);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(138, 43, 226, 0.2);
 }
 
-.type-btn.active {
-    background: linear-gradient(135deg,
-        rgba(100, 180, 255, 0.4) 0%,
-        rgba(100, 180, 255, 0.3) 100%);
-    border-color: rgba(150, 210, 255, 0.6);
+.type-btn.selected {
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.3) 0%, rgba(218, 165, 32, 0.3) 100%);
+    border-color: #8a2be2;
     box-shadow: 
-        0 8px 25px rgba(100, 180, 255, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        0 0 30px rgba(138, 43, 226, 0.4),
+        inset 0 0 20px rgba(138, 43, 226, 0.1);
 }
 
 .type-icon {
-    font-size: 48px;
-    margin-bottom: 15px;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    filter: grayscale(0.5);
+    transition: filter 0.3s ease;
+}
+
+.type-btn.selected .type-icon {
+    filter: grayscale(0);
+    animation: bounce 0.5s ease;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
 }
 
 .type-label {
-    font-size: 20px;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.95);
-    letter-spacing: 1px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #c0c0d0;
+    transition: color 0.3s ease;
 }
 
+.type-btn.selected .type-label {
+    color: #fff;
+}
+
+.type-border {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #8a2be2 0%, #daa520 100%);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.type-btn.selected .type-border {
+    transform: scaleX(1);
+}
+
+/* Form Styles */
 .signup-form {
-    background: linear-gradient(135deg,
-        rgba(255, 255, 255, 0.08) 0%,
-        rgba(255, 255, 255, 0.04) 100%);
-    backdrop-filter: blur(20px) saturate(150%);
-    -webkit-backdrop-filter: blur(20px) saturate(150%);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 25px;
-    padding: 40px;
-    box-shadow: 
-        inset 0 1px 0 rgba(255, 255, 255, 0.25),
-        0 4px 20px rgba(200, 230, 255, 0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    position: relative;
+    z-index: 1;
 }
 
 .form-group {
-    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: relative;
 }
 
 .form-group label {
-    display: block;
-    font-size: 14px;
+    font-size: 0.95rem;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 10px;
+    color: #c0c0d0;
     letter-spacing: 0.5px;
 }
 
-.form-group input[type="email"],
-.form-group input[type="text"],
-.form-group input[type="tel"],
-.form-group input[type="password"] {
-    width: 100%;
-    padding: 14px 18px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 12px;
-    color: rgba(255, 255, 255, 0.95);
-    font-size: 15px;
+.form-group input {
+    background: rgba(10, 10, 20, 0.6);
+    border: 1px solid rgba(138, 43, 226, 0.2);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+    color: #e8e8f0;
     transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    outline: none;
 }
 
 .form-group input::placeholder {
-    color: rgba(255, 255, 255, 0.5);
+    color: #606070;
 }
 
 .form-group input:focus {
-    outline: none;
-    background: rgba(255, 255, 255, 0.15);
-    border-color: rgba(150, 210, 255, 0.5);
-    box-shadow: 0 0 0 3px rgba(100, 180, 255, 0.1);
+    border-color: rgba(138, 43, 226, 0.6);
+    background: rgba(10, 10, 20, 0.8);
+    box-shadow: 
+        0 0 0 3px rgba(138, 43, 226, 0.1),
+        0 0 20px rgba(138, 43, 226, 0.2);
 }
 
+.form-group input:focus + .input-border {
+    transform: scaleX(1);
+}
+
+.input-border {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, #8a2be2 0%, #daa520 100%);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+    border-radius: 0 0 10px 10px;
+}
+
+/* Password Strength Indicator */
+.password-strength {
+    margin-top: 0.5rem;
+    height: 4px;
+    background: rgba(138, 43, 226, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.strength-bar {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #ef4444 0%, #f59e0b 50%, #22c55e 100%);
+    transition: width 0.3s ease;
+    border-radius: 2px;
+}
+
+/* Checkbox Styles */
 .checkbox-group {
-    margin-top: 30px;
+    margin-top: 0.5rem;
 }
 
 .checkbox-label {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    gap: 0.75rem;
     cursor: pointer;
-    color: rgba(255, 255, 255, 0.85);
-    font-size: 14px;
+    position: relative;
 }
 
 .checkbox-label input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
+    position: absolute;
+    opacity: 0;
     cursor: pointer;
-    accent-color: rgba(100, 180, 255, 0.8);
 }
 
+.checkbox-custom {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    border: 2px solid rgba(138, 43, 226, 0.4);
+    border-radius: 4px;
+    background: rgba(10, 10, 20, 0.6);
+    transition: all 0.3s ease;
+    position: relative;
+    margin-top: 2px;
+}
+
+.checkbox-custom::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 6px;
+    width: 5px;
+    height: 10px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg) scale(0);
+    transition: transform 0.2s ease;
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkbox-custom {
+    background: linear-gradient(135deg, #8a2be2 0%, #daa520 100%);
+    border-color: #8a2be2;
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkbox-custom::after {
+    transform: rotate(45deg) scale(1);
+}
+
+.checkbox-text {
+    font-size: 0.9rem;
+    color: #b0b0c8;
+    line-height: 1.5;
+}
+
+/* Submit Button */
 .submit-btn {
-    width: 100%;
-    padding: 16px;
-    margin-top: 30px;
-    background: linear-gradient(135deg,
-        rgba(100, 180, 255, 0.4) 0%,
-        rgba(100, 180, 255, 0.3) 100%);
-    backdrop-filter: blur(15px) saturate(150%);
-    -webkit-backdrop-filter: blur(15px) saturate(150%);
-    border: 2px solid rgba(150, 210, 255, 0.5);
+    margin-top: 1rem;
+    background: linear-gradient(135deg, #8a2be2 0%, #daa520 100%);
+    border: none;
     border-radius: 12px;
-    color: rgba(255, 255, 255, 0.98);
-    font-size: 18px;
+    padding: 1.1rem;
+    font-size: 1.05rem;
     font-weight: 600;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
+    color: #fff;
     cursor: pointer;
-    transition: all 0.4s ease;
-    box-shadow: 
-        inset 0 1px 0 rgba(255, 255, 255, 0.4),
-        0 4px 15px rgba(100, 180, 255, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(138, 43, 226, 0.3);
+}
+
+.btn-text {
+    position: relative;
+    z-index: 1;
+}
+
+.btn-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.4s ease;
+    border-radius: 50%;
 }
 
 .submit-btn:hover {
-    background: linear-gradient(135deg,
-        rgba(100, 180, 255, 0.5) 0%,
-        rgba(100, 180, 255, 0.4) 100%);
-    border-color: rgba(150, 210, 255, 0.7);
     transform: translateY(-2px);
     box-shadow: 
-        0 6px 25px rgba(100, 180, 255, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        0 12px 32px rgba(138, 43, 226, 0.4),
+        0 0 40px rgba(218, 165, 32, 0.3);
+}
+
+.submit-btn:hover .btn-glow {
+    transform: translate(-50%, -50%) scale(2);
 }
 
 .submit-btn:active {
     transform: translateY(0);
 }
 
+.submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Login Link */
+.login-link {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    color: #b0b0c8;
+}
+
+.login-link a {
+    color: #8a2be2;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.login-link a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #8a2be2 0%, #daa520 100%);
+    transition: width 0.3s ease;
+}
+
+.login-link a:hover {
+    color: #daa520;
+}
+
+.login-link a:hover::after {
+    width: 100%;
+}
+
+/* Active nav button indicator */
+.nav-btn.active {
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.3) 0%, rgba(218, 165, 32, 0.3) 100%);
+    border-color: rgba(138, 43, 226, 0.6);
+    color: #fff;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-    .signup-container {
-        margin: 20px;
-    }
-    
-    .user-type-selection {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .type-btn {
-        max-width: 100%;
-        width: 100%;
+    .signup-card {
+        padding: 2rem 1.5rem;
     }
     
     .page-title {
-        font-size: 36px;
+        font-size: 2rem;
     }
     
-    .signup-form {
-        padding: 30px 20px;
+    .user-type-selection {
+        grid-template-columns: 1fr;
+    }
+    
+    .type-icon {
+        font-size: 2rem;
     }
 }
