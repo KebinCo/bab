@@ -402,3 +402,65 @@ setInterval(() => {
         searchInput.placeholder = searchPlaceholders[placeholderIndex];
     }
 }, 3000);
+
+// Dropdown menu interactions
+const dropdownItems = document.querySelectorAll('.dropdown-item');
+
+dropdownItems.forEach(item => {
+    item.addEventListener('click', (e) => {
+        e.preventDefault();
+        const text = item.textContent.trim();
+        console.log('Dropdown item clicked:', text);
+        showNotification(`"${text}" 페이지로 이동합니다`, 'info');
+        // Add navigation logic here
+    });
+});
+
+// Logout button handler
+const logoutBtn = document.querySelector('.logout-btn');
+
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+        showNotification('로그아웃 중...', 'info');
+        
+        setTimeout(() => {
+            console.log('User logged out');
+            showNotification('로그아웃되었습니다', 'success');
+            // window.location.href = '../login/index.html';
+        }, 1000);
+    });
+}
+
+// Mobile dropdown toggle
+if (window.innerWidth <= 768) {
+    const dropdownBtns = document.querySelectorAll('.dropdown-btn');
+    
+    dropdownBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const parent = btn.closest('.nav-item-dropdown');
+            const menu = parent.querySelector('.dropdown-menu');
+            
+            // Close other dropdowns
+            document.querySelectorAll('.dropdown-menu').forEach(m => {
+                if (m !== menu) {
+                    m.style.display = 'none';
+                }
+            });
+            
+            // Toggle current dropdown
+            if (menu.style.display === 'block') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'block';
+            }
+        });
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', () => {
+        document.querySelectorAll('.dropdown-menu').forEach(menu => {
+            menu.style.display = 'none';
+        });
+    });
+}
