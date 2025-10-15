@@ -3,18 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>밥 심 앱 - Dashboard</title>
+    <title>밥심앱 - Dashboard</title>
+    <link rel="stylesheet" href="../new/styles.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <canvas id="aurora-canvas"></canvas>
+    <canvas id="gradient-canvas"></canvas>
+    
+    <div class="shimmer-overlay"></div>
     <div class="sparkles" id="sparkles"></div>
     
-    <div class="container dashboard-container">
+    <div class="container">
         <nav class="navbar dashboard-navbar">
+            <div class="logo-placeholder">
+                <div class="logo-circle"></div>
+            </div>
+            
             <div class="nav-center">
                 <div class="nav-item-dropdown">
-                    <button class="nav-btn dropdown-btn">맛집추천</button>
+                    <button class="nav-btn dropdown-btn">
+                        <span>맛집추천</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
                     <div class="dropdown-menu">
                         <a href="#" class="dropdown-item">추천하기</a>
                         <a href="#" class="dropdown-item">추천받기</a>
@@ -22,7 +32,10 @@
                 </div>
                 
                 <div class="nav-item-dropdown">
-                    <button class="nav-btn dropdown-btn">맛집후기</button>
+                    <button class="nav-btn dropdown-btn">
+                        <span>맛집후기</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
                     <div class="dropdown-menu">
                         <a href="#" class="dropdown-item">후기 작성하기</a>
                         <a href="#" class="dropdown-item">후기 보기</a>
@@ -31,7 +44,10 @@
                 </div>
                 
                 <div class="nav-item-dropdown">
-                    <button class="nav-btn dropdown-btn">다인매치</button>
+                    <button class="nav-btn dropdown-btn">
+                        <span>다인매치</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
                     <div class="dropdown-menu">
                         <a href="#" class="dropdown-item">매치 찾기</a>
                         <a href="#" class="dropdown-item">매치 만들기</a>
@@ -40,7 +56,10 @@
                 </div>
                 
                 <div class="nav-item-dropdown">
-                    <button class="nav-btn dropdown-btn">미식DNA</button>
+                    <button class="nav-btn dropdown-btn">
+                        <span>미식DNA</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
                     <div class="dropdown-menu">
                         <a href="#" class="dropdown-item">DNA 분석</a>
                         <a href="#" class="dropdown-item">취향 설정</a>
@@ -56,63 +75,77 @@
         </nav>
         
         <main class="main-content">
-            <div class="user-info-section fade-in-up">
+            <div class="user-info-section">
+                <div class="section-glow"></div>
+                
                 <div class="user-header">
-                    <div class="user-avatar">👤</div>
+                    <div class="user-avatar">
+                        <span class="avatar-icon">👤</span>
+                        <div class="avatar-ring"></div>
+                    </div>
                     <div class="user-basic-info">
-                        <h2 class="user-name glow-text">홍길동</h2>
+                        <h2 class="user-name">홍길동</h2>
                         <p class="user-membership">회원 가입일: 2024년 1월 15일 (265일)</p>
                     </div>
                 </div>
                 
                 <div class="user-stats-grid">
-                    <div class="stat-card fade-in-up" style="animation-delay: 0.1s">
+                    <div class="stat-card">
+                        <div class="card-glow-small"></div>
                         <div class="stat-icon">💡</div>
                         <div class="stat-info">
                             <div class="stat-label">추천 제공</div>
-                            <div class="stat-value glow-text">48</div>
+                            <div class="stat-value">48</div>
                         </div>
                     </div>
                     
-                    <div class="stat-card fade-in-up" style="animation-delay: 0.2s">
+                    <div class="stat-card">
+                        <div class="card-glow-small"></div>
                         <div class="stat-icon">⭐</div>
                         <div class="stat-info">
                             <div class="stat-label">후기 작성</div>
-                            <div class="stat-value glow-text">32</div>
+                            <div class="stat-value">32</div>
                         </div>
                     </div>
                     
-                    <div class="stat-card fade-in-up" style="animation-delay: 0.3s">
+                    <div class="stat-card">
+                        <div class="card-glow-small"></div>
                         <div class="stat-icon">🎫</div>
                         <div class="stat-info">
                             <div class="stat-label">쿠폰 포인트</div>
-                            <div class="stat-value glow-text">1,250P</div>
+                            <div class="stat-value">1,250P</div>
                         </div>
                     </div>
                     
-                    <div class="stat-card fade-in-up" style="animation-delay: 0.4s">
+                    <div class="stat-card">
+                        <div class="card-glow-small"></div>
                         <div class="stat-icon">👥</div>
                         <div class="stat-info">
                             <div class="stat-label">매칭 참여</div>
-                            <div class="stat-value glow-text">15</div>
+                            <div class="stat-value">15</div>
                         </div>
                     </div>
                 </div>
                 
                 <div class="action-buttons">
-                    <button class="action-btn fade-in-up" style="animation-delay: 0.5s">
+                    <button class="action-btn">
                         <span class="btn-icon">⚙️</span>
                         <span>설정 변경</span>
+                        <div class="btn-shine"></div>
                     </button>
-                    <button class="action-btn fade-in-up" style="animation-delay: 0.6s">
+                    <button class="action-btn">
                         <span class="btn-icon">📊</span>
                         <span>활동 내역</span>
+                        <div class="btn-shine"></div>
                     </button>
                 </div>
             </div>
             
-            <div class="activity-section fade-in-up" style="animation-delay: 0.7s">
-                <h3 class="section-title glow-text">최근 활동</h3>
+            <div class="activity-section">
+                <div class="section-glow"></div>
+                
+                <h3 class="section-title">최근 활동</h3>
+                
                 <div class="activity-list">
                     <div class="activity-item">
                         <div class="activity-icon">💡</div>
@@ -120,6 +153,7 @@
                             <div class="activity-text">강남 이탈리안 레스토랑을 추천했습니다</div>
                             <div class="activity-time">2시간 전</div>
                         </div>
+                        <div class="activity-arrow">→</div>
                     </div>
                     
                     <div class="activity-item">
@@ -128,6 +162,7 @@
                             <div class="activity-text">"서울 김밥" 후기를 작성했습니다</div>
                             <div class="activity-time">5시간 전</div>
                         </div>
+                        <div class="activity-arrow">→</div>
                     </div>
                     
                     <div class="activity-item">
@@ -136,12 +171,32 @@
                             <div class="activity-text">홍대 맛집 투어 매칭에 참여했습니다</div>
                             <div class="activity-time">1일 전</div>
                         </div>
+                        <div class="activity-arrow">→</div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon">🎫</div>
+                        <div class="activity-content">
+                            <div class="activity-text">쿠폰 500P를 획득했습니다</div>
+                            <div class="activity-time">2일 전</div>
+                        </div>
+                        <div class="activity-arrow">→</div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon">💡</div>
+                        <div class="activity-content">
+                            <div class="activity-text">명동 디저트 카페를 추천했습니다</div>
+                            <div class="activity-time">3일 전</div>
+                        </div>
+                        <div class="activity-arrow">→</div>
                     </div>
                 </div>
             </div>
         </main>
     </div>
     
+    <script src="../new/script.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
