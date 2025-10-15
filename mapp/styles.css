@@ -1,5 +1,94 @@
 /* Restaurant Search Page Styles */
 
+/* Dashboard Navbar Styles */
+.dashboard-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-item-dropdown {
+    position: relative;
+}
+
+.dropdown-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.dropdown-arrow {
+    font-size: 0.7rem;
+    transition: transform 0.3s ease;
+}
+
+.nav-item-dropdown:hover .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 1rem);
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(15, 15, 30, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(138, 43, 226, 0.3);
+    border-radius: 12px;
+    padding: 0.5rem;
+    min-width: 180px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) translateY(-10px);
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.nav-item-dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.dropdown-item {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: #c0c0d0;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+}
+
+.dropdown-item:hover {
+    background: rgba(138, 43, 226, 0.2);
+    color: #fff;
+    transform: translateX(5px);
+}
+
+.username-display {
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.2) 0%, rgba(218, 165, 32, 0.2) 100%);
+    border: 1px solid rgba(138, 43, 226, 0.4);
+    border-radius: 8px;
+    color: #e8e8f0;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.logout-btn {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.4);
+}
+
+.logout-btn:hover {
+    background: rgba(239, 68, 68, 0.3);
+    border-color: rgba(239, 68, 68, 0.6);
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+}
+
 .main-content {
     max-width: 1400px;
     margin: 0 auto;
@@ -450,6 +539,18 @@
 
 /* Responsive */
 @media (max-width: 1024px) {
+    .dashboard-navbar {
+        flex-wrap: wrap;
+    }
+    
+    .nav-center {
+        order: 3;
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+    
     .restaurant-grid {
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     }
@@ -481,5 +582,21 @@
     
     .restaurant-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .nav-center {
+        flex-direction: column;
+        width: 100%;
+        gap: 0.5rem;
+    }
+    
+    .dropdown-menu {
+        position: static;
+        transform: none;
+        margin-top: 0.5rem;
+    }
+    
+    .nav-item-dropdown:hover .dropdown-menu {
+        transform: none;
     }
 }
