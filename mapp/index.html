@@ -3,101 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>밥 심 앱 - 맛집 추천</title>
-    <link rel="stylesheet" href="../ggj/styles.css">
+    <title>밥심앱 - 맛집 찾기</title>
+    <link rel="stylesheet" href="../new/styles.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <canvas id="aurora-canvas"></canvas>
-    <div class="sparkles" id="sparkles"></div>
+    <canvas id="gradient-canvas"></canvas>
     
-    <div class="container dashboard-container">
-        <nav class="navbar dashboard-navbar">
+    <div class="shimmer-overlay"></div>
+    
+    <div class="container">
+        <nav class="navbar">
+            <div class="logo-placeholder">
+                <div class="logo-circle"></div>
+            </div>
+            
             <div class="nav-center">
-                <div class="nav-item-dropdown">
-                    <button class="nav-btn dropdown-btn">맛집추천</button>
-                    <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item">추천하기</a>
-                        <a href="#" class="dropdown-item">추천받기</a>
-                    </div>
-                </div>
-                
-                <div class="nav-item-dropdown">
-                    <button class="nav-btn dropdown-btn">맛집후기</button>
-                    <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item">후기 작성하기</a>
-                        <a href="#" class="dropdown-item">후기 보기</a>
-                        <a href="#" class="dropdown-item">내 후기</a>
-                    </div>
-                </div>
-                
-                <div class="nav-item-dropdown">
-                    <button class="nav-btn dropdown-btn">다인매치</button>
-                    <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item">매치 찾기</a>
-                        <a href="#" class="dropdown-item">매치 만들기</a>
-                        <a href="#" class="dropdown-item">내 매치</a>
-                    </div>
-                </div>
-                
-                <div class="nav-item-dropdown">
-                    <button class="nav-btn dropdown-btn">미식DNA</button>
-                    <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item">DNA 분석</a>
-                        <a href="#" class="dropdown-item">취향 설정</a>
-                        <a href="#" class="dropdown-item">추천 맛집</a>
-                    </div>
-                </div>
+                <button class="nav-btn" data-page="dashboard">DASHBOARD</button>
+                <button class="nav-btn active" data-page="search">맛집 찾기</button>
+                <button class="nav-btn" data-page="reviews">내 후기</button>
             </div>
             
             <div class="nav-right">
-                <div class="username-display">홍길동</div>
-                <button class="nav-btn logout-btn">LOGOUT</button>
+                <button class="nav-btn auth-btn" data-action="logout">LOGOUT</button>
             </div>
         </nav>
         
         <main class="main-content">
-            <h1 class="page-title glow-text fade-in-up">맛집 추천하기</h1>
+            <h1 class="page-title">맛집 찾기 & 후기 작성</h1>
             
-            <div class="search-section fade-in-up" style="animation-delay: 0.1s">
-                <div class="search-container">
-                    <input 
-                        type="text" 
-                        id="search-input" 
-                        class="search-input" 
-                        placeholder="방문한 맛집을 검색하세요... (예: 강남역 스시)"
-                    >
-                    <button id="search-btn" class="search-btn">
-                        <span>🔍</span>
-                        <span>검색</span>
-                    </button>
-                </div>
+            <div class="search-section">
+                <div class="section-glow"></div>
                 
-                <div id="search-results" class="search-results"></div>
-            </div>
-            
-            <div class="map-section fade-in-up" style="animation-delay: 0.2s">
-                <div id="map" class="map-container"></div>
-            </div>
-            
-            <div id="selected-restaurant" class="selected-restaurant" style="display: none;">
-                <div class="restaurant-info">
-                    <div class="restaurant-icon">🍽️</div>
-                    <div class="restaurant-details">
-                        <h3 class="restaurant-name" id="restaurant-name"></h3>
-                        <p class="restaurant-address" id="restaurant-address"></p>
-                        <p class="restaurant-type" id="restaurant-type"></p>
+                <div class="search-controls">
+                    <div class="search-input-wrapper">
+                        <input type="text" id="search-input" class="search-input" placeholder="음식점 이름 또는 음식 종류로 검색...">
+                        <div class="search-icon">🔍</div>
+                    </div>
+                    
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-category="all">전체</button>
+                        <button class="filter-btn" data-category="korean">한식</button>
+                        <button class="filter-btn" data-category="western">양식</button>
+                        <button class="filter-btn" data-category="japanese">일식</button>
+                        <button class="filter-btn" data-category="chinese">중식</button>
+                        <button class="filter-btn" data-category="cafe">카페</button>
                     </div>
                 </div>
-                <button id="review-btn" class="review-btn">
-                    <span class="btn-icon">✍️</span>
-                    <span>후기 남기기</span>
-                </button>
+            </div>
+            
+            <div class="location-browser">
+                <div class="section-glow"></div>
+                
+                <h2 class="section-subtitle">지역 선택</h2>
+                
+                <div class="region-map">
+                    <div class="region-item" data-region="gangnam">
+                        <div class="region-label">강남구</div>
+                        <div class="region-count">234</div>
+                    </div>
+                    <div class="region-item" data-region="gangbuk">
+                        <div class="region-label">강북구</div>
+                        <div class="region-count">156</div>
+                    </div>
+                    <div class="region-item" data-region="mapo">
+                        <div class="region-label">마포구</div>
+                        <div class="region-count">198</div>
+                    </div>
+                    <div class="region-item" data-region="jongno">
+                        <div class="region-label">종로구</div>
+                        <div class="region-count">187</div>
+                    </div>
+                    <div class="region-item" data-region="songpa">
+                        <div class="region-label">송파구</div>
+                        <div class="region-count">145</div>
+                    </div>
+                    <div class="region-item" data-region="yongsan">
+                        <div class="region-label">용산구</div>
+                        <div class="region-count">167</div>
+                    </div>
+                    <div class="region-item" data-region="seodaemun">
+                        <div class="region-label">서대문구</div>
+                        <div class="region-count">123</div>
+                    </div>
+                    <div class="region-item" data-region="gwanak">
+                        <div class="region-label">관악구</div>
+                        <div class="region-count">134</div>
+                    </div>
+                </div>
+                
+                <div class="selected-region-info">
+                    <span class="info-label">선택된 지역:</span>
+                    <span class="info-value" id="selected-region">전체</span>
+                </div>
+            </div>
+            
+            <div class="restaurant-list-section">
+                <div class="section-glow"></div>
+                
+                <div class="list-header">
+                    <h2 class="section-subtitle">음식점 목록</h2>
+                    <div class="sort-controls">
+                        <button class="sort-btn active" data-sort="name">이름순</button>
+                        <button class="sort-btn" data-sort="rating">평점순</button>
+                        <button class="sort-btn" data-sort="reviews">후기순</button>
+                    </div>
+                </div>
+                
+                <div class="restaurant-grid" id="restaurant-grid">
+                    <!-- Restaurants will be dynamically loaded here -->
+                </div>
+                
+                <div class="empty-state" id="empty-state" style="display: none;">
+                    <div class="empty-icon">🔍</div>
+                    <p>검색 결과가 없습니다</p>
+                </div>
             </div>
         </main>
     </div>
     
-    <script src="../ggj/script.js"></script>
+    <script src="../new/script.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
