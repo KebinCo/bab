@@ -498,4 +498,66 @@
     .nav-item-dropdown:hover .dropdown-menu {
         transform: none;
     }
+
+
+    /* Theme-aware variables for page-specific elements */
+    body.light-mode .info-block,
+    body.light-mode .login-card,
+    body.light-mode .signup-card,
+    body.light-mode .user-info-section,
+    body.light-mode .activity-section,
+    body.light-mode .search-section,
+    body.light-mode .location-browser,
+    body.light-mode .restaurant-list-section,
+    body.light-mode .restaurant-card,
+    body.light-mode .stat-card,
+    body.light-mode .swipe-card,
+    body.light-mode .match-card,
+    body.light-mode .review-form-container,
+    body.light-mode .feedback-form-container,
+    body.light-mode .matching-container,
+    body.light-mode .matches-section,
+    body.light-mode .chat-sidebar,
+    body.light-mode .chat-window,
+    body.light-mode .chat-item,
+    body.light-mode .message.received .message-bubble {
+        background: var(--bg-card);
+        border-color: var(--border-primary);
+    }
+    
+    body.light-mode .subtitle,
+    body.light-mode .section-title,
+    body.light-mode .user-name,
+    body.light-mode .page-title,
+    body.light-mode .restaurant-name,
+    body.light-mode .stat-label,
+    body.light-mode .activity-text,
+    body.light-mode .profile-name,
+    body.light-mode .chat-name,
+    body.light-mode .user-name-header {
+        color: var(--text-primary);
+    }
+    
+    body.light-mode .description,
+    body.light-mode .user-membership,
+    body.light-mode .stat-value,
+    body.light-mode .activity-time,
+    body.light-mode .restaurant-category,
+    body.light-mode .chat-preview,
+    body.light-mode .message-bubble {
+        color: var(--text-muted);
+    }
+    
+    body.light-mode input,
+    body.light-mode select,
+    body.light-mode textarea {
+        background: var(--bg-input);
+        color: var(--text-primary);
+        border-color: var(--border-primary);
+    }
+    
+    body.light-mode input::placeholder,
+    body.light-mode textarea::placeholder {
+        color: var(--text-muted);
+    }
 }
