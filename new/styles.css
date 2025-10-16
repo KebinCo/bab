@@ -104,17 +104,18 @@ body {
 .logo-placeholder {
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
-.logo-circle {
+.logo-image {
     width: 50px;
     height: 50px;
-    background: linear-gradient(135deg, #8a2be2 0%, #da a520 100%);
     border-radius: 50%;
+    object-fit: cover;
     box-shadow: 0 0 20px rgba(138, 43, 226, 0.4);
-    position: relative;
     animation: pulse 3s ease-in-out infinite;
 }
+
 
 @keyframes pulse {
     0%, 100% { 
