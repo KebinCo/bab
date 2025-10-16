@@ -5,6 +5,7 @@ const ctx = canvas.getContext('2d');
 let w, h;
 let particles = [];
 let mouse = { x: null, y: null };
+let animationId = null;
 
 function resize() {
     w = canvas.width = window.innerWidth;
@@ -39,8 +40,8 @@ if (themeToggle) {
         
         updateThemeIcon();
         
-        // Trigger canvas redraw with new colors
-        animate();
+        // Update particle colors
+        particles.forEach(p => p.updateColor());
     });
 }
 
@@ -60,14 +61,118 @@ class Particle {
         this.vy = (Math.random() - 0.5) * 0.5;
         this.size = Math.random() * 2 + 1;
         this.updateColor();
+        
+        // Random movement
+        this.wanderAngle = Math.random() * Math.PI * 2;
+        this.wanderSpeed = 0.02;
     }
     
     updateColor() {
         const isLight = document.body.classList.contains('light-mode');
         this.color = Math.random() > 0.5 
-            ? (isLight ? 'rgba(138, 43, 226, 0.3)' : 'rgba(138, 43, 226, 0.4)')
-            : (isLight ? 'rgba(218, 165, 32, 0.25)' : 'rgba(218, 165, 32, 0.3)');
+            ? (isLight ? 'rgba(138, 43, 226, 0.6)' : 'rgba(138, 43, 226, 0.7)')
+            : (isLight ? 'rgba(218, 165, 32, 0.5)' : 'rgba(218, 165, 32, 0.6)');
     }
+    
+    update() {
+        // Random wandering movement
+        this.wanderAngle += (Math.random() - 0.5) * 0.3;
+        this.vx += Math.cos(this.wanderAngle) * this.wanderSpeed;
+        this.vy += Math.sin(this.wanderAngle) * this.wanderSpeed;
+        
+        this.x += this.vx;
+        this.y += this.vy;
+        
+        // Mouse interaction
+        if (mouse.x && mouse.y) {
+            const dx = mouse.x - this.x;
+            const dy = mouse.y - this.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            
+            if (dist < 150) {
+                const force = (150 - dist) / 150;
+                this.vx += (dx / dist) * force * 0.1;
+                this.vy += (dy / dist) * force * 0.1;
+            }
+        }
+        
+        // Boundary wrap
+        if (this.x < 0) this.x = w;
+        if (this.x > w) this.x = 0;
+        if (this.y < 0) this.y = h;
+        if (this.y > h) this.y = 0;
+        
+        // Velocity damping
+        this.vx *= 0.99;
+        this.vy *= 0.99;
+    }
+    
+    draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+// Initialize particles only once
+if (particles.length === 0) {
+    for (let i = 0; i < 100; i++) {
+        particles.push(new Particle());
+    }
+}
+
+// Animation loop
+function animate() {
+    const isLight = document.body.classList.contains('light-mode');
+    
+    // Create gradient background based on theme
+    const gradient = ctx.createLinearGradient(0, 0, w, h);
+    if (isLight) {
+        gradient.addColorStop(0, '#f8f9fa');
+        gradient.addColorStop(0.5, '#e9ecef');
+        gradient.addColorStop(1, '#f8f9fa');
+    } else {
+        gradient.addColorStop(0, '#0a0a14');
+        gradient.addColorStop(0.5, '#12121e');
+        gradient.addColorStop(1, '#0a0a14');
+    }
+    
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, w, h);
+    
+    // Update and draw particles
+    particles.forEach(p => {
+        p.update();
+        p.draw();
+    });
+    
+    // Connect nearby particles
+    particles.forEach((p1, i) => {
+        particles.slice(i + 1).forEach(p2 => {
+            const dx = p1.x - p2.x;
+            const dy = p1.y - p2.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            
+            if (dist < 120) {
+                const opacity = isLight ? 0.3 : 0.4;
+                ctx.strokeStyle = `rgba(138, 43, 226, ${opacity * (1 - dist / 120)})`;
+                ctx.lineWidth = 0.5;
+                ctx.beginPath();
+                ctx.moveTo(p1.x, p1.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.stroke();
+            }
+        });
+    });
+    
+    animationId = requestAnimationFrame(animate);
+}
+
+// Start animation only once
+if (!animationId) {
+    animate();
+}
     
     update() {
         this.x += this.vx;
