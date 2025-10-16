@@ -40,7 +40,7 @@ if (themeToggle) {
         
         updateThemeIcon();
         
-        // Update particle colors
+        // Update particle colors immediately
         particles.forEach(p => p.updateColor());
     });
 }
@@ -52,36 +52,36 @@ function updateThemeIcon() {
     }
 }
 
-// Particle system for silk-like flowing effect
+// Particle system for silk-like flowing effect with random movement
 class Particle {
     constructor() {
         this.x = Math.random() * w;
         this.y = Math.random() * h;
-        this.vx = (Math.random() - 0.5) * 0.5;
-        this.vy = (Math.random() - 0.5) * 0.5;
+        this.vx = (Math.random() - 0.5) * 0.3;
+        this.vy = (Math.random() - 0.5) * 0.3;
         this.size = Math.random() * 2 + 1;
-        this.updateColor();
         
-        // Random movement
-        this.wanderAngle = Math.random() * Math.PI * 2;
-        this.wanderSpeed = 0.02;
+        // Random movement parameters
+        this.angle = Math.random() * Math.PI * 2;
+        this.angleVelocity = (Math.random() - 0.5) * 0.02;
+        this.randomForce = Math.random() * 0.02 + 0.01;
+        
+        this.updateColor();
     }
     
     updateColor() {
         const isLight = document.body.classList.contains('light-mode');
+        // Make particles stand out more - brighter in dark mode, darker in light mode
         this.color = Math.random() > 0.5 
             ? (isLight ? 'rgba(138, 43, 226, 0.6)' : 'rgba(138, 43, 226, 0.7)')
-            : (isLight ? 'rgba(218, 165, 32, 0.5)' : 'rgba(218, 165, 32, 0.6)');
+            : (isLight ? 'rgba(218, 165, 32, 0.55)' : 'rgba(218, 165, 32, 0.6)');
     }
     
     update() {
-        // Random wandering movement
-        this.wanderAngle += (Math.random() - 0.5) * 0.3;
-        this.vx += Math.cos(this.wanderAngle) * this.wanderSpeed;
-        this.vy += Math.sin(this.wanderAngle) * this.wanderSpeed;
-        
-        this.x += this.vx;
-        this.y += this.vy;
+        // Add random movement even without cursor
+        this.angle += this.angleVelocity;
+        this.vx += Math.cos(this.angle) * this.randomForce;
+        this.vy += Math.sin(this.angle) * this.randomForce;
         
         // Mouse interaction
         if (mouse.x && mouse.y) {
@@ -96,6 +96,10 @@ class Particle {
             }
         }
         
+        // Update position
+        this.x += this.vx;
+        this.y += this.vy;
+        
         // Boundary wrap
         if (this.x < 0) this.x = w;
         if (this.x > w) this.x = 0;
@@ -103,8 +107,15 @@ class Particle {
         if (this.y > h) this.y = 0;
         
         // Velocity damping
-        this.vx *= 0.99;
-        this.vy *= 0.99;
+        this.vx *= 0.98;
+        this.vy *= 0.98;
+        
+        // Keep minimum movement
+        const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+        if (speed < 0.1) {
+            this.vx += (Math.random() - 0.5) * 0.05;
+            this.vy += (Math.random() - 0.5) * 0.05;
+        }
     }
     
     draw() {
@@ -116,11 +127,14 @@ class Particle {
 }
 
 // Initialize particles only once
-if (particles.length === 0) {
+function initParticles() {
+    particles = [];
     for (let i = 0; i < 100; i++) {
         particles.push(new Particle());
     }
 }
+
+initParticles();
 
 // Animation loop
 function animate() {
@@ -147,7 +161,7 @@ function animate() {
         p.draw();
     });
     
-    // Connect nearby particles
+    // Connect nearby particles with more visible lines
     particles.forEach((p1, i) => {
         particles.slice(i + 1).forEach(p2 => {
             const dx = p1.x - p2.x;
@@ -155,9 +169,10 @@ function animate() {
             const dist = Math.sqrt(dx * dx + dy * dy);
             
             if (dist < 120) {
-                const opacity = isLight ? 0.3 : 0.4;
+                // Make connection lines stand out more based on theme
+                const opacity = isLight ? 0.3 : 0.35;
                 ctx.strokeStyle = `rgba(138, 43, 226, ${opacity * (1 - dist / 120)})`;
-                ctx.lineWidth = 0.5;
+                ctx.lineWidth = 0.8;
                 ctx.beginPath();
                 ctx.moveTo(p1.x, p1.y);
                 ctx.lineTo(p2.x, p2.y);
@@ -169,114 +184,7 @@ function animate() {
     animationId = requestAnimationFrame(animate);
 }
 
-// Start animation only once
-if (!animationId) {
-    animate();
-}
-    
-    update() {
-        this.x += this.vx;
-        this.y += this.vy;
-        
-        // Mouse interaction
-        if (mouse.x && mouse.y) {
-            const dx = mouse.x - this.x;
-            const dy = mouse.y - this.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            
-            if (dist < 150) {
-                const force = (150 - dist) / 150;
-                this.vx += (dx / dist) * force * 0.1;
-                this.vy += (dy / dist) * force * 0.1;
-            }
-        }
-        
-        // Boundary wrap
-        if (this.x < 0) this.x = w;
-        if (this.x > w) this.x = 0;
-        if (this.y < 0) this.y = h;
-        if (this.y > h) this.y = 0;
-        
-        // Velocity damping
-        this.vx *= 0.99;
-        this.vy *= 0.99;
-    }
-    
-    draw() {
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-    }
-}
-
-// Initialize particles
-for (let i = 0; i < 100; i++) {
-    particles.push(new Particle());
-}
-
-// Animation loop
-function animate() {
-    const isLight = document.body.classList.contains('light-mode');
-    
-    // Create gradient background based on theme
-    const gradient = ctx.createLinearGradient(0, 0, w, h);
-    if (isLight) {
-        gradient.addColorStop(0, '#f8f9fa');
-        gradient.addColorStop(0.5, '#e9ecef');
-        gradient.addColorStop(1, '#f8f9fa');
-    } else {
-        gradient.addColorStop(0, '#0a0a14');
-        gradient.addColorStop(0.5, '#12121e');
-        gradient.addColorStop(1, '#0a0a14');
-    }
-    
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, w, h);
-    
-    // Update particle colors if theme changed
-    particles.forEach(p => {
-        if (p.needsColorUpdate) {
-            p.updateColor();
-            p.needsColorUpdate = false;
-        }
-    });
-    
-    // Update and draw particles
-    particles.forEach(p => {
-        p.update();
-        p.draw();
-    });
-    
-    // Connect nearby particles
-    particles.forEach((p1, i) => {
-        particles.slice(i + 1).forEach(p2 => {
-            const dx = p1.x - p2.x;
-            const dy = p1.y - p2.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            
-            if (dist < 120) {
-                const opacity = isLight ? 0.15 : 0.2;
-                ctx.strokeStyle = `rgba(138, 43, 226, ${opacity * (1 - dist / 120)})`;
-                ctx.lineWidth = 0.5;
-                ctx.beginPath();
-                ctx.moveTo(p1.x, p1.y);
-                ctx.lineTo(p2.x, p2.y);
-                ctx.stroke();
-            }
-        });
-    });
-    
-    requestAnimationFrame(animate);
-}
-
-// Mark particles for color update on theme change
-if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-        particles.forEach(p => p.needsColorUpdate = true);
-    });
-}
-
+// Start animation
 animate();
 
 // Info block glow follow mouse
@@ -289,8 +197,10 @@ infoBlocks.forEach(block => {
         const y = e.clientY - rect.top;
         
         const glow = block.querySelector('.block-glow');
-        glow.style.left = `${x - glow.offsetWidth / 2}px`;
-        glow.style.top = `${y - glow.offsetHeight / 2}px`;
+        if (glow) {
+            glow.style.left = `${x - glow.offsetWidth / 2}px`;
+            glow.style.top = `${y - glow.offsetHeight / 2}px`;
+        }
     });
 });
 
@@ -356,5 +266,7 @@ document.head.appendChild(style);
 window.addEventListener('scroll', () => {
     const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
     const shimmer = document.querySelector('.shimmer-overlay');
-    shimmer.style.opacity = 0.3 + (scrollPercent * 0.3);
+    if (shimmer) {
+        shimmer.style.opacity = 0.3 + (scrollPercent * 0.3);
+    }
 });
