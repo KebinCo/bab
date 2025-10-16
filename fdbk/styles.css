@@ -1,0 +1,485 @@
+/* Feedback Page Styles */
+
+/* Dashboard Navbar */
+.dashboard-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-item-dropdown {
+    position: relative;
+}
+
+.dropdown-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.dropdown-arrow {
+    font-size: 0.7rem;
+    transition: transform 0.3s ease;
+}
+
+.nav-item-dropdown:hover .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 1rem);
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(15, 15, 30, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(138, 43, 226, 0.3);
+    border-radius: 12px;
+    padding: 0.5rem;
+    min-width: 180px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) translateY(-10px);
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.nav-item-dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.dropdown-item {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: #c0c0d0;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+}
+
+.dropdown-item:hover {
+    background: rgba(138, 43, 226, 0.2);
+    color: #fff;
+    transform: translateX(5px);
+}
+
+.active-dropdown {
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.3) 0%, rgba(218, 165, 32, 0.3) 100%);
+    border-color: rgba(138, 43, 226, 0.6);
+    color: #fff;
+}
+
+.username-display {
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.2) 0%, rgba(218, 165, 32, 0.2) 100%);
+    border: 1px solid rgba(138, 43, 226, 0.4);
+    border-radius: 8px;
+    color: #e8e8f0;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.logout-btn {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.4);
+}
+
+.logout-btn:hover {
+    background: rgba(239, 68, 68, 0.3);
+    border-color: rgba(239, 68, 68, 0.6);
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+}
+
+/* Main Content */
+.main-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.feedback-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #8a2be2 0%, #daa520 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.page-subtitle {
+    font-size: 1.1rem;
+    color: #b0b0c8;
+    margin-bottom: 1rem;
+}
+
+.feedback-info {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    background: rgba(138, 43, 226, 0.1);
+    border: 1px solid rgba(138, 43, 226, 0.3);
+    border-radius: 10px;
+    margin-top: 1rem;
+}
+
+.info-icon {
+    font-size: 1.25rem;
+}
+
+.info-text {
+    font-size: 0.9rem;
+    color: #c0c0d0;
+}
+
+/* Feedback Form Container */
+.feedback-form-container {
+    background: rgba(15, 15, 30, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(138, 43, 226, 0.3);
+    border-radius: 20px;
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 0 40px rgba(138, 43, 226, 0.1);
+}
+
+.section-glow {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(138, 43, 226, 0.15) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.feedback-form-container:hover .section-glow {
+    opacity: 1;
+}
+
+/* Form Sections */
+.feedback-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.form-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, #8a2be2 0%, #daa520 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0;
+}
+
+.section-description {
+    font-size: 0.95rem;
+    color: #b0b0c8;
+    margin-top: -0.5rem;
+}
+
+/* Form Groups */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: relative;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.form-group label {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #c0c0d0;
+    letter-spacing: 0.5px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    background: rgba(10, 10, 20, 0.6);
+    border: 1px solid rgba(138, 43, 226, 0.2);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+    color: #e8e8f0;
+    transition: all 0.3s ease;
+    outline: none;
+    font-family: inherit;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #606070;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: rgba(138, 43, 226, 0.6);
+    background: rgba(10, 10, 20, 0.8);
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.2);
+}
+
+.input-border {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, #8a2be2 0%, #daa520 100%);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+    border-radius: 0 0 10px 10px;
+}
+
+.form-group input:focus + .input-border,
+.form-group textarea:focus + .input-border {
+    transform: scaleX(1);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+.char-counter {
+    text-align: right;
+    font-size: 0.85rem;
+    color: #808090;
+}
+
+/* Issue Categories */
+.issue-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+}
+
+.issue-card {
+    cursor: pointer;
+    position: relative;
+}
+
+.issue-card input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.card-content {
+    background: rgba(10, 10, 20, 0.6);
+    border: 2px solid rgba(138, 43, 226, 0.2);
+    border-radius: 12px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.issue-card:hover .card-content {
+    border-color: rgba(138, 43, 226, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(138, 43, 226, 0.2);
+}
+
+.issue-card input[type="checkbox"]:checked + .card-content {
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.3) 0%, rgba(218, 165, 32, 0.3) 100%);
+    border-color: #8a2be2;
+    box-shadow: 0 0 30px rgba(138, 43, 226, 0.4);
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-label {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #e8e8f0;
+    margin-bottom: 0.25rem;
+}
+
+.card-description {
+    font-size: 0.85rem;
+    color: #b0b0c8;
+}
+
+/* Severity Scale */
+.severity-scale {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+}
+
+.severity-option {
+    cursor: pointer;
+    position: relative;
+}
+
+.severity-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.severity-content {
+    background: rgba(10, 10, 20, 0.6);
+    border: 2px solid rgba(138, 43, 226, 0.2);
+    border-radius: 12px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.severity-option:hover .severity-content {
+    border-color: rgba(138, 43, 226, 0.4);
+    transform: translateY(-3px);
+}
+
+.severity-option input[type="radio"]:checked + .severity-content {
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.3) 0%, rgba(218, 165, 32, 0.3) 100%);
+    border-color: #8a2be2;
+    box-shadow: 0 0 30px rgba(138, 43, 226, 0.4);
+}
+
+.severity-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.severity-label {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #e8e8f0;
+    margin-bottom: 0.25rem;
+}
+
+.severity-desc {
+    font-size: 0.85rem;
+    color: #b0b0c8;
+}
+
+/* Checkboxes */
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkbox-custom {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    border: 2px solid rgba(138, 43, 226, 0.4);
+    border-radius: 6px;
+    background: rgba(10, 10, 20, 0.6);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.checkbox-custom::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 8px;
+    width: 6px;
+    height: 12px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg) scale(0);
+    transition: transform 0.2s ease;
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkbox-custom {
+    background: linear-gradient(135deg, #8a2be2 0%, #daa520 100%);
+    border-color: #8a2be2;
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkbox-custom::after {
+    transform: rotate(45deg) scale(1);
+}
+
+.checkbox-text {
+    font-size: 1rem;
+    color: #e8e8f0;
+}
+
+/* Contact Info */
+.contact-info {
+    margin-top: 1rem;
+    padding: 1.5rem;
+    background: rgba(138, 43, 226, 0.05);
+    border: 1px solid rgba(138, 43, 226, 0.2);
+    border-radius: 12px;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Form Actions */
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+.cancel-btn,
+.submit-btn {
+    padding: 1.1rem 2.5rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border-radius: 12px;
