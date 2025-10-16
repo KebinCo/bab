@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>밥심앱 - 다인매치</title>
+    <link rel="stylesheet" href="../new/styles.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <canvas id="gradient-canvas"></canvas>
+    
+    <div class="shimmer-overlay"></div>
+    
+    <div class="container">
+        <nav class="navbar dashboard-navbar">
+            <div class="logo-placeholder">
+                <div class="logo-circle"></div>
+            </div>
+            
+            <div class="nav-center">
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>맛집추천</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">추천하기</a>
+                        <a href="#" class="dropdown-item">추천받기</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>맛집후기</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">후기 작성하기</a>
+                        <a href="#" class="dropdown-item">후기 보기</a>
+                        <a href="#" class="dropdown-item">내 후기</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn active-dropdown">
+                        <span>다인매치</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">매치 찾기</a>
+                        <a href="#" class="dropdown-item">매치 만들기</a>
+                        <a href="#" class="dropdown-item">내 매치</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>미식DNA</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">DNA 분석</a>
+                        <a href="#" class="dropdown-item">취향 설정</a>
+                        <a href="#" class="dropdown-item">추천 맛집</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="nav-right">
+                <div class="username-display">홍길동</div>
+                <button class="nav-btn logout-btn">LOGOUT</button>
+            </div>
+        </nav>
+        
+        <main class="main-content">
+            <h1 class="page-title">다인매치</h1>
+            <p class="page-subtitle">함께 식사할 사람을 찾아보세요</p>
+            
+            <div class="matching-container">
+                <div class="section-glow"></div>
+                
+                <div class="swipe-cards-wrapper" id="swipe-cards-wrapper">
+                    <!-- Cards will be dynamically loaded here -->
+                </div>
+                
+                <div class="empty-state" id="empty-state" style="display: none;">
+                    <div class="empty-icon">🎉</div>
+                    <h3>모든 프로필을 확인했습니다!</h3>
+                    <p>새로운 매치를 기다려주세요</p>
+                    <button class="reset-btn" id="reset-btn">다시 보기</button>
+                </div>
+                
+                <div class="swipe-actions">
+                    <button class="action-button pass-btn" id="pass-btn" title="패스">
+                        <span class="action-icon">✕</span>
+                    </button>
+                    <button class="action-button undo-btn" id="undo-btn" title="되돌리기">
+                        <span class="action-icon">↺</span>
+                    </button>
+                    <button class="action-button match-btn" id="match-btn" title="매치 요청">
+                        <span class="action-icon">❤</span>
+                    </button>
+                </div>
+                
+                <div class="match-counter">
+                    <span class="counter-label">남은 프로필:</span>
+                    <span class="counter-value" id="remaining-count">0</span>
+                </div>
+            </div>
+            
+            <div class="matches-section">
+                <div class="section-glow"></div>
+                
+                <h2 class="section-title">내 매치 요청</h2>
+                
+                <div class="matches-grid" id="matches-grid">
+                    <!-- Matched profiles will appear here -->
+                </div>
+                
+                <div class="empty-matches" id="empty-matches">
+                    <p>아직 매치 요청이 없습니다</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="../new/script.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
