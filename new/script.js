@@ -20,6 +20,37 @@ document.addEventListener('mousemove', (e) => {
     mouse.y = e.clientY;
 });
 
+// Check for saved theme preference or default to dark mode
+const currentTheme = localStorage.getItem('theme') || 'dark';
+if (currentTheme === 'light') {
+    document.body.classList.add('light-mode');
+    updateThemeIcon();
+}
+
+// Theme toggle functionality
+const themeToggle = document.getElementById('theme-toggle');
+
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('light-mode');
+        
+        const theme = document.body.classList.contains('light-mode') ? 'light' : 'dark';
+        localStorage.setItem('theme', theme);
+        
+        updateThemeIcon();
+        
+        // Trigger canvas redraw with new colors
+        animate();
+    });
+}
+
+function updateThemeIcon() {
+    const themeIcon = document.querySelector('.theme-icon');
+    if (themeIcon) {
+        themeIcon.textContent = document.body.classList.contains('light-mode') ? '☀️' : '🌙';
+    }
+}
+
 // Particle system for silk-like flowing effect
 class Particle {
     constructor() {
@@ -28,7 +59,14 @@ class Particle {
         this.vx = (Math.random() - 0.5) * 0.5;
         this.vy = (Math.random() - 0.5) * 0.5;
         this.size = Math.random() * 2 + 1;
-        this.color = Math.random() > 0.5 ? 'rgba(138, 43, 226, 0.4)' : 'rgba(218, 165, 32, 0.3)';
+        this.updateColor();
+    }
+    
+    updateColor() {
+        const isLight = document.body.classList.contains('light-mode');
+        this.color = Math.random() > 0.5 
+            ? (isLight ? 'rgba(138, 43, 226, 0.3)' : 'rgba(138, 43, 226, 0.4)')
+            : (isLight ? 'rgba(218, 165, 32, 0.25)' : 'rgba(218, 165, 32, 0.3)');
     }
     
     update() {
@@ -74,14 +112,30 @@ for (let i = 0; i < 100; i++) {
 
 // Animation loop
 function animate() {
-    // Create gradient background
+    const isLight = document.body.classList.contains('light-mode');
+    
+    // Create gradient background based on theme
     const gradient = ctx.createLinearGradient(0, 0, w, h);
-    gradient.addColorStop(0, '#0a0a14');
-    gradient.addColorStop(0.5, '#12121e');
-    gradient.addColorStop(1, '#0a0a14');
+    if (isLight) {
+        gradient.addColorStop(0, '#f8f9fa');
+        gradient.addColorStop(0.5, '#e9ecef');
+        gradient.addColorStop(1, '#f8f9fa');
+    } else {
+        gradient.addColorStop(0, '#0a0a14');
+        gradient.addColorStop(0.5, '#12121e');
+        gradient.addColorStop(1, '#0a0a14');
+    }
     
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, w, h);
+    
+    // Update particle colors if theme changed
+    particles.forEach(p => {
+        if (p.needsColorUpdate) {
+            p.updateColor();
+            p.needsColorUpdate = false;
+        }
+    });
     
     // Update and draw particles
     particles.forEach(p => {
@@ -97,7 +151,8 @@ function animate() {
             const dist = Math.sqrt(dx * dx + dy * dy);
             
             if (dist < 120) {
-                ctx.strokeStyle = `rgba(138, 43, 226, ${0.2 * (1 - dist / 120)})`;
+                const opacity = isLight ? 0.15 : 0.2;
+                ctx.strokeStyle = `rgba(138, 43, 226, ${opacity * (1 - dist / 120)})`;
                 ctx.lineWidth = 0.5;
                 ctx.beginPath();
                 ctx.moveTo(p1.x, p1.y);
@@ -108,6 +163,13 @@ function animate() {
     });
     
     requestAnimationFrame(animate);
+}
+
+// Mark particles for color update on theme change
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        particles.forEach(p => p.needsColorUpdate = true);
+    });
 }
 
 animate();
