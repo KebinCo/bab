@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>밥심앱 - 개선 피드백</title>
+    <link rel="stylesheet" href="../new/styles.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <canvas id="gradient-canvas"></canvas>
+    
+    <div class="shimmer-overlay"></div>
+    
+    <div class="container">
+        <nav class="navbar dashboard-navbar">
+            <div class="logo-placeholder">
+                <div class="logo-circle"></div>
+            </div>
+            
+            <div class="nav-center">
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>맛집추천</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">추천하기</a>
+                        <a href="#" class="dropdown-item">추천받기</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn active-dropdown">
+                        <span>맛집후기</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">후기 작성하기</a>
+                        <a href="#" class="dropdown-item">후기 보기</a>
+                        <a href="#" class="dropdown-item">내 후기</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>다인매치</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">매치 찾기</a>
+                        <a href="#" class="dropdown-item">매치 만들기</a>
+                        <a href="#" class="dropdown-item">내 매치</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>미식DNA</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">DNA 분석</a>
+                        <a href="#" class="dropdown-item">취향 설정</a>
+                        <a href="#" class="dropdown-item">추천 맛집</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="nav-right">
+                <div class="username-display">홍길동</div>
+                <button class="nav-btn logout-btn">LOGOUT</button>
+            </div>
+        </nav>
+        
+        <main class="main-content">
+            <div class="feedback-header">
+                <h1 class="page-title">개선 피드백 제출</h1>
+                <p class="page-subtitle">음식점 개선을 위한 건설적인 피드백을 남겨주세요</p>
+                <div class="feedback-info">
+                    <span class="info-icon">💡</span>
+                    <span class="info-text">귀하의 피드백은 익명으로 음식점 운영자에게 전달됩니다</span>
+                </div>
+            </div>
+            
+            <div class="feedback-form-container">
+                <div class="section-glow"></div>
+                
+                <form class="feedback-form" id="feedback-form">
+                    <!-- Restaurant Selection -->
+                    <div class="form-section">
+                        <h3 class="section-title">음식점 정보</h3>
+                        
+                        <div class="form-group">
+                            <label for="restaurant-name">음식점 이름 *</label>
+                            <input type="text" id="restaurant-name" name="restaurant-name" placeholder="음식점 이름을 입력하세요" required>
+                            <div class="input-border"></div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="location">위치 *</label>
+                                <input type="text" id="location" name="location" placeholder="예: 강남역 3번 출구" required>
+                                <div class="input-border"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="visit-date">방문 날짜</label>
+                                <input type="date" id="visit-date" name="visit-date">
+                                <div class="input-border"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Issue Categories -->
+                    <div class="form-section">
+                        <h3 class="section-title">개선이 필요한 부분</h3>
+                        <p class="section-description">해당하는 항목을 모두 선택해주세요 (복수 선택 가능)</p>
+                        
+                        <div class="issue-categories">
+                            <label class="issue-card">
+                                <input type="checkbox" name="issue" value="food-quality">
+                                <div class="card-content">
+                                    <div class="card-icon">🍽️</div>
+                                    <div class="card-label">음식 품질</div>
+                                    <div class="card-description">맛, 신선도, 온도 등</div>
+                                </div>
+                            </label>
+                            
+                            <label class="issue-card">
+                                <input type="checkbox" name="issue" value="service">
+                                <div class="card-content">
+                                    <div class="card-icon">👨‍🍳</div>
+                                    <div class="card-label">서비스</div>
+                                    <div class="card-description">직원 응대, 주문 속도 등</div>
+                                </div>
+                            </label>
+                            
+                            <label class="issue-card">
+                                <input type="checkbox" name="issue" value="cleanliness">
+                                <div class="card-content">
+                                    <div class="card-icon">✨</div>
+                                    <div class="card-label">청결도</div>
+                                    <div class="card-description">매장, 테이블, 화장실 등</div>
+                                </div>
+                            </label>
+                            
+                            <label class="issue-card">
+                                <input type="checkbox" name="issue" value="atmosphere">
+                                <div class="card-content">
+                                    <div class="card-icon">🏠</div>
+                                    <div class="card-label">분위기</div>
+                                    <div class="card-description">소음, 조명, 인테리어 등</div>
+                                </div>
+                            </label>
+                            
+                            <label class="issue-card">
+                                <input type="checkbox" name="issue" value="pricing">
+                                <div class="card-content">
+                                    <div class="card-icon">💰</div>
+                                    <div class="card-label">가격</div>
+                                    <div class="card-description">가성비, 가격 정책 등</div>
+                                </div>
+                            </label>
+                            
+                            <label class="issue-card">
+                                <input type="checkbox" name="issue" value="waiting">
+                                <div class="card-content">
+                                    <div class="card-icon">⏰</div>
+                                    <div class="card-label">대기 시간</div>
+                                    <div class="card-description">웨이팅, 음식 제공 속도 등</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Severity Rating -->
+                    <div class="form-section">
+                        <h3 class="section-title">문제 심각도</h3>
+                        <p class="section-description">이번 방문 경험의 전반적인 만족도를 선택해주세요</p>
+                        
+                        <div class="severity-scale">
+                            <label class="severity-option">
+                                <input type="radio" name="severity" value="minor" required>
+                                <div class="severity-content">
+                                    <div class="severity-icon">😊</div>
+                                    <div class="severity-label">경미</div>
+                                    <div class="severity-desc">작은 개선이 필요</div>
+                                </div>
+                            </label>
+                            
+                            <label class="severity-option">
+                                <input type="radio" name="severity" value="moderate" required>
+                                <div class="severity-content">
+                                    <div class="severity-icon">😐</div>
+                                    <div class="severity-label">보통</div>
+                                    <div class="severity-desc">개선이 필요</div>
+                                </div>
+                            </label>
+                            
+                            <label class="severity-option">
+                                <input type="radio" name="severity" value="serious" required>
+                                <div class="severity-content">
+                                    <div class="severity-icon">😟</div>
+                                    <div class="severity-label">심각</div>
+                                    <div class="severity-desc">즉각 개선 필요</div>
+                                </div>
+                            </label>
+                            
+                            <label class="severity-option">
+                                <input type="radio" name="severity" value="critical" required>
+                                <div class="severity-content">
+                                    <div class="severity-icon">😡</div>
+                                    <div class="severity-label">매우 심각</div>
+                                    <div class="severity-desc">시급한 조치 필요</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Detailed Feedback -->
+                    <div class="form-section">
+                        <h3 class="section-title">상세 피드백</h3>
+                        
+                        <div class="form-group">
+                            <label for="feedback-title">제목 *</label>
+                            <input type="text" id="feedback-title" name="feedback-title" placeholder="피드백 제목을 입력하세요" required>
+                            <div class="input-border"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="feedback-content">구체적인 상황 설명 *</label>
+                            <textarea id="feedback-content" name="feedback-content" rows="8" placeholder="구체적인 상황과 개선 방향을 설명해주세요&#10;&#10;• 언제, 어떤 상황에서 문제가 발생했나요?&#10;• 어떤 점이 불편했나요?&#10;• 어떻게 개선되면 좋을까요?&#10;&#10;예시: 점심시간에 방문했는데 직원이 부족해 보였고, 주문 후 음식이 나오기까지 40분이 걸렸습니다. 피크타임에 직원을 더 배치하시면 좋을 것 같습니다." required></textarea>
+                            <div class="char-counter">
+                                <span id="char-count">0</span> / 1000자
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="improvement-suggestion">개선 제안</label>
+                            <textarea id="improvement-suggestion" name="improvement-suggestion" rows="4" placeholder="운영자에게 전달하고 싶은 구체적인 개선 제안을 작성해주세요"></textarea>
+                        </div>
+                    </div>
+                    
+                    <!-- Contact Preference -->
+                    <div class="form-section">
+                        <h3 class="section-title">피드백 옵션</h3>
+                        
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="anonymous" name="anonymous" checked>
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-text">익명으로 제출 (권장)</span>
+                            </label>
+                            
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="response-wanted" name="response-wanted">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-text">운영자의 답변을 받고 싶습니다</span>
+                            </label>
+                            
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="public-share" name="public-share">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-text">다른 사용자에게 공개 (익명)</span>
+                            </label>
+                        </div>
+                        
+                        <div class="contact-info" id="contact-info" style="display: none;">
+                            <div class="form-group">
+                                <label for="contact-email">답변 받을 이메일</label>
+                                <input type="email" id="contact-email" name="contact-email" placeholder="example@email.com">
+                                <div class="input-border"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Submit Buttons -->
+                    <div class="form-actions">
+                        <button type="button" class="cancel-btn" id="cancel-btn">취소</button>
+                        <button type="submit" class="submit-btn">
+                            <span class="btn-text">피드백 제출</span>
+                            <div class="btn-glow"></div>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+    
+    <script src="../new/script.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
