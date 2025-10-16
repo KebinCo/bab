@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>밥심앱 - 후기 작성</title>
+    <link rel="stylesheet" href="../new/styles.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <canvas id="gradient-canvas"></canvas>
+    
+    <div class="shimmer-overlay"></div>
+    
+    <div class="container">
+        <nav class="navbar dashboard-navbar">
+            <div class="logo-placeholder">
+                <div class="logo-circle"></div>
+            </div>
+            
+            <div class="nav-center">
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>맛집추천</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">추천하기</a>
+                        <a href="#" class="dropdown-item">추천받기</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn active-dropdown">
+                        <span>맛집후기</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">후기 작성하기</a>
+                        <a href="#" class="dropdown-item">후기 보기</a>
+                        <a href="#" class="dropdown-item">내 후기</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>다인매치</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">매치 찾기</a>
+                        <a href="#" class="dropdown-item">매치 만들기</a>
+                        <a href="#" class="dropdown-item">내 매치</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>미식DNA</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">DNA 분석</a>
+                        <a href="#" class="dropdown-item">취향 설정</a>
+                        <a href="#" class="dropdown-item">추천 맛집</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="nav-right">
+                <div class="username-display">홍길동</div>
+                <button class="nav-btn logout-btn">LOGOUT</button>
+            </div>
+        </nav>
+        
+        <main class="main-content">
+            <div class="review-header">
+                <h1 class="page-title">맛집 후기 작성</h1>
+                <p class="page-subtitle">방문하신 맛집의 후기를 공유해주세요</p>
+            </div>
+            
+            <div class="review-form-container">
+                <div class="section-glow"></div>
+                
+                <form class="review-form" id="review-form">
+                    <!-- Restaurant Selection -->
+                    <div class="form-section">
+                        <h3 class="section-title">음식점 정보</h3>
+                        
+                        <div class="form-group">
+                            <label for="restaurant-name">음식점 이름 *</label>
+                            <input type="text" id="restaurant-name" name="restaurant-name" placeholder="음식점 이름을 입력하세요" required>
+                            <div class="input-border"></div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="category">음식 카테고리 *</label>
+                                <select id="category" name="category" required>
+                                    <option value="">선택하세요</option>
+                                    <option value="korean">한식</option>
+                                    <option value="western">양식</option>
+                                    <option value="japanese">일식</option>
+                                    <option value="chinese">중식</option>
+                                    <option value="cafe">카페/디저트</option>
+                                    <option value="fusion">퓨전</option>
+                                    <option value="other">기타</option>
+                                </select>
+                                <div class="input-border"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="location">위치 *</label>
+                                <input type="text" id="location" name="location" placeholder="예: 강남역 3번 출구" required>
+                                <div class="input-border"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Rating -->
+                    <div class="form-section">
+                        <h3 class="section-title">평가</h3>
+                        
+                        <div class="rating-container">
+                            <label class="rating-label">전체 평점 *</label>
+                            <div class="star-rating" id="star-rating">
+                                <span class="star" data-value="1">★</span>
+                                <span class="star" data-value="2">★</span>
+                                <span class="star" data-value="3">★</span>
+                                <span class="star" data-value="4">★</span>
+                                <span class="star" data-value="5">★</span>
+                            </div>
+                            <div class="rating-value" id="rating-value">0.0</div>
+                        </div>
+                        
+                        <div class="detailed-ratings">
+                            <div class="rating-item">
+                                <label>맛</label>
+                                <div class="slider-container">
+                                    <input type="range" id="taste-rating" min="0" max="5" step="0.5" value="0" class="rating-slider">
+                                    <span class="slider-value" id="taste-value">0.0</span>
+                                </div>
+                            </div>
+                            
+                            <div class="rating-item">
+                                <label>서비스</label>
+                                <div class="slider-container">
+                                    <input type="range" id="service-rating" min="0" max="5" step="0.5" value="0" class="rating-slider">
+                                    <span class="slider-value" id="service-value">0.0</span>
+                                </div>
+                            </div>
+                            
+                            <div class="rating-item">
+                                <label>분위기</label>
+                                <div class="slider-container">
+                                    <input type="range" id="atmosphere-rating" min="0" max="5" step="0.5" value="0" class="rating-slider">
+                                    <span class="slider-value" id="atmosphere-value">0.0</span>
+                                </div>
+                            </div>
+                            
+                            <div class="rating-item">
+                                <label>가성비</label>
+                                <div class="slider-container">
+                                    <input type="range" id="value-rating" min="0" max="5" step="0.5" value="0" class="rating-slider">
+                                    <span class="slider-value" id="value-value">0.0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Review Content -->
+                    <div class="form-section">
+                        <h3 class="section-title">후기 작성</h3>
+                        
+                        <div class="form-group">
+                            <label for="review-title">제목 *</label>
+                            <input type="text" id="review-title" name="review-title" placeholder="후기 제목을 입력하세요" required>
+                            <div class="input-border"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="review-content">내용 *</label>
+                            <textarea id="review-content" name="review-content" rows="8" placeholder="맛, 서비스, 분위기 등 자세한 후기를 작성해주세요&#10;&#10;• 어떤 메뉴를 먹었나요?&#10;• 맛은 어땠나요?&#10;• 특별히 좋았던 점이나 아쉬운 점은?&#10;• 재방문 의향이 있나요?" required></textarea>
+                            <div class="char-counter">
+                                <span id="char-count">0</span> / 500자
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>추천 메뉴</label>
+                            <div class="tag-input-container">
+                                <input type="text" id="menu-input" placeholder="메뉴를 입력하고 Enter를 누르세요">
+                                <div class="tags-display" id="tags-display"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Additional Info -->
+                    <div class="form-section">
+                        <h3 class="section-title">추가 정보</h3>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="visit-date">방문 날짜</label>
+                                <input type="date" id="visit-date" name="visit-date">
+                                <div class="input-border"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="price-range">가격대</label>
+                                <select id="price-range" name="price-range">
+                                    <option value="">선택하세요</option>
+                                    <option value="1">₩ (1만원 이하)</option>
+                                    <option value="2">₩₩ (1-3만원)</option>
+                                    <option value="3">₩₩₩ (3-5만원)</option>
+                                    <option value="4">₩₩₩₩ (5만원 이상)</option>
+                                </select>
+                                <div class="input-border"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="recommend" name="recommend">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-text">이 음식점을 추천합니다</span>
+                            </label>
+                            
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="revisit" name="revisit">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-text">재방문 의향이 있습니다</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Submit Buttons -->
+                    <div class="form-actions">
+                        <button type="button" class="cancel-btn" id="cancel-btn">취소</button>
+                        <button type="submit" class="submit-btn">
+                            <span class="btn-text">후기 등록</span>
+                            <div class="btn-glow"></div>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+    
+    <script src="../new/script.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
