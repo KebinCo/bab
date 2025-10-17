@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>밥심앱 - 공급자 Dashboard</title>
+    <link rel="stylesheet" href="supplier-styles.css">
+</head>
+<body>
+    <canvas id="gradient-canvas"></canvas>
+    
+    <div class="shimmer-overlay"></div>
+    <div class="sparkles" id="sparkles"></div>
+    
+    <div class="container">
+        <nav class="navbar dashboard-navbar">
+            <div class="nav-right">
+                <button class="nav-btn theme-toggle-btn" id="theme-toggle" title="테마 변경">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+            
+            <div class="logo-placeholder">
+                <div class="logo-circle"></div>
+            </div>
+            
+            <div class="nav-center">
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>푸드링크</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">링크 관리</a>
+                        <a href="#" class="dropdown-item">링크 생성</a>
+                        <a href="#" class="dropdown-item">링크 분석</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>주방스트리밍</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">라이브 시작</a>
+                        <a href="#" class="dropdown-item">스트리밍 관리</a>
+                        <a href="#" class="dropdown-item">시청 통계</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>푸드맵</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">매장 위치</a>
+                        <a href="#" class="dropdown-item">지도 설정</a>
+                        <a href="#" class="dropdown-item">고객 분포</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>고객 피드백</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">피드백 조회</a>
+                        <a href="#" class="dropdown-item">응답 관리</a>
+                        <a href="#" class="dropdown-item">통계 분석</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="nav-right">
+                <div class="username-display">골든키친</div>
+                <button class="nav-btn logout-btn">LOGOUT</button>
+            </div>
+        </nav>
+        
+        <main class="main-content">
+            <div class="user-info-section">
+                <div class="section-glow"></div>
+                
+                <div class="user-header">
+                    <div class="user-avatar">
+                        <span class="avatar-icon">🍳</span>
+                        <div class="avatar-ring"></div>
+                    </div>
+                    <div class="user-basic-info">
+                        <h2 class="user-name">골든키친</h2>
+                        <p class="user-membership">파트너 등록일: 2024년 1월 15일 (265일)</p>
+                    </div>
+                </div>
+                
+                <div class="user-stats-grid">
+                    <div class="stat-card">
+                        <div class="card-glow-small"></div>
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-info">
+                            <div class="stat-label">총 조회수</div>
+                            <div class="stat-value">12,450</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="card-glow-small"></div>
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-info">
+                            <div class="stat-label">평균 평점</div>
+                            <div class="stat-value">4.8</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="card-glow-small"></div>
+                        <div class="stat-icon">📺</div>
+                        <div class="stat-info">
+                            <div class="stat-label">스트리밍 횟수</div>
+                            <div class="stat-value">28</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="card-glow-small"></div>
+                        <div class="stat-icon">💬</div>
+                        <div class="stat-info">
+                            <div class="stat-label">피드백 수</div>
+                            <div class="stat-value">156</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="action-btn">
+                        <span class="btn-icon">⚙️</span>
+                        <span>매장 설정</span>
+                        <div class="btn-shine"></div>
+                    </button>
+                    <button class="action-btn">
+                        <span class="btn-icon">📈</span>
+                        <span>매출 분석</span>
+                        <div class="btn-shine"></div>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="activity-section">
+                <div class="section-glow"></div>
+                
+                <h3 class="section-title">최근 활동</h3>
+                
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon">📺</div>
+                        <div class="activity-content">
+                            <div class="activity-text">주방 라이브 스트리밍을 진행했습니다</div>
+                            <div class="activity-time">1시간 전</div>
+                        </div>
+                        <div class="activity-arrow">→</div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon">💬</div>
+                        <div class="activity-content">
+                            <div class="activity-text">새로운 피드백 5건에 응답했습니다</div>
+                            <div class="activity-time">3시간 전</div>
+                        </div>
+                        <div class="activity-arrow">→</div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon">🔗</div>
+                        <div class="activity-content">
+                            <div class="activity-text">푸드링크가 250회 클릭되었습니다</div>
+                            <div class="activity-time">1일 전</div>
+                        </div>
+                        <div class="activity-arrow">→</div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon">⭐</div>
+                        <div class="activity-content">
+                            <div class="activity-text">새로운 5점 리뷰를 받았습니다</div>
+                            <div class="activity-time">2일 전</div>
+                        </div>
+                        <div class="activity-arrow">→</div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon">📍</div>
+                        <div class="activity-content">
+                            <div class="activity-text">푸드맵 정보를 업데이트했습니다</div>
+                            <div class="activity-time">3일 전</div>
+                        </div>
+                        <div class="activity-arrow">→</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="supplier-script.js"></script>
+</body>
+</html>
