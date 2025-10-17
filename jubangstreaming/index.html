@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>밥심앱 - 주방스트리밍</title>
+    <link rel="stylesheet" href="../prov/styles.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <canvas id="gradient-canvas"></canvas>
+    
+    <div class="shimmer-overlay"></div>
+    <div class="sparkles" id="sparkles"></div>
+    
+    <div class="container">
+        <nav class="navbar dashboard-navbar">
+            <div class="nav-right">
+                <button class="nav-btn theme-toggle-btn" id="theme-toggle" title="테마 변경">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+            
+            <div class="logo-placeholder">
+                <div class="logo-circle"></div>
+            </div>
+            
+            <div class="nav-center">
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>푸드링크</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">링크 관리</a>
+                        <a href="#" class="dropdown-item">링크 생성</a>
+                        <a href="#" class="dropdown-item">링크 분석</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>주방스트리밍</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">라이브 시작</a>
+                        <a href="#" class="dropdown-item">스트리밍 관리</a>
+                        <a href="#" class="dropdown-item">시청 통계</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>푸드맵</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">매장 위치</a>
+                        <a href="#" class="dropdown-item">지도 설정</a>
+                        <a href="#" class="dropdown-item">고객 분포</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>고객 피드백</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">피드백 조회</a>
+                        <a href="#" class="dropdown-item">응답 관리</a>
+                        <a href="#" class="dropdown-item">통계 분석</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="nav-right">
+                <div class="username-display">골든키친</div>
+                <button class="nav-btn logout-btn">LOGOUT</button>
+            </div>
+        </nav>
+        
+        <main class="main-content">
+            <h1 class="page-title">주방 라이브 스트리밍</h1>
+            
+            <div class="streaming-layout">
+                <!-- Left: Video Stream -->
+                <div class="stream-section">
+                    <div class="video-container">
+                        <div class="video-placeholder" id="videoPlaceholder">
+                            <div class="placeholder-icon">📹</div>
+                            <p class="placeholder-text">카메라를 연결하여 스트리밍을 시작하세요</p>
+                        </div>
+                        <video id="streamVideo" class="stream-video" autoplay playsinline></video>
+                        
+                        <div class="stream-overlay" id="streamOverlay">
+                            <div class="live-badge">
+                                <span class="live-dot"></span>
+                                LIVE
+                            </div>
+                            <div class="viewer-count">
+                                <span class="viewer-icon">👁️</span>
+                                <span id="viewerCount">0</span>
+                            </div>
+                        </div>
+                        
+                        <div class="ai-scanning-overlay" id="aiScanning">
+                            <div class="scan-line"></div>
+                            <div class="scan-grid"></div>
+                            <div class="scan-text">AI 분석 중...</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stream-controls">
+                        <button class="control-btn primary-btn" id="startStreamBtn">
+                            <span class="btn-icon">📹</span>
+                            <span>스트리밍 시작</span>
+                        </button>
+                        <button class="control-btn stop-btn hidden" id="stopStreamBtn">
+                            <span class="btn-icon">⏹️</span>
+                            <span>스트리밍 중지</span>
+                        </button>
+                        <button class="control-btn" id="switchCameraBtn">
+                            <span class="btn-icon">🔄</span>
+                            <span>카메라 전환</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Right: AI Analysis -->
+                <div class="analysis-section">
+                    <div class="analysis-card">
+                        <div class="card-glow"></div>
+                        <h2 class="analysis-title">
+                            <span class="title-icon">🤖</span>
+                            AI 위생 평가
+                        </h2>
+                        
+                        <div class="score-display">
+                            <div class="score-circle">
+                                <svg class="score-ring" viewBox="0 0 120 120">
+                                    <circle class="ring-background" cx="60" cy="60" r="54"></circle>
+                                    <circle class="ring-progress" id="scoreRing" cx="60" cy="60" r="54"></circle>
+                                </svg>
+                                <div class="score-value" id="scoreValue">--</div>
+                                <div class="score-label">/ 100</div>
+                            </div>
+                            <div class="score-status" id="scoreStatus">
+                                <span class="status-icon">⏳</span>
+                                <span class="status-text">분석 대기 중</span>
+                            </div>
+                        </div>
+                        
+                        <div class="evaluation-details">
+                            <h3 class="details-title">세부 평가 항목</h3>
+                            
+                            <div class="eval-item">
+                                <div class="eval-header">
+                                    <span class="eval-label">🧹 청결도</span>
+                                    <span class="eval-score" id="cleanScore">--</span>
+                                </div>
+                                <div class="eval-bar">
+                                    <div class="eval-progress" id="cleanProgress"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="eval-item">
+                                <div class="eval-header">
+                                    <span class="eval-label">🧤 위생 장비</span>
+                                    <span class="eval-score" id="equipScore">--</span>
+                                </div>
+                                <div class="eval-bar">
+                                    <div class="eval-progress" id="equipProgress"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="eval-item">
+                                <div class="eval-header">
+                                    <span class="eval-label">📦 정리정돈</span>
+                                    <span class="eval-score" id="organScore">--</span>
+                                </div>
+                                <div class="eval-bar">
+                                    <div class="eval-progress" id="organProgress"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="eval-item">
+                                <div class="eval-header">
+                                    <span class="eval-label">💡 조명/환기</span>
+                                    <span class="eval-score" id="ventScore">--</span>
+                                </div>
+                                <div class="eval-bar">
+                                    <div class="eval-progress" id="ventProgress"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="eval-item">
+                                <div class="eval-header">
+                                    <span class="eval-label">👨‍🍳 조리 준수</span>
+                                    <span class="eval-score" id="compScore">--</span>
+                                </div>
+                                <div class="eval-bar">
+                                    <div class="eval-progress" id="compProgress"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="ai-feedback" id="aiFeedback">
+                            <h3 class="feedback-title">
+                                <span class="feedback-icon">💬</span>
+                                AI 피드백
+                            </h3>
+                            <div class="feedback-content" id="feedbackContent">
+                                스트리밍을 시작하면 실시간 AI 분석이 시작됩니다.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-card">
+                        <h3 class="stats-title">오늘의 스트리밍 통계</h3>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-icon">⏱️</div>
+                                <div class="stat-info">
+                                    <div class="stat-label">방송 시간</div>
+                                    <div class="stat-value" id="streamTime">0:00:00</div>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-icon">👥</div>
+                                <div class="stat-info">
+                                    <div class="stat-label">최대 시청자</div>
+                                    <div class="stat-value" id="maxViewers">0</div>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-icon">⭐</div>
+                                <div class="stat-info">
+                                    <div class="stat-label">평균 평점</div>
+                                    <div class="stat-value" id="avgRating">0.0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="../prov/script.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
