@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>밥심앱 - 공급자 찾기</title>
+    <link rel="stylesheet" href="../prov/styles.css">
+    <link rel="stylesheet" href="../foodlinksearch/styles.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <canvas id="gradient-canvas"></canvas>
+    
+    <div class="shimmer-overlay"></div>
+    <div class="sparkles" id="sparkles"></div>
+    
+    <div class="container">
+        <nav class="navbar dashboard-navbar">
+            <div class="nav-right">
+                <button class="nav-btn theme-toggle-btn" id="theme-toggle" title="테마 변경">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+            
+            <div class="logo-placeholder">
+                <div class="logo-circle"></div>
+            </div>
+            
+            <div class="nav-center">
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>푸드링크</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">링크 관리</a>
+                        <a href="#" class="dropdown-item">링크 생성</a>
+                        <a href="#" class="dropdown-item">링크 분석</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>주방스트리밍</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">라이브 시작</a>
+                        <a href="#" class="dropdown-item">스트리밍 관리</a>
+                        <a href="#" class="dropdown-item">시청 통계</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>푸드맵</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">매장 위치</a>
+                        <a href="#" class="dropdown-item">지도 설정</a>
+                        <a href="#" class="dropdown-item">고객 분포</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>고객 피드백</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">피드백 조회</a>
+                        <a href="#" class="dropdown-item">응답 관리</a>
+                        <a href="#" class="dropdown-item">통계 분석</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="nav-right">
+                <div class="username-display">골든키친</div>
+                <button class="nav-btn logout-btn">LOGOUT</button>
+            </div>
+        </nav>
+        
+        <div class="content-wrapper">
+            <!-- Sidebar -->
+            <aside class="foodlink-sidebar" id="foodlinkSidebar">
+                <div class="sidebar-content">
+                    <button class="sidebar-btn" data-page="search">
+                        <span class="sidebar-icon">🔍</span>
+                        <span class="sidebar-label">검색</span>
+                    </button>
+                    
+                    <button class="sidebar-btn" data-page="history">
+                        <span class="sidebar-icon">📜</span>
+                        <span class="sidebar-label">이전거래보기</span>
+                    </button>
+                    
+                    <button class="sidebar-btn" data-page="wallet">
+                        <span class="sidebar-icon">💰</span>
+                        <span class="sidebar-label">지갑</span>
+                    </button>
+                    
+                    <button class="sidebar-btn" data-page="cart">
+                        <span class="sidebar-icon">🛒</span>
+                        <span class="sidebar-label">내 바구니</span>
+                        <span class="cart-badge" id="cartBadge">3</span>
+                    </button>
+                    
+                    <button class="sidebar-btn" data-page="register">
+                        <span class="sidebar-icon">➕</span>
+                        <span class="sidebar-label">상품 등록</span>
+                    </button>
+                </div>
+            </aside>
+            
+            <!-- Main Content -->
+            <div class="suppliers-layout">
+                <!-- Left: Suppliers List -->
+                <div class="suppliers-panel">
+                    <div class="panel-header">
+                        <div class="ingredient-info-header">
+                            <span class="ingredient-icon-large" id="ingredientIcon">🧅</span>
+                            <div class="ingredient-details">
+                                <h2 class="ingredient-name-large" id="ingredientName">양파</h2>
+                                <p class="ingredient-subtitle">공급자 목록을 확인하세요</p>
+                            </div>
+                        </div>
+                        
+                        <div class="filter-controls">
+                            <button class="filter-btn active" data-filter="all">
+                                <span>전체</span>
+                                <span class="filter-count" id="allCount">12</span>
+                            </button>
+                            <button class="filter-btn" data-filter="nearby">
+                                <span>📍 근처</span>
+                                <span class="filter-count" id="nearbyCount">5</span>
+                            </button>
+                            <button class="filter-btn" data-filter="rated">
+                                <span>⭐ 평점순</span>
+                            </button>
+                            <button class="filter-btn" data-filter="price">
+                                <span>💰 가격순</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="suppliers-list" id="suppliersList">
+                        <!-- Supplier cards will be dynamically generated -->
+                    </div>
+                </div>
+                
+                <!-- Right: Map -->
+                <div class="map-panel">
+                    <div class="map-container" id="mapContainer">
+                        <div class="map-placeholder">
+                            <div class="placeholder-icon">🗺️</div>
+                            <p class="placeholder-text">지도 API 연동 대기 중</p>
+                            <p class="placeholder-subtext">공급자 위치가 여기에 표시됩니다</p>
+                        </div>
+                        
+                        <!-- Map will be rendered here -->
+                        <div class="map-overlay-markers" id="mapMarkers">
+                            <!-- Markers will be added dynamically -->
+                        </div>
+                    </div>
+                    
+                    <div class="map-controls">
+                        <button class="map-control-btn" id="myLocationBtn" title="내 위치">
+                            <span>📍</span>
+                        </button>
+                        <button class="map-control-btn" id="zoomInBtn" title="확대">
+                            <span>➕</span>
+                        </button>
+                        <button class="map-control-btn" id="zoomOutBtn" title="축소">
+                            <span>➖</span>
+                        </button>
+                        <button class="map-control-btn" id="resetMapBtn" title="초기화">
+                            <span>🔄</span>
+                        </button>
+                    </div>
+                    
+                    <div class="location-info" id="locationInfo">
+                        <div class="location-icon">📍</div>
+                        <div class="location-text">
+                            <div class="location-label">내 위치</div>
+                            <div class="location-address" id="userLocation">서울시 강남구 역삼동</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../prov/script.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
