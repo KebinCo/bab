@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>밥심앱 - 이전거래보기</title>
+    <link rel="stylesheet" href="../prov/styles.css">
+    <link rel="stylesheet" href="../foodlinksearch/styles.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <canvas id="gradient-canvas"></canvas>
+    
+    <div class="shimmer-overlay"></div>
+    <div class="sparkles" id="sparkles"></div>
+    
+    <div class="container">
+        <nav class="navbar dashboard-navbar">
+            <div class="nav-right">
+                <button class="nav-btn theme-toggle-btn" id="theme-toggle" title="테마 변경">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+            
+            <div class="logo-placeholder">
+                <div class="logo-circle"></div>
+            </div>
+            
+            <div class="nav-center">
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>푸드링크</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">링크 관리</a>
+                        <a href="#" class="dropdown-item">링크 생성</a>
+                        <a href="#" class="dropdown-item">링크 분석</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>주방스트리밍</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">라이브 시작</a>
+                        <a href="#" class="dropdown-item">스트리밍 관리</a>
+                        <a href="#" class="dropdown-item">시청 통계</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>푸드맵</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">매장 위치</a>
+                        <a href="#" class="dropdown-item">지도 설정</a>
+                        <a href="#" class="dropdown-item">고객 분포</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>고객 피드백</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">피드백 조회</a>
+                        <a href="#" class="dropdown-item">응답 관리</a>
+                        <a href="#" class="dropdown-item">통계 분석</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="nav-right">
+                <div class="username-display">골든키친</div>
+                <button class="nav-btn logout-btn">LOGOUT</button>
+            </div>
+        </nav>
+        
+        <div class="content-wrapper">
+            <!-- Sidebar -->
+            <aside class="foodlink-sidebar" id="foodlinkSidebar">
+                <div class="sidebar-content">
+                    <button class="sidebar-btn" data-page="search">
+                        <span class="sidebar-icon">🔍</span>
+                        <span class="sidebar-label">검색</span>
+                    </button>
+                    
+                    <button class="sidebar-btn active" data-page="history">
+                        <span class="sidebar-icon">📜</span>
+                        <span class="sidebar-label">이전거래보기</span>
+                    </button>
+                    
+                    <button class="sidebar-btn" data-page="wallet">
+                        <span class="sidebar-icon">💰</span>
+                        <span class="sidebar-label">지갑</span>
+                    </button>
+                    
+                    <button class="sidebar-btn" data-page="cart">
+                        <span class="sidebar-icon">🛒</span>
+                        <span class="sidebar-label">내 바구니</span>
+                        <span class="cart-badge" id="cartBadge">3</span>
+                    </button>
+                    
+                    <button class="sidebar-btn" data-page="register">
+                        <span class="sidebar-icon">➕</span>
+                        <span class="sidebar-label">상품 등록</span>
+                    </button>
+                </div>
+            </aside>
+            
+            <!-- Main Content -->
+            <main class="main-content">
+                <h1 class="page-title">이전 거래 내역</h1>
+                
+                <!-- Stats Summary -->
+                <div class="stats-summary">
+                    <div class="stat-box">
+                        <div class="stat-icon">📦</div>
+                        <div class="stat-info">
+                            <div class="stat-label">총 거래</div>
+                            <div class="stat-value" id="totalTransactions">48</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-box">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-info">
+                            <div class="stat-label">총 거래액</div>
+                            <div class="stat-value" id="totalAmount">12,450,000원</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-box">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-info">
+                            <div class="stat-label">완료된 거래</div>
+                            <div class="stat-value" id="completedTransactions">45</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-box">
+                        <div class="stat-icon">⏳</div>
+                        <div class="stat-info">
+                            <div class="stat-label">진행 중</div>
+                            <div class="stat-value" id="pendingTransactions">3</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Filters -->
+                <div class="history-filters">
+                    <div class="filter-group">
+                        <label class="filter-label">기간</label>
+                        <select class="filter-select" id="periodFilter">
+                            <option value="all">전체</option>
+                            <option value="week">최근 1주일</option>
+                            <option value="month" selected>최근 1개월</option>
+                            <option value="3months">최근 3개월</option>
+                            <option value="year">최근 1년</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">상태</label>
+                        <select class="filter-select" id="statusFilter">
+                            <option value="all">전체</option>
+                            <option value="completed">완료</option>
+                            <option value="pending">진행중</option>
+                            <option value="cancelled">취소</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">정렬</label>
+                        <select class="filter-select" id="sortFilter">
+                            <option value="date-desc">최신순</option>
+                            <option value="date-asc">오래된순</option>
+                            <option value="amount-desc">금액 높은순</option>
+                            <option value="amount-asc">금액 낮은순</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group search-group">
+                        <label class="filter-label">검색</label>
+                        <input 
+                            type="text" 
+                            class="filter-search" 
+                            id="searchInput"
+                            placeholder="공급자명 또는 상품명 검색"
+                        >
+                    </div>
+                </div>
+                
+                <!-- Transactions List -->
+                <div class="transactions-section">
+                    <div class="section-header">
+                        <h2 class="section-subtitle">거래 내역</h2>
+                        <button class="export-btn" id="exportBtn">
+                            <span>📥</span>
+                            <span>내보내기</span>
+                        </button>
+                    </div>
+                    
+                    <div class="transactions-list" id="transactionsList">
+                        <!-- Transaction cards will be dynamically generated -->
+                    </div>
+                    
+                    <div class="pagination" id="pagination">
+                        <button class="page-btn" id="prevPage">◀ 이전</button>
+                        <div class="page-numbers" id="pageNumbers"></div>
+                        <button class="page-btn" id="nextPage">다음 ▶</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <script src="../prov/script.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
