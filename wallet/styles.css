@@ -1,0 +1,696 @@
+/* FoodLink Wallet Page Styles */
+
+/* Balance Section */
+.balance-section {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.balance-card,
+.points-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-primary);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.balance-card::before,
+.points-card::before {
+    content: '';
+    position: absolute;
+    inset: -100%;
+    background: radial-gradient(circle, var(--glow-gold) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    animation: glow-rotate 8s linear infinite;
+}
+
+@keyframes glow-rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.balance-card:hover::before,
+.points-card:hover::before {
+    opacity: 0.2;
+}
+
+.balance-card:hover,
+.points-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-5px);
+    box-shadow: 0 25px 70px rgba(218, 165, 32, 0.3);
+}
+
+.balance-header,
+.points-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.balance-icon,
+.points-icon {
+    font-size: 3.5rem;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(218, 165, 32, 0.2) 0%, rgba(205, 127, 50, 0.2) 100%);
+    border-radius: 20px;
+    border: 1px solid var(--border-primary);
+}
+
+.balance-info,
+.points-info {
+    flex: 1;
+}
+
+.balance-label,
+.points-label {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.balance-amount,
+.points-amount {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #daa520 0%, #cd7f32 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.balance-actions {
+    display: flex;
+    gap: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.balance-btn {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, rgba(218, 165, 32, 0.3) 0%, rgba(205, 127, 50, 0.3) 100%);
+    border: 1px solid var(--border-primary);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.balance-btn:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(218, 165, 32, 0.3);
+}
+
+.use-points-btn {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, rgba(218, 165, 32, 0.3) 0%, rgba(205, 127, 50, 0.3) 100%);
+    border: 1px solid var(--border-primary);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.use-points-btn:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(218, 165, 32, 0.3);
+}
+
+/* Section Styles */
+.payment-methods-section,
+.bank-accounts-section,
+.recent-transactions-section {
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-primary);
+    border-radius: 20px;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-primary);
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.title-icon {
+    font-size: 1.75rem;
+}
+
+.add-method-btn {
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, rgba(218, 165, 32, 0.3) 0%, rgba(205, 127, 50, 0.3) 100%);
+    border: 1px solid var(--border-hover);
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.add-method-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(218, 165, 32, 0.3);
+}
+
+.view-all-link {
+    color: var(--accent-gold);
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.view-all-link:hover {
+    color: var(--text-primary);
+    transform: translateX(5px);
+}
+
+/* Payment Methods Grid */
+.payment-methods-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.payment-method-card {
+    background: rgba(15, 10, 5, 0.4);
+    border: 1px solid var(--border-primary);
+    border-radius: 16px;
+    padding: 1.75rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.payment-method-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 32px rgba(218, 165, 32, 0.2);
+}
+
+.payment-method-card.default {
+    border-color: var(--accent-gold);
+}
+
+.default-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.4rem 0.75rem;
+    background: linear-gradient(135deg, #daa520 0%, #cd7f32 100%);
+    color: #0f0a05;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 8px;
+}
+
+.card-type-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.card-number {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    font-family: monospace;
+    letter-spacing: 2px;
+}
+
+.card-nickname {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.card-expiry {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.card-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.card-action-btn {
+    flex: 1;
+    padding: 0.6rem 1rem;
+    background: rgba(15, 10, 5, 0.6);
+    border: 1px solid var(--border-primary);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.card-action-btn:hover {
+    border-color: var(--border-hover);
+    color: var(--text-primary);
+}
+
+.card-action-btn.delete {
+    color: #ef4444;
+    border-color: rgba(239, 68, 68, 0.4);
+}
+
+.card-action-btn.delete:hover {
+    border-color: rgba(239, 68, 68, 0.6);
+    background: rgba(239, 68, 68, 0.1);
+}
+
+/* Bank Accounts List */
+.bank-accounts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.bank-account-card {
+    background: rgba(15, 10, 5, 0.4);
+    border: 1px solid var(--border-primary);
+    border-radius: 14px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.bank-account-card:hover {
+    border-color: var(--border-hover);
+    transform: translateX(5px);
+    box-shadow: 0 8px 24px rgba(218, 165, 32, 0.15);
+}
+
+.bank-icon {
+    font-size: 2.5rem;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(218, 165, 32, 0.2) 0%, rgba(205, 127, 50, 0.2) 100%);
+    border-radius: 12px;
+    border: 1px solid var(--border-primary);
+}
+
+.bank-info {
+    flex: 1;
+}
+
+.bank-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.account-number {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    font-family: monospace;
+    margin-bottom: 0.25rem;
+}
+
+.account-holder {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.account-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+/* Recent Transactions */
+.recent-transactions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.transaction-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.25rem;
+    background: rgba(15, 10, 5, 0.4);
+    border: 1px solid var(--border-primary);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.transaction-item:hover {
+    border-color: var(--border-hover);
+    transform: translateX(5px);
+}
+
+.transaction-icon {
+    font-size: 2rem;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(218, 165, 32, 0.1);
+    border-radius: 10px;
+}
+
+.transaction-details {
+    flex: 1;
+}
+
+.transaction-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.transaction-date {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.transaction-amount {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+}
+
+.transaction-amount.negative {
+    color: #ef4444;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-primary);
+    border-radius: 20px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+    animation: modal-slide-up 0.3s ease;
+}
+
+@keyframes modal-slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 2rem 1.5rem;
+    border-bottom: 1px solid var(--border-primary);
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.modal-close {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(15, 10, 5, 0.4);
+    border: 1px solid var(--border-primary);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+    border-color: var(--border-hover);
+    color: var(--text-primary);
+}
+
+.modal-body {
+    padding: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    background: rgba(15, 10, 5, 0.6);
+    border: 1px solid var(--border-primary);
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.form-input::placeholder {
+    color: var(--text-muted);
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--border-hover);
+    box-shadow: 0 0 15px rgba(218, 165, 32, 0.2);
+}
+
+.form-input option {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+.form-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.form-checkbox input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.form-checkbox label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+.modal-footer {
+    display: flex;
+    gap: 1rem;
+    padding: 1.5rem 2rem 2rem;
+    border-top: 1px solid var(--border-primary);
+}
+
+.modal-btn {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cancel-btn {
+    background: rgba(15, 10, 5, 0.4);
+    border: 1px solid var(--border-primary);
+    color: var(--text-secondary);
+}
+
+.cancel-btn:hover {
+    border-color: var(--border-hover);
+    color: var(--text-primary);
+}
+
+.confirm-btn {
+    background: linear-gradient(135deg, rgba(218, 165, 32, 0.4) 0%, rgba(205, 127, 50, 0.4) 100%);
+    border: 1px solid var(--border-hover);
+    color: var(--text-primary);
+}
+
+.confirm-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(218, 165, 32, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .balance-section {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .payment-methods-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .balance-card,
+    .points-card {
+        padding: 1.75rem;
+    }
+    
+    .balance-actions {
+        flex-direction: column;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .add-method-btn {
+        width: 100%;
+    }
+    
+    .bank-account-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .account-actions {
+        width: 100%;
+    }
+    
+    .card-action-btn {
+        font-size: 0.8rem;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-content {
+        width: 95%;
+    }
+    
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+        padding: 1.5rem;
+    }
+}
+
+/* Light mode adjustments */
+body.light-mode .balance-card,
+body.light-mode .points-card,
+body.light-mode .payment-methods-section,
+body.light-mode .bank-accounts-section,
+body.light-mode .recent-transactions-section,
+body.light-mode .modal-content {
+    background: var(--bg-card);
+}
+
+body.light-mode .payment-method-card,
+body.light-mode .bank-account-card,
+body.light-mode .transaction-item,
+body.light-mode .form-input,
+body.light-mode .card-action-btn,
+body.light-mode .modal-close,
+body.light-mode .cancel-btn {
+    background: rgba(255, 252, 245, 0.6);
+}
