@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>밥심앱 - 지갑</title>
+    <link rel="stylesheet" href="../prov/styles.css">
+    <link rel="stylesheet" href="../foodlinksearch/styles.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <canvas id="gradient-canvas"></canvas>
+    
+    <div class="shimmer-overlay"></div>
+    <div class="sparkles" id="sparkles"></div>
+    
+    <div class="container">
+        <nav class="navbar dashboard-navbar">
+            <div class="nav-right">
+                <button class="nav-btn theme-toggle-btn" id="theme-toggle" title="테마 변경">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+            
+            <div class="logo-placeholder">
+                <div class="logo-circle"></div>
+            </div>
+            
+            <div class="nav-center">
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>푸드링크</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">링크 관리</a>
+                        <a href="#" class="dropdown-item">링크 생성</a>
+                        <a href="#" class="dropdown-item">링크 분석</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>주방스트리밍</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">라이브 시작</a>
+                        <a href="#" class="dropdown-item">스트리밍 관리</a>
+                        <a href="#" class="dropdown-item">시청 통계</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>푸드맵</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">매장 위치</a>
+                        <a href="#" class="dropdown-item">지도 설정</a>
+                        <a href="#" class="dropdown-item">고객 분포</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>고객 피드백</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">피드백 조회</a>
+                        <a href="#" class="dropdown-item">응답 관리</a>
+                        <a href="#" class="dropdown-item">통계 분석</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="nav-right">
+                <div class="username-display">골든키친</div>
+                <button class="nav-btn logout-btn">LOGOUT</button>
+            </div>
+        </nav>
+        
+        <div class="content-wrapper">
+            <!-- Sidebar -->
+            <aside class="foodlink-sidebar" id="foodlinkSidebar">
+                <div class="sidebar-content">
+                    <button class="sidebar-btn" data-page="search">
+                        <span class="sidebar-icon">🔍</span>
+                        <span class="sidebar-label">검색</span>
+                    </button>
+                    
+                    <button class="sidebar-btn" data-page="history">
+                        <span class="sidebar-icon">📜</span>
+                        <span class="sidebar-label">이전거래보기</span>
+                    </button>
+                    
+                    <button class="sidebar-btn active" data-page="wallet">
+                        <span class="sidebar-icon">💰</span>
+                        <span class="sidebar-label">지갑</span>
+                    </button>
+                    
+                    <button class="sidebar-btn" data-page="cart">
+                        <span class="sidebar-icon">🛒</span>
+                        <span class="sidebar-label">내 바구니</span>
+                        <span class="cart-badge" id="cartBadge">3</span>
+                    </button>
+                    
+                    <button class="sidebar-btn" data-page="register">
+                        <span class="sidebar-icon">➕</span>
+                        <span class="sidebar-label">상품 등록</span>
+                    </button>
+                </div>
+            </aside>
+            
+            <!-- Main Content -->
+            <main class="main-content">
+                <h1 class="page-title">지갑</h1>
+                
+                <!-- Balance Summary -->
+                <div class="balance-section">
+                    <div class="balance-card">
+                        <div class="balance-header">
+                            <div class="balance-icon">💳</div>
+                            <div class="balance-info">
+                                <div class="balance-label">사용 가능 잔액</div>
+                                <div class="balance-amount" id="balanceAmount">2,450,000원</div>
+                            </div>
+                        </div>
+                        <div class="balance-actions">
+                            <button class="balance-btn" id="chargeBtn">
+                                <span>💵</span>
+                                <span>충전하기</span>
+                            </button>
+                            <button class="balance-btn" id="withdrawBtn">
+                                <span>🏦</span>
+                                <span>출금하기</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="points-card">
+                        <div class="points-header">
+                            <div class="points-icon">⭐</div>
+                            <div class="points-info">
+                                <div class="points-label">적립 포인트</div>
+                                <div class="points-amount" id="pointsAmount">125,500P</div>
+                            </div>
+                        </div>
+                        <button class="use-points-btn" id="usePointsBtn">
+                            포인트 사용
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Payment Methods -->
+                <section class="payment-methods-section">
+                    <div class="section-header">
+                        <h2 class="section-title">
+                            <span class="title-icon">💳</span>
+                            결제 수단
+                        </h2>
+                        <button class="add-method-btn" id="addMethodBtn">
+                            <span>➕</span>
+                            <span>결제수단 추가</span>
+                        </button>
+                    </div>
+                    
+                    <div class="payment-methods-grid" id="paymentMethodsGrid">
+                        <!-- Payment method cards will be dynamically generated -->
+                    </div>
+                </section>
+                
+                <!-- Bank Accounts -->
+                <section class="bank-accounts-section">
+                    <div class="section-header">
+                        <h2 class="section-title">
+                            <span class="title-icon">🏦</span>
+                            계좌 관리
+                        </h2>
+                        <button class="add-method-btn" id="addAccountBtn">
+                            <span>➕</span>
+                            <span>계좌 추가</span>
+                        </button>
+                    </div>
+                    
+                    <div class="bank-accounts-list" id="bankAccountsList">
+                        <!-- Bank account cards will be dynamically generated -->
+                    </div>
+                </section>
+                
+                <!-- Recent Transactions -->
+                <section class="recent-transactions-section">
+                    <div class="section-header">
+                        <h2 class="section-title">
+                            <span class="title-icon">📊</span>
+                            최근 거래 내역
+                        </h2>
+                        <a href="#" class="view-all-link">전체보기 →</a>
+                    </div>
+                    
+                    <div class="recent-transactions-list" id="recentTransactionsList">
+                        <!-- Recent transactions will be dynamically generated -->
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+    
+    <!-- Add Payment Method Modal -->
+    <div class="modal" id="addPaymentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">결제수단 추가</h3>
+                <button class="modal-close" id="closePaymentModal">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">카드 종류</label>
+                    <select class="form-input" id="cardType">
+                        <option value="credit">신용카드</option>
+                        <option value="debit">체크카드</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">카드 번호</label>
+                    <input type="text" class="form-input" id="cardNumber" placeholder="0000-0000-0000-0000" maxlength="19">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">유효기간</label>
+                        <input type="text" class="form-input" id="cardExpiry" placeholder="MM/YY" maxlength="5">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">CVC</label>
+                        <input type="text" class="form-input" id="cardCvc" placeholder="000" maxlength="3">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">카드 별칭 (선택)</label>
+                    <input type="text" class="form-input" id="cardNickname" placeholder="예: 회사카드, 개인카드">
+                </div>
+                
+                <div class="form-checkbox">
+                    <input type="checkbox" id="setDefault">
+                    <label for="setDefault">기본 결제수단으로 설정</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel-btn" id="cancelAddPayment">취소</button>
+                <button class="modal-btn confirm-btn" id="confirmAddPayment">추가하기</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Add Bank Account Modal -->
+    <div class="modal" id="addAccountModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">계좌 추가</h3>
+                <button class="modal-close" id="closeAccountModal">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">은행</label>
+                    <select class="form-input" id="bankName">
+                        <option value="">은행 선택</option>
+                        <option value="KB국민">KB국민은행</option>
+                        <option value="신한">신한은행</option>
+                        <option value="우리">우리은행</option>
+                        <option value="하나">하나은행</option>
+                        <option value="NH농협">NH농협은행</option>
+                        <option value="IBK기업">IBK기업은행</option>
+                        <option value="카카오뱅크">카카오뱅크</option>
+                        <option value="토스뱅크">토스뱅크</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">계좌번호</label>
+                    <input type="text" class="form-input" id="accountNumber" placeholder="'-' 없이 입력">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">예금주</label>
+                    <input type="text" class="form-input" id="accountHolder" placeholder="예금주명">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">계좌 별칭 (선택)</label>
+                    <input type="text" class="form-input" id="accountNickname" placeholder="예: 급여통장, 거래용">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel-btn" id="cancelAddAccount">취소</button>
+                <button class="modal-btn confirm-btn" id="confirmAddAccount">추가하기</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../prov/script.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
