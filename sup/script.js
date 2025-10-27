@@ -187,6 +187,10 @@ signupForm.addEventListener('submit', (e) => {
         return;
     }
     
+    // Store the selected type before processing
+    const userType = selectedType;
+    console.log('Selected type before redirect:', userType);
+    
     // Simulate signup process
     const submitBtn = signupForm.querySelector('.submit-btn');
     submitBtn.disabled = true;
@@ -196,7 +200,7 @@ signupForm.addEventListener('submit', (e) => {
     // Simulate API call
     setTimeout(() => {
         console.log('Signup data:', {
-            userType: selectedType,
+            userType: userType,
             email,
             name,
             phone,
@@ -205,16 +209,24 @@ signupForm.addEventListener('submit', (e) => {
         
         showNotification('회원가입이 완료되었습니다!', 'success');
         
-        // Reset button
-        submitBtn.disabled = false;
-        submitBtn.style.opacity = '1';
-        submitBtn.querySelector('.btn-text').textContent = '가입하기';
-        
-        // Redirect after success
+        // Redirect based on user type
         setTimeout(() => {
-            // window.location.href = '../login/index.html';
-            console.log('Would redirect to login page');
-        }, 2000);
+            console.log('Redirecting for user type:', userType);
+            
+            if (userType === 'supplier') {
+                console.log('Redirecting to supplier page...');
+                window.location.href = 'https://kebinco.github.io/bab/prov/index.html';
+            } else if (userType === 'consumer') {
+                console.log('Redirecting to consumer page...');
+                window.location.href = 'https://kebinco.github.io/bab/sbj/index.html';
+            } else {
+                console.error('No valid user type selected:', userType);
+                showNotification('사용자 유형을 다시 선택해주세요', 'error');
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+                submitBtn.querySelector('.btn-text').textContent = '가입하기';
+            }
+        }, 1500);
     }, 1500);
 });
 
