@@ -1,128 +1,227 @@
-// Dashboard page specific interactions
+// Signup page specific interactions
 
-// Section glow follow mouse
-const userInfoSection = document.querySelector('.user-info-section');
-const activitySection = document.querySelector('.activity-section');
+// Card glow follow mouse
+const signupCard = document.querySelector('.signup-card');
+const cardGlow = document.querySelector('.card-glow');
 
-function addSectionGlowEffect(section) {
-    const glow = section.querySelector('.section-glow');
-    if (!glow) return;
-    
-    section.addEventListener('mousemove', (e) => {
-        const rect = section.getBoundingClientRect();
+if (signupCard && cardGlow) {
+    signupCard.addEventListener('mousemove', (e) => {
+        const rect = signupCard.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
         
-        glow.style.left = `${x - glow.offsetWidth / 2}px`;
-        glow.style.top = `${y - glow.offsetHeight / 2}px`;
+        cardGlow.style.left = `${x - cardGlow.offsetWidth / 2}px`;
+        cardGlow.style.top = `${y - cardGlow.offsetHeight / 2}px`;
     });
 }
 
-addSectionGlowEffect(userInfoSection);
-addSectionGlowEffect(activitySection);
+// User type selection
+const typeButtons = document.querySelectorAll('.type-btn');
+let selectedType = null;
 
-// Stat cards glow effect
-const statCards = document.querySelectorAll('.stat-card');
-
-statCards.forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const glow = card.querySelector('.card-glow-small');
-        if (glow) {
-            glow.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(138, 43, 226, 0.3) 0%, transparent 70%)`;
-        }
-    });
-});
-
-// Activity items click handler
-const activityItems = document.querySelectorAll('.activity-item');
-
-activityItems.forEach(item => {
-    item.addEventListener('click', () => {
-        const text = item.querySelector('.activity-text').textContent;
-        console.log('Activity clicked:', text);
-        showNotification('활동 상세 정보를 불러오는 중...', 'info');
-        // Add navigation logic here
-    });
-});
-
-// Action buttons handlers
-const actionButtons = document.querySelectorAll('.action-btn');
-
-actionButtons.forEach(btn => {
+typeButtons.forEach(btn => {
     btn.addEventListener('click', () => {
-        const text = btn.textContent.trim();
-        console.log('Action button clicked:', text);
-        
-        if (text.includes('설정')) {
-            showNotification('설정 페이지로 이동합니다', 'info');
-            // Navigate to settings
-        } else if (text.includes('활동')) {
-            showNotification('활동 내역을 불러오는 중...', 'info');
-            // Navigate to activity history
-        }
+        typeButtons.forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        selectedType = btn.dataset.type;
+        console.log('Selected user type:', selectedType);
     });
 });
 
-// Dropdown menu interactions
-const dropdownBtns = document.querySelectorAll('.dropdown-btn');
-const dropdownItems = document.querySelectorAll('.dropdown-item');
+// Form inputs
+const signupForm = document.getElementById('signup-form');
+const emailInput = document.getElementById('email');
+const nameInput = document.getElementById('name');
+const phoneInput = document.getElementById('phone');
+const passwordInput = document.getElementById('password');
+const passwordConfirmInput = document.getElementById('password-confirm');
+const termsCheckbox = document.getElementById('terms');
+const strengthBar = document.querySelector('.strength-bar');
 
-dropdownItems.forEach(item => {
-    item.addEventListener('click', (e) => {
-        e.preventDefault();
-        const text = item.textContent.trim();
-        console.log('Dropdown item clicked:', text);
-        showNotification(`"${text}" 페이지로 이동합니다`, 'info');
-        // Add navigation logic here
-    });
-});
-
-// Logout button handler
-const logoutBtn = document.querySelector('.logout-btn');
-
-logoutBtn.addEventListener('click', () => {
-    showNotification('로그아웃 중...', 'info');
+// Email validation
+emailInput.addEventListener('input', (e) => {
+    const email = e.target.value;
+    const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     
-    setTimeout(() => {
-        console.log('User logged out');
-        showNotification('로그아웃되었습니다', 'success');
-        // Redirect to login page
-        // window.location.href = '../login/index.html';
-    }, 1000);
-});
-
-// Sparkles animation
-const sparklesContainer = document.getElementById('sparkles');
-const sparkleCount = 30;
-
-function createSparkle() {
-    const sparkle = document.createElement('div');
-    sparkle.className = 'sparkle';
-    sparkle.style.left = `${Math.random() * 100}%`;
-    sparkle.style.top = `${Math.random() * 100}%`;
-    sparkle.style.animationDelay = `${Math.random() * 3}s`;
-    sparkle.style.animationDuration = `${2 + Math.random() * 2}s`;
-    
-    sparklesContainer.appendChild(sparkle);
-    
-    setTimeout(() => sparkle.remove(), 5000);
-}
-
-// Generate sparkles periodically
-setInterval(() => {
-    if (sparklesContainer.children.length < sparkleCount) {
-        createSparkle();
+    if (email.length > 0) {
+        emailInput.style.borderColor = isValid 
+            ? 'rgba(34, 197, 94, 0.6)' 
+            : 'rgba(239, 68, 68, 0.6)';
+    } else {
+        emailInput.style.borderColor = 'rgba(138, 43, 226, 0.2)';
     }
-}, 200);
+});
 
-// Initial sparkles
-for (let i = 0; i < sparkleCount; i++) {
-    setTimeout(createSparkle, i * 100);
+// Name validation (Korean/English only)
+nameInput.addEventListener('input', (e) => {
+    const name = e.target.value;
+    const isValid = /^[가-힣a-zA-Z\s]+$/.test(name);
+    
+    if (name.length > 0) {
+        nameInput.style.borderColor = isValid && name.length >= 2
+            ? 'rgba(34, 197, 94, 0.6)'
+            : 'rgba(239, 68, 68, 0.6)';
+    } else {
+        nameInput.style.borderColor = 'rgba(138, 43, 226, 0.2)';
+    }
+});
+
+// Phone number formatting and validation
+phoneInput.addEventListener('input', (e) => {
+    let value = e.target.value.replace(/[^0-9]/g, '');
+    
+    if (value.length > 11) {
+        value = value.slice(0, 11);
+    }
+    
+    // Format: 010-1234-5678
+    if (value.length >= 7) {
+        value = value.replace(/(\d{3})(\d{4})(\d{0,4})/, '$1-$2-$3');
+    } else if (value.length >= 3) {
+        value = value.replace(/(\d{3})(\d{0,4})/, '$1-$2');
+    }
+    
+    e.target.value = value;
+    
+    const isValid = /^010-\d{4}-\d{4}$/.test(value);
+    phoneInput.style.borderColor = value.length > 0
+        ? (isValid ? 'rgba(34, 197, 94, 0.6)' : 'rgba(239, 68, 68, 0.6)')
+        : 'rgba(138, 43, 226, 0.2)';
+});
+
+// Password strength checker
+passwordInput.addEventListener('input', (e) => {
+    const password = e.target.value;
+    let strength = 0;
+    
+    if (password.length >= 8) strength += 25;
+    if (password.length >= 12) strength += 25;
+    if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength += 25;
+    if (/\d/.test(password)) strength += 12.5;
+    if (/[^a-zA-Z0-9]/.test(password)) strength += 12.5;
+    
+    strengthBar.style.width = `${strength}%`;
+    
+    if (password.length > 0) {
+        passwordInput.style.borderColor = password.length >= 8
+            ? 'rgba(34, 197, 94, 0.6)'
+            : 'rgba(239, 68, 68, 0.6)';
+    } else {
+        passwordInput.style.borderColor = 'rgba(138, 43, 226, 0.2)';
+        strengthBar.style.width = '0';
+    }
+    
+    // Check password match if confirm field has value
+    if (passwordConfirmInput.value.length > 0) {
+        checkPasswordMatch();
+    }
+});
+
+// Password confirmation
+function checkPasswordMatch() {
+    const password = passwordInput.value;
+    const confirm = passwordConfirmInput.value;
+    
+    if (confirm.length > 0) {
+        passwordConfirmInput.style.borderColor = password === confirm
+            ? 'rgba(34, 197, 94, 0.6)'
+            : 'rgba(239, 68, 68, 0.6)';
+    } else {
+        passwordConfirmInput.style.borderColor = 'rgba(138, 43, 226, 0.2)';
+    }
 }
+
+passwordConfirmInput.addEventListener('input', checkPasswordMatch);
+
+// Form submission
+signupForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    // Validate user type selection
+    if (!selectedType) {
+        showNotification('공급자 또는 소비자를 선택해주세요', 'error');
+        return;
+    }
+    
+    // Get form values
+    const email = emailInput.value.trim();
+    const name = nameInput.value.trim();
+    const phone = phoneInput.value.trim();
+    const password = passwordInput.value;
+    const passwordConfirm = passwordConfirmInput.value;
+    const termsAccepted = termsCheckbox.checked;
+    
+    // Validation
+    if (!email || !name || !phone || !password || !passwordConfirm) {
+        showNotification('모든 필드를 입력해주세요', 'error');
+        return;
+    }
+    
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showNotification('유효한 이메일 주소를 입력해주세요', 'error');
+        return;
+    }
+    
+    if (!/^[가-힣a-zA-Z\s]+$/.test(name) || name.length < 2) {
+        showNotification('이름은 2자 이상의 한글 또는 영문이어야 합니다', 'error');
+        return;
+    }
+    
+    if (!/^010-\d{4}-\d{4}$/.test(phone)) {
+        showNotification('올바른 전화번호 형식을 입력해주세요 (010-1234-5678)', 'error');
+        return;
+    }
+    
+    if (password.length < 8) {
+        showNotification('비밀번호는 8자 이상이어야 합니다', 'error');
+        return;
+    }
+    
+    if (password !== passwordConfirm) {
+        showNotification('비밀번호가 일치하지 않습니다', 'error');
+        return;
+    }
+    
+    if (!termsAccepted) {
+        showNotification('이용약관에 동의해주세요', 'error');
+        return;
+    }
+    
+    // Simulate signup process
+    const submitBtn = signupForm.querySelector('.submit-btn');
+    submitBtn.disabled = true;
+    submitBtn.style.opacity = '0.7';
+    submitBtn.querySelector('.btn-text').textContent = '가입 처리 중...';
+    
+    // Simulate API call
+    setTimeout(() => {
+        console.log('Signup data:', {
+            userType: selectedType,
+            email,
+            name,
+            phone,
+            termsAccepted
+        });
+        
+        showNotification('회원가입이 완료되었습니다!', 'success');
+        
+        // Reset button
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = '1';
+        submitBtn.querySelector('.btn-text').textContent = '가입하기';
+        
+        // Redirect based on user type
+        setTimeout(() => {
+            if (selectedType === 'supplier') {
+                window.location.href = 'https://kebinco.github.io/bab/prov/index.html';
+            } else if (selectedType === 'consumer') {
+                window.location.href = 'https://kebinco.github.io/bab/sbj/index.html';
+            } else {
+                console.log('No user type selected, staying on page');
+            }
+        }, 1500);
+    }, 1500);
+});
 
 // Notification system
 function showNotification(message, type = 'info') {
@@ -140,7 +239,7 @@ function showNotification(message, type = 'info') {
     setTimeout(() => {
         notification.classList.remove('show');
         setTimeout(() => notification.remove(), 300);
-    }, 3000);
+    }, 3500);
 }
 
 // Add notification styles
@@ -163,7 +262,7 @@ notificationStyle.textContent = `
         opacity: 0;
         transition: all 0.3s ease;
         z-index: 10000;
-        max-width: 300px;
+        max-width: 320px;
     }
     
     .notification.show {
@@ -197,70 +296,17 @@ notificationStyle.textContent = `
 `;
 document.head.appendChild(notificationStyle);
 
-// Stat value count-up animation on page load
-function animateValue(element, start, end, duration) {
-    let startTimestamp = null;
-    const step = (timestamp) => {
-        if (!startTimestamp) startTimestamp = timestamp;
-        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-        const current = Math.floor(progress * (end - start) + start);
-        
-        // Handle different formats (numbers vs points)
-        if (element.textContent.includes('P')) {
-            element.textContent = current.toLocaleString() + 'P';
-        } else {
-            element.textContent = current.toLocaleString();
-        }
-        
-        if (progress < 1) {
-            window.requestAnimationFrame(step);
-        }
-    };
-    window.requestAnimationFrame(step);
-}
+// Input focus animations
+const inputs = document.querySelectorAll('.form-group input');
 
-// Animate stats on load
-window.addEventListener('load', () => {
-    const statValues = document.querySelectorAll('.stat-value');
+inputs.forEach(input => {
+    input.addEventListener('focus', function() {
+        this.parentElement.classList.add('focused');
+    });
     
-    statValues.forEach((stat, index) => {
-        const text = stat.textContent.trim();
-        const value = parseInt(text.replace(/[^0-9]/g, ''));
-        
-        setTimeout(() => {
-            animateValue(stat, 0, value, 1500);
-        }, index * 100);
+    input.addEventListener('blur', function() {
+        if (!this.value) {
+            this.parentElement.classList.remove('focused');
+        }
     });
 });
-
-// Mobile dropdown toggle
-if (window.innerWidth <= 768) {
-    dropdownBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const parent = btn.closest('.nav-item-dropdown');
-            const menu = parent.querySelector('.dropdown-menu');
-            
-            // Close other dropdowns
-            document.querySelectorAll('.dropdown-menu').forEach(m => {
-                if (m !== menu) {
-                    m.style.display = 'none';
-                }
-            });
-            
-            // Toggle current dropdown
-            if (menu.style.display === 'block') {
-                menu.style.display = 'none';
-            } else {
-                menu.style.display = 'block';
-            }
-        });
-    });
-    
-    // Close dropdowns when clicking outside
-    document.addEventListener('click', () => {
-        document.querySelectorAll('.dropdown-menu').forEach(menu => {
-            menu.style.display = 'none';
-        });
-    });
-}
