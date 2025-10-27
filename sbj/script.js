@@ -226,8 +226,8 @@ signupForm.addEventListener('submit', (e) => {
                 submitBtn.style.opacity = '1';
                 submitBtn.querySelector('.btn-text').textContent = '가입하기';
             }
-        }, 1500);
-    }, 1500);
+        }, 150);
+    }, 150);
 });
 
 // Notification system
