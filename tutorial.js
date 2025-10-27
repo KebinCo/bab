@@ -11,9 +11,14 @@ class TutorialSystem {
         this.createTutorialElements();
         this.loadTutorialSteps();
         
-        // Auto-start tutorial if not completed for this page
-        if (!this.tutorialCompleted[this.currentPage]) {
+        // Only start if there are steps for this page and it hasn't been completed
+        if (this.currentSteps.length > 0 && !this.tutorialCompleted[this.currentPage]) {
             setTimeout(() => this.start(), 1000);
+        } else {
+            // Ensure overlay is hidden
+            setTimeout(() => {
+                if (this.overlay) this.overlay.style.display = 'none';
+            }, 100);
         }
     }
     
@@ -261,7 +266,11 @@ class TutorialSystem {
     }
     
     start() {
-        if (this.currentSteps.length === 0) return;
+        if (this.currentSteps.length === 0) {
+            // No tutorial for this page, ensure overlay is hidden
+            this.overlay.style.display = 'none';
+            return;
+        }
         
         this.isActive = true;
         this.currentStep = 0;
