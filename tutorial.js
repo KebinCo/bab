@@ -13,12 +13,7 @@ class TutorialSystem {
         
         // Only start if there are steps for this page and it hasn't been completed
         if (this.currentSteps.length > 0 && !this.tutorialCompleted[this.currentPage]) {
-            setTimeout(() => this.start(), 1000);
-        } else {
-            // Ensure overlay is hidden
-            setTimeout(() => {
-                if (this.overlay) this.overlay.style.display = 'none';
-            }, 100);
+            setTimeout(() => this.start(), 1500);
         }
     }
     
@@ -36,7 +31,7 @@ class TutorialSystem {
     }
     
     createTutorialElements() {
-        // Tutorial overlay
+        // Tutorial overlay - darkens everything except spotlight
         const overlay = document.createElement('div');
         overlay.id = 'tutorial-overlay';
         overlay.style.cssText = `
@@ -45,40 +40,26 @@ class TutorialSystem {
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.75);
             z-index: 9998;
             display: none;
-            pointer-events: none;
+            transition: opacity 0.3s ease;
         `;
-
-
-
-
-
-
-
-
         
-        // Spotlight (highlights target element)
-    
+        // Spotlight cutout (creates hole in overlay)
         const spotlight = document.createElement('div');
         spotlight.id = 'tutorial-spotlight';
         spotlight.style.cssText = `
             position: fixed;
+            background: transparent;
             border: 3px solid #8a2be2;
             border-radius: 12px;
-            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.7), 0 0 40px rgba(138, 43, 226, 0.8);
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.8);
             z-index: 9999;
             display: none;
-            pointer-events: none;
+            pointer-events: auto;
             transition: all 0.5s ease;
         `;
-
-
-
-
-
-        
         
         // Character container
         const character = document.createElement('div');
@@ -87,9 +68,10 @@ class TutorialSystem {
             position: fixed;
             width: 120px;
             height: 120px;
-            z-index: 10000;
+            z-index: 10001;
             display: none;
             transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
         `;
         character.innerHTML = `
             <div style="
@@ -102,7 +84,7 @@ class TutorialSystem {
                 justify-content: center;
                 font-size: 4rem;
                 box-shadow: 0 8px 32px rgba(138, 43, 226, 0.6);
-                animation: float 3s ease-in-out infinite;
+                animation: tutorialFloat 3s ease-in-out infinite;
             ">
                 🤖
             </div>
@@ -119,10 +101,10 @@ class TutorialSystem {
             border: 2px solid #8a2be2;
             border-radius: 20px;
             padding: 1.5rem;
-            z-index: 10001;
+            z-index: 10002;
             display: none;
             box-shadow: 0 12px 48px rgba(138, 43, 226, 0.5);
-            animation: bubblePop 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            pointer-events: auto;
         `;
         
         // Bubble content
@@ -163,14 +145,18 @@ class TutorialSystem {
         // Add animations
         const style = document.createElement('style');
         style.textContent = `
-            @keyframes float {
+            @keyframes tutorialFloat {
                 0%, 100% { transform: translateY(0px); }
                 50% { transform: translateY(-15px); }
             }
             
-            @keyframes bubblePop {
+            @keyframes tutorialBubblePop {
                 0% { transform: scale(0); opacity: 0; }
                 100% { transform: scale(1); opacity: 1; }
+            }
+            
+            #tutorial-bubble {
+                animation: tutorialBubblePop 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             }
             
             #tutorial-skip:hover {
@@ -184,18 +170,29 @@ class TutorialSystem {
             }
             
             .tutorial-pulse {
-                animation: pulse 1.5s ease-in-out infinite;
+                animation: tutorialPulse 1.5s ease-in-out infinite;
             }
             
-            @keyframes pulse {
+            @keyframes tutorialPulse {
                 0%, 100% { 
                     border-color: #8a2be2;
-                    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.7), 0 0 40px rgba(138, 43, 226, 0.8);
+                    box-shadow: 0 0 30px rgba(138, 43, 226, 0.8);
                 }
                 50% { 
                     border-color: #daa520;
-                    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.7), 0 0 60px rgba(218, 165, 32, 0.8);
+                    box-shadow: 0 0 50px rgba(218, 165, 32, 0.8);
                 }
+            }
+            
+            /* Make spotlight area clickable by cutting hole in overlay */
+            #tutorial-spotlight::before {
+                content: '';
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                pointer-events: none;
             }
         `;
         
@@ -210,9 +207,7 @@ class TutorialSystem {
         document.getElementById('tutorial-skip').addEventListener('click', () => this.skip());
         
         // Store references
-
-
-
+        this.overlay = overlay;
         this.spotlight = spotlight;
         this.character = character;
         this.bubble = bubble;
@@ -239,7 +234,7 @@ class TutorialSystem {
                 { text: '약관에 동의하고 가입하세요', target: '.submit-btn', position: 'top', clickable: true },
             ],
             dashboard: [
-                { text: '대시보드에 오신 것을 환영합니다! 🎉', target: '.page-title', position: 'bottom' },
+                { text: '대시보드에 오신 것을 환영합니다! 🎉', target: '.main-title', position: 'bottom' },
                 { text: '여기서 당신의 활동을 확인할 수 있어요', target: '.user-stats-grid', position: 'bottom', wait: 4000 },
                 { text: '최근 활동 내역입니다', target: '.activity-section', position: 'right', wait: 4000 },
                 { text: '메뉴에서 다양한 기능을 이용하세요', target: '.nav-center', position: 'bottom', clickable: true },
@@ -283,11 +278,7 @@ class TutorialSystem {
     }
     
     start() {
-        if (this.currentSteps.length === 0) {
-            // No tutorial for this page, ensure overlay is hidden
-            this.overlay.style.display = 'none';
-            return;
-        }
+        if (this.currentSteps.length === 0) return;
         
         this.isActive = true;
         this.currentStep = 0;
@@ -308,41 +299,52 @@ class TutorialSystem {
             return;
         }
         
-        // Show overlay and elements
+        // Show overlay
         this.overlay.style.display = 'block';
-        this.spotlight.style.display = 'block';
-        this.character.style.display = 'block';
-        this.bubble.style.display = 'block';
         
-        // Position spotlight on target
-        const rect = target.getBoundingClientRect();
-        this.spotlight.style.top = `${rect.top - 10}px`;
-        this.spotlight.style.left = `${rect.left - 10}px`;
-        this.spotlight.style.width = `${rect.width + 20}px`;
-        this.spotlight.style.height = `${rect.height + 20}px`;
-        this.spotlight.classList.add('tutorial-pulse');
+        // Scroll target into view
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
         
-        // Allow clicking on target if specified
-        if (step.clickable) {
-            this.spotlight.style.pointerEvents = 'none';
-            target.style.position = 'relative';
-            target.style.zIndex = '10002';
-            target.style.pointerEvents = 'auto';
-        } else {
-            target.style.zIndex = '';
-            target.style.pointerEvents = '';
-        }
-        
-        // Position character and bubble
-        this.positionCharacterAndBubble(rect, step.position);
-        
-        // Set bubble text
-        document.getElementById('tutorial-text').textContent = step.text;
-        
-        // Auto-advance if wait time specified
-        if (step.wait && !step.clickable) {
-            setTimeout(() => this.nextStep(), step.wait);
-        }
+        setTimeout(() => {
+            // Position spotlight on target
+            const rect = target.getBoundingClientRect();
+            this.spotlight.style.display = 'block';
+            this.spotlight.style.top = `${rect.top - 10}px`;
+            this.spotlight.style.left = `${rect.left - 10}px`;
+            this.spotlight.style.width = `${rect.width + 20}px`;
+            this.spotlight.style.height = `${rect.height + 20}px`;
+            this.spotlight.classList.add('tutorial-pulse');
+            
+            // Make target clickable if needed
+            if (step.clickable) {
+                target.style.position = 'relative';
+                target.style.zIndex = '10000';
+                target.style.pointerEvents = 'auto';
+            }
+            
+            // Show character and bubble
+            this.character.style.display = 'block';
+            this.bubble.style.display = 'block';
+            
+            // Position character and bubble
+            this.positionCharacterAndBubble(rect, step.position);
+            
+            // Set bubble text
+            document.getElementById('tutorial-text').textContent = step.text;
+            
+            // Update button text for last step
+            const nextBtn = document.getElementById('tutorial-next');
+            if (this.currentStep === this.currentSteps.length - 1) {
+                nextBtn.textContent = '완료';
+            } else {
+                nextBtn.textContent = '다음';
+            }
+            
+            // Auto-advance if wait time specified
+            if (step.wait && !step.clickable) {
+                setTimeout(() => this.nextStep(), step.wait);
+            }
+        }, 500);
     }
     
     positionCharacterAndBubble(targetRect, position) {
@@ -393,6 +395,13 @@ class TutorialSystem {
     }
     
     nextStep() {
+        // Clean up current step
+        const currentTarget = document.querySelector(this.currentSteps[this.currentStep]?.target);
+        if (currentTarget) {
+            currentTarget.style.zIndex = '';
+            currentTarget.style.pointerEvents = '';
+        }
+        
         this.currentStep++;
         if (this.currentStep < this.currentSteps.length) {
             this.showStep();
@@ -409,6 +418,7 @@ class TutorialSystem {
         this.isActive = false;
         this.overlay.style.display = 'none';
         this.spotlight.style.display = 'none';
+        this.spotlight.classList.remove('tutorial-pulse');
         this.character.style.display = 'none';
         this.bubble.style.display = 'none';
         
@@ -417,11 +427,9 @@ class TutorialSystem {
         localStorage.setItem('tutorialCompleted', JSON.stringify(this.tutorialCompleted));
         
         // Clean up any modified elements
-        document.querySelectorAll('[style*="z-index"]').forEach(el => {
-            if (el.style.zIndex === '10002') {
-                el.style.zIndex = '';
-                el.style.pointerEvents = '';
-            }
+        document.querySelectorAll('[style*="z-index: 10000"]').forEach(el => {
+            el.style.zIndex = '';
+            el.style.pointerEvents = '';
         });
     }
     
@@ -441,7 +449,7 @@ if (document.readyState === 'loading') {
     window.tutorialSystem = new TutorialSystem();
 }
 
-// Add reset button to navbar for testing (can be removed in production)
+// Add reset button to navbar for testing
 setTimeout(() => {
     const navRight = document.querySelector('.nav-right');
     if (navRight) {
@@ -449,9 +457,14 @@ setTimeout(() => {
         resetBtn.className = 'nav-btn';
         resetBtn.textContent = '📖';
         resetBtn.title = '튜토리얼 다시보기';
-        resetBtn.style.padding = '0.75rem';
-        resetBtn.style.width = '45px';
-        resetBtn.style.height = '45px';
+        resetBtn.style.cssText = `
+            padding: 0.75rem !important;
+            width: 45px !important;
+            height: 45px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        `;
         resetBtn.addEventListener('click', () => {
             if (window.tutorialSystem) {
                 window.tutorialSystem.reset();
@@ -459,4 +472,4 @@ setTimeout(() => {
         });
         navRight.insertBefore(resetBtn, navRight.firstChild);
     }
-}, 1000);
+}, 1500);
