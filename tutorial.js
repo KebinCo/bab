@@ -60,7 +60,7 @@ class TutorialSystem {
 
         
         // Spotlight (highlights target element)
-        /*
+    
         const spotlight = document.createElement('div');
         spotlight.id = 'tutorial-spotlight';
         spotlight.style.cssText = `
@@ -73,7 +73,7 @@ class TutorialSystem {
             pointer-events: none;
             transition: all 0.5s ease;
         `;
-*/
+
 
 
 
