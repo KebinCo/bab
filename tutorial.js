@@ -87,7 +87,7 @@ class TutorialSystem {
                 animation: tutorialFloat 3s ease-in-out infinite;
             ">
             
-                <img src="https://raw.githubusercontent.com/KebinCo/bab/main/KakaoTalk_20250915_154253624.png" alt="밥심앱 로고" class="logo-image">
+                <img src="https://github.com/KebinCo/bab/blob/main/KakaoTalk_20250919_145528557_01.png?raw=true" width = "100%">
             </div>
         `;
         
