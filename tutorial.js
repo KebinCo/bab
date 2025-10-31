@@ -86,7 +86,8 @@ class TutorialSystem {
                 box-shadow: 0 8px 32px rgba(138, 43, 226, 0.6);
                 animation: tutorialFloat 3s ease-in-out infinite;
             ">
-                🤖
+            
+                <img src="https://raw.githubusercontent.com/KebinCo/bab/main/KakaoTalk_20250915_154253624.png" alt="밥심앱 로고" class="logo-image">
             </div>
         `;
         
@@ -455,7 +456,7 @@ setTimeout(() => {
     if (navRight) {
         const resetBtn = document.createElement('button');
         resetBtn.className = 'nav-btn';
-        resetBtn.textContent = '📖';
+        resetBtn.textContent = 'TUTORIAL';
         resetBtn.title = '튜토리얼 다시보기';
         resetBtn.style.cssText = `
             padding: 0.75rem !important;
