@@ -45,7 +45,7 @@ class TutorialSystem {
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 100, 0, 0.7);
+            background: rgba(0, 0, 0, 0.7);
             z-index: 9998;
             display: none;
             pointer-events: none;
@@ -60,6 +60,7 @@ class TutorialSystem {
 
         
         // Spotlight (highlights target element)
+        /*
         const spotlight = document.createElement('div');
         spotlight.id = 'tutorial-spotlight';
         spotlight.style.cssText = `
@@ -72,6 +73,12 @@ class TutorialSystem {
             pointer-events: none;
             transition: all 0.5s ease;
         `;
+*/
+
+
+
+
+        
         
         // Character container
         const character = document.createElement('div');
@@ -206,7 +213,6 @@ class TutorialSystem {
 
 
 
-        //fuckccccccccccccc
         this.spotlight = spotlight;
         this.character = character;
         this.bubble = bubble;
