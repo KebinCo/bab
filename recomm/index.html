@@ -6,6 +6,8 @@
     <title>밥심앱 - 후기 작성</title>
     <link rel="stylesheet" href="../new/styles.css">
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" sizes="64x64" href="https://github.com/KebinCo/bab/blob/main/KakaoTalk_20250919_145528557_01.png?raw=true">
+
 </head>
 <body>
     <canvas id="gradient-canvas"></canvas>
@@ -14,75 +16,79 @@
     
     <div class="container">
         <nav class="navbar dashboard-navbar">
-            <div class="logo-placeholder">
-                <div class="logo-circle"></div>
+            <a href="https://kebinco.github.io/bab/new/index.html">  
+                <div class="logo-placeholder">
+                    <img src="https://raw.githubusercontent.com/KebinCo/bab/main/KakaoTalk_20250915_154253624.png" alt="밥심앱 로고" class="logo-image">
+                </div>
+            </a>
+
+
+
+            
+          
+            <div class="nav-center">
+                <a href = "https://kebinco.github.io/bab/recomm/index.html">
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn active-dropdown">
+                        <span>맛집추천</span>
+                    </button>
+                </div>
+                </a>
+
+                <a href="https://kebinco.github.io/bab/fdbk/index.html">
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>맛집후기</span>
+                    </button>
+                </div>
+                </a>
+
+                <a href="https://kebinco.github.io/bab/match/index.html">
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>다인매치</span>
+                    </button>
+                </div>
+                </a>
+
+                
+                
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>미식DNA</span>
+                    </button>
+                </div>
             </div>
-             <!-- For pages with username display (dashboard, chat, etc.) -->
+
+               <!-- For pages with username display (dashboard, chat, etc.) -->
             <div class="nav-right">
                 <button class="nav-btn theme-toggle-btn" id="theme-toggle" title="테마 변경">
                     <span class="theme-icon">🌙</span>
                 </button>
             </div>
             <!---=========================================================-->
-            <div class="nav-center">
-                <div class="nav-item-dropdown">
-                    <button class="nav-btn dropdown-btn">
-                        <span>맛집추천</span>
-                        <span class="dropdown-arrow">▼</span>
-                    </button>
-                    <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item">추천하기</a>
-                        <a href="#" class="dropdown-item">추천받기</a>
-                    </div>
-                </div>
-                
-                <div class="nav-item-dropdown">
-                    <button class="nav-btn dropdown-btn active-dropdown">
-                        <span>맛집후기</span>
-                        <span class="dropdown-arrow">▼</span>
-                    </button>
-                    <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item">후기 작성하기</a>
-                        <a href="#" class="dropdown-item">후기 보기</a>
-                        <a href="#" class="dropdown-item">내 후기</a>
-                    </div>
-                </div>
-                
-                <div class="nav-item-dropdown">
-                    <button class="nav-btn dropdown-btn">
-                        <span>다인매치</span>
-                        <span class="dropdown-arrow">▼</span>
-                    </button>
-                    <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item">매치 찾기</a>
-                        <a href="#" class="dropdown-item">매치 만들기</a>
-                        <a href="#" class="dropdown-item">내 매치</a>
-                    </div>
-                </div>
-                
-                <div class="nav-item-dropdown">
-                    <button class="nav-btn dropdown-btn">
-                        <span>미식DNA</span>
-                        <span class="dropdown-arrow">▼</span>
-                    </button>
-                    <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item">DNA 분석</a>
-                        <a href="#" class="dropdown-item">취향 설정</a>
-                        <a href="#" class="dropdown-item">추천 맛집</a>
-                    </div>
-                </div>
-            </div>
-            
+
             <div class="nav-right">
-                <div class="username-display">홍길동</div>
-                <button class="nav-btn logout-btn">LOGOUT</button>
+                <a href="https://kebinco.github.io/bab/sbj/index.html">
+                    <div class="username-display">홍길동</div>
+                 </a>
+
+                <a href = "https://kebinco.github.io/bab/new/index.html">
+                    <button class="nav-btn logout-btn">LOGOUT</button>
+                </a>
             </div>
+
         </nav>
+
+
+
+        
+        
         
         <main class="main-content">
             <div class="review-header">
-                <h1 class="page-title">맛집 후기 작성</h1>
-                <p class="page-subtitle">방문하신 맛집의 후기를 공유해주세요</p>
+                <h1 class="page-title">맛집 추천하기</h1>
+                <p class="page-subtitle">방문하신 맛집을 추천해주세요</p>
             </div>
             
             <div class="review-form-container">
