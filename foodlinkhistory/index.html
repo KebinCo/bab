@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>밥심앱 - 이전거래보기</title>
+    <title>이전거래보기 | 푸드링크</title>
     <link rel="stylesheet" href="../prov/styles.css">
     <link rel="stylesheet" href="../foodlinksearch/styles.css">
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" sizes="64x64" href="https://github.com/KebinCo/bab/blob/main/KakaoTalk_20250919_145528557_01.png?raw=true">
+
 </head>
 <body>
     <canvas id="gradient-canvas"></canvas>
@@ -16,69 +18,57 @@
     
     <div class="container">
         <nav class="navbar dashboard-navbar">
-            <div class="nav-right">
-                <button class="nav-btn theme-toggle-btn" id="theme-toggle" title="테마 변경">
-                    <span class="theme-icon">🌙</span>
-                </button>
-            </div>
-            
-            <div class="logo-placeholder">
-                <div class="logo-circle"></div>
-            </div>
-            
-            <div class="nav-center">
-                <div class="nav-item-dropdown">
-                    <button class="nav-btn dropdown-btn">
-                        <span>푸드링크</span>
-                        <span class="dropdown-arrow">▼</span>
-                    </button>
-                    <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item">링크 관리</a>
-                        <a href="#" class="dropdown-item">링크 생성</a>
-                        <a href="#" class="dropdown-item">링크 분석</a>
-                    </div>
+            <a href="https://kebinco.github.io/bab/new/index.html">  
+                <div class="logo-placeholder">
+                    <img src="https://raw.githubusercontent.com/KebinCo/bab/main/KakaoTalk_20250915_154253624.png" alt="밥심앱 로고" class="logo-image">
                 </div>
-                
+            </a>           
+          
+            <div class="nav-center">
+                <a href = "https://kebinco.github.io/bab/foodlinksearch/index.html">
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn active-dropdown">
+                        <span>푸드링크</span>
+                    </button>
+                </div>
+                </a>
+
+                <a href="https://kebinco.github.io/bab/jubangstreaming/index.html">
                 <div class="nav-item-dropdown">
                     <button class="nav-btn dropdown-btn">
                         <span>주방스트리밍</span>
-                        <span class="dropdown-arrow">▼</span>
                     </button>
-                    <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item">라이브 시작</a>
-                        <a href="#" class="dropdown-item">스트리밍 관리</a>
-                        <a href="#" class="dropdown-item">시청 통계</a>
-                    </div>
                 </div>
-                
+                </a>
+
                 <div class="nav-item-dropdown">
                     <button class="nav-btn dropdown-btn">
                         <span>푸드맵</span>
-                        <span class="dropdown-arrow">▼</span>
                     </button>
-                    <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item">매장 위치</a>
-                        <a href="#" class="dropdown-item">지도 설정</a>
-                        <a href="#" class="dropdown-item">고객 분포</a>
-                    </div>
                 </div>
+
+                
                 
                 <div class="nav-item-dropdown">
                     <button class="nav-btn dropdown-btn">
                         <span>고객 피드백</span>
-                        <span class="dropdown-arrow">▼</span>
                     </button>
-                    <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item">피드백 조회</a>
-                        <a href="#" class="dropdown-item">응답 관리</a>
-                        <a href="#" class="dropdown-item">통계 분석</a>
-                    </div>
                 </div>
             </div>
             
+             <div class="nav-right">
+                <button class="nav-btn theme-toggle-btn" id="theme-toggle" title="테마 변경">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+
             <div class="nav-right">
+                <a href="https://kebinco.github.io/bab/prov/index.html">
                 <div class="username-display">골든키친</div>
+                </a>
+                <a href="https://kebinco.github.io/bab/new/index.html">
                 <button class="nav-btn logout-btn">LOGOUT</button>
+                </a>
             </div>
         </nav>
         
