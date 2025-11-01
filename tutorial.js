@@ -87,7 +87,7 @@ class TutorialSystem {
                 animation: tutorialFloat 3s ease-in-out infinite;
             ">
             
-                <img src="https://cdn-icons-png.flaticon.com/512/10264/10264076.png" width = "100%">
+                <img src="https://github.com/KebinCo/bab/blob/main/KakaoTalk_20250919_145528557_01.png?raw=true" width = "100%">
             </div>
         `;
         
@@ -456,7 +456,7 @@ setTimeout(() => {
     if (navRight) {
         const resetBtn = document.createElement('button');
         resetBtn.className = 'nav-btn';
-        resetBtn.textContent = 'TUTORIAL';
+        resetBtn.textContent = '?';
         resetBtn.title = '튜토리얼 다시보기';
         resetBtn.style.cssText = `
             padding: 0.75rem !important;
