@@ -87,7 +87,7 @@ class TutorialSystem {
                 animation: tutorialFloat 3s ease-in-out infinite;
             ">
             
-                <img src="https://github.com/KebinCo/bab/blob/main/KakaoTalk_20250919_145528557_01.png?raw=true" width = "100%">
+                <img src="https://cdn-icons-png.flaticon.com/512/10264/10264076.png" width = "100%">
             </div>
         `;
         
