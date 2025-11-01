@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미식DNA</title>
+    <link rel="stylesheet" href="../new/styles.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" sizes="64x64" href="https://github.com/KebinCo/bab/blob/main/KakaoTalk_20250919_145528557_01.png?raw=true">
+
+</head>
+<body>
+    <canvas id="gradient-canvas"></canvas>
+    
+    <div class="shimmer-overlay"></div>
+    
+    <div class="container">
+        <nav class="navbar dashboard-navbar">
+            <a href="https://kebinco.github.io/bab/new/index.html">  
+                <div class="logo-placeholder">
+                    <img src="https://raw.githubusercontent.com/KebinCo/bab/main/KakaoTalk_20250915_154253624.png" alt="밥심앱 로고" class="logo-image">
+                </div>
+            </a>
+
+
+
+            
+          
+            <div class="nav-center">
+                <a href = "https://kebinco.github.io/bab/recomm/index.html">
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>맛집추천</span>
+                    </button>
+                </div>
+                </a>
+
+                <a href="https://kebinco.github.io/bab/fdbk/index.html">
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>맛집후기</span>
+                    </button>
+                </div>
+                </a>
+
+                <a href="https://kebinco.github.io/bab/match/index.html">
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn">
+                        <span>다인매치</span>
+                    </button>
+                </div>
+                </a>
+
+                
+                
+                <div class="nav-item-dropdown">
+                    <button class="nav-btn dropdown-btn active-dropdown">
+                        <span>미식DNA</span>
+                    </button>
+                </div>
+            </div>
+
+               <!-- For pages with username display (dashboard, chat, etc.) -->
+            <div class="nav-right">
+                <button class="nav-btn theme-toggle-btn" id="theme-toggle" title="테마 변경">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+            <!---=========================================================-->
+
+            <div class="nav-right">
+                <a href="https://kebinco.github.io/bab/sbj/index.html">
+                    <div class="username-display">홍길동</div>
+                 </a>
+
+                <a href = "https://kebinco.github.io/bab/new/index.html">
+                    <button class="nav-btn logout-btn">LOGOUT</button>
+                </a>
+            </div>
+
+        </nav>
+
+
+
+        
+        <main class="main-content">   
+          <script>
+            (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="wRpj3hH15D3t4n2oRJX2k";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+          </script>
+        </main>
+    </div>
+    <script src="../tutorial.js"></script>
+    <script src="../new/script.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
