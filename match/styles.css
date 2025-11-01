@@ -1,4 +1,24 @@
-/* Matching Page Styles */
+/* Theme-aware variables for matching page */
+body.light-mode .matching-container,
+body.light-mode .matches-section,
+body.light-mode .swipe-card,
+body.light-mode .match-card {
+    background: var(--bg-card);
+    border-color: var(--border-primary);
+}
+
+body.light-mode .page-title,
+body.light-mode .section-title,
+body.light-mode .profile-name,
+body.light-mode .match-name {
+    color: var(--text-primary);
+}
+
+body.light-mode .page-subtitle,
+body.light-mode .section-content,
+body.light-mode .match-status {
+    color: var(--text-muted);
+}/* Matching Page Styles */
 
 /* Dashboard Navbar */
 .dashboard-navbar {
