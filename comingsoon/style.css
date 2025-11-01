@@ -1,9 +1,15 @@
 body{
   background-image: url('https://github.com/KebinCo/bab/blob/main/radiator.png?raw=true');
+  background-size: 100%;
 }
+
+h1{
+color: red;
+font-size: 70px;
+}
+
 
 p {
 font-size: 30px;
 color: orange;
-text-decoration: underline;
 }
